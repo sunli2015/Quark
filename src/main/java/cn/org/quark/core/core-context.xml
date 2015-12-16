@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="localProperties">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:cache.properties</value>
+				<value>classpath:mail.properties</value>
+				<value>classpath:coral.properties</value>
+				<value>classpath:im.properties</value>
+				<value>classpath:ftp.properties</value>
+				<value>classpath:fileupload.properties</value>
+				<value>classpath:esb.properties</value>
+			</list>
+		</property>
+	</bean> -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<!-- config conn pool :c3p0 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${db.driver}"/>
+		<property name="jdbcUrl" value="${db.url}"/>
+		<property name="user" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+		<property name="minPoolSize" value="${minimun.pool.size}"/>
+      	<property name="maxPoolSize" value="${maximum.pool.size}"/>  
+      	<property name="initialPoolSize" value="${ds.pool.initialPoolSize}"/>  
+      	<property name="maxIdleTime" value="${ds.pool.maxIdleTime}"/>  
+      	<property name="acquireIncrement" value="${ds.pool.acquireIncrement}"/>  
+      	<property name="maxStatements" value="0"/>  
+      	<property name="idleConnectionTestPeriod" value="${ds.pool.idleConnectionTestPeriod}"/>  
+      	<property name="acquireRetryAttempts" value="${ds.pool.acquireRetryAttempts}"/>  
+      	<property name="breakAfterAcquireFailure" value="true"/>  
+      	<property name="testConnectionOnCheckout" value="false"/>  
+    </bean>
+    <!-- hibernate:sessionFactory config -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="cn.org.coral"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${db.dialect}</prop>
+				<prop key="hibernate.show_sql">${db.show_sql}</prop>
+				<prop key="hibernate.default_schema">${db.default_schema}</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.cache.use_query_cache">${db.use_query_cache}</prop>
+				<prop key="hibernate.default_batch_fetch_size">16</prop>
+				<prop key="hibernate.jdbc.fetch_size">30</prop>
+				<prop key="hibernate.jdbc.batch_size">25</prop>
+				<prop key="hibernate.cache.region.factory_class">${db.cache_provider_class}</prop>
+				<prop key="hibernate.current_session_context_class">${db.session_context_class}</prop>
+				<!-- none 不检查; update 检查（并生成新表） -->
+				<prop key="hibernate.hbm2ddl.auto">${db.hbm2ddl_auto}</prop>
+				<prop key="hibernate.jdbc.use_scrollable_resultset">false</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- tx:hibernate config -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<aop:aspectj-autoproxy/>
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* cn.org.coral..*Service.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* cn.org.coral..*ServiceImp.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* cn.org.coral..*Manager.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* cn.org.coral..*ManagerImp.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* cn.org.coral..*Dao.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* cn.org.coral..*DaoImp.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="is*" read-only="true" />
+			<tx:method name="query*" no-rollback-for="cn.org.coral.core.exception.BizException"/>
+			<tx:method name="report*" no-rollback-for="cn.org.coral.core.exception.BizException"/>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	<import resource="classpath:cn/org/hecent/coral/core/init/init-context.xml"/>
+	<import resource="classpath:cn/org/hecent/coral/core/security/spring-security.xml"/>
+</beans>
+

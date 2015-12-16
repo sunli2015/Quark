@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+	<http pattern="/css/**" security="none"/>
+	<http pattern="/style/**" security="none"/>
+	<http pattern="/images/**" security="none"/>
+	<http pattern="/common/**" security="none"/>
+	<http pattern="/js/**" security="none"/>
+	<http pattern="/**/*.js" security="none"/>
+	<http pattern="/**/*.jpg" security="none"/>
+	<http pattern="/**/*.png" security="none"/>
+	<http pattern="/**/*.css" security="none"/>
+	<http pattern="/mportals/login.action*" security="none"/>
+  	<http pattern="/portal/*" security="none"/>
+  	
+  	<http pattern="/**" auto-config='true'  access-denied-page="/mportals/login.action?login_error=denied_error">
+    	<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+    	<form-login login-page='/mportals/login.action' default-target-url="/mportals/main.action" 
+    	authentication-failure-handler-ref="authenticationFailureHandler"/>
+    	<logout logout-success-url="/mportals/login.action?logout=true" />
+    	<custom-filter ref="coralFilter" position="LAST"/>
+    	<!-- <anonymous granted-authority="ROLE_ANONYMOUS" enabled="true" username="test"/> -->  
+  	</http>
+  	<!-- core Filter config -->
+  	<beans:bean id="coralFilter" class="cn.org.coral.core.security.filter.CoralFilter"></beans:bean>
+	<beans:bean id="authenticationFailureHandler" 
+	class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<beans:property name="exceptionMappings">
+			<beans:map>
+			<beans:entry key="org.springframework.security.core.userdetails.UsernameNotFoundException" 
+			value="/mportals/login.action?login_error=user_not_found_error"/>
+			<beans:entry key="org.springframework.security.authentication.BadCredentialsException" 
+			value="/mportals/login.action?login_error=user_psw_error"/>
+			<beans:entry key="org.springframework.security.authentication.DisabledException" 
+			value="/mportals/login.action?login_error=disabled_user_error"/>
+			</beans:map>
+		</beans:property>
+	</beans:bean>
+	
+	<authentication-manager>
+    	<authentication-provider>
+    	<password-encoder hash="md5"></password-encoder>
+    	<jdbc-user-service data-source-ref="dataSource"
+    	users-by-username-query="select logid username,password,status enabled from core_users where logid = ?"
+    	authorities-by-username-query="select t1.logid username,t3.rolecode authority 
+    	from core_users t1, CORE_USER_ROLE t2, core_roles t3 
+    	where t1.oid=t2.userid and t2.roleid=t3.oid and 
+    	t1.logid=?"/>
+    	</authentication-provider>
+  	</authentication-manager>
+  	<!-- authentication-provider:org.springframework.security.authentication.dao.DaoAuthenticationProvider-hideUserNotFoundExceptions -->
+  	<!-- user-service-ref: org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl-->
+  	<beans:bean id="filterSecurityInterceptor"
+        class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor" autowire="byType">
+        <beans:property name="securityMetadataSource" ref="filterInvocationSecurityMetadataSource" />
+        <beans:property name="authenticationManager" ref="org.springframework.security.authenticationManager"/>
+    </beans:bean>
+  	<beans:bean id="filterInvocationSecurityMetadataSource"
+        class="cn.org.coral.core.security.JdbcFilterInvocationDefinitionSourceFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+	    <beans:property name="resourceQuery" value="
+	         select re.res_string,r.ROLECODE
+             from core_roles r join CORE_ROLE_RESOURCE rr on r.oid=rr.ROLEID
+             join CORE_RESOURCES re on re.oid=rr.resid "/>
+    </beans:bean>
+    <!-- password md5 -->
+    <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"></beans:bean>
+	<!-- query loginer object -->
+	<beans:bean id="loginerManager" class="cn.org.coral.core.security.filter.LoginerManager">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="loginerQuery">
+			<beans:value>select t1.oid,t1.logid,t1.cname,t1.password,t2.deptid,t2.deptname 
+				from core_users t1, core_dept t2 
+				where t1.dept_oid=t2.oid  and t1.logid=? and t1.status=1
+			</beans:value>
+		</beans:property>
+	</beans:bean>
+	<beans:bean id="authResourceManager" class="cn.org.coral.core.security.filter.ResourceManager">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="queryAuthByResTag">
+			<beans:value>select re.res_string,r.ROLECODE
+             from core_roles r join CORE_ROLE_RESOURCE rr on r.oid=rr.ROLEID
+             join CORE_RESOURCES re on re.oid=rr.resid where re.rcode=?</beans:value>
+		</beans:property>
+	</beans:bean>
+</beans:beans>
