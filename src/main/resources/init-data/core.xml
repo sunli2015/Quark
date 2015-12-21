@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<CORE_MODULE OID="1" module_name="系统功能模块" PARENT_MODULE_ID="[null]" entity_class_name="[null]" process_def_name="[null]" view_page_url="[null]" edit_page_url="[null]"/>
+	
+
+	<CORE_RESOURCES oid="1" rname="开放的主页" rcode="OPEN_INDEX" res_string="/mportals/main.action*" module_id="1"/>
+	<CORE_RESOURCES oid="2" rname="系统管理" rcode="ADMIN" res_string="/admin/**" module_id="1"/>
+	<CORE_RESOURCES oid="3" rname="密码修改" rcode="MODIFYPWD" res_string="/pwd/pwd.do" module_id="1"/>
+
+
+	<CORE_DEPT oid="1" deptname="部门"/>
+
+	<CORE_USERS OID="1" LOGID="admin" CNAME="管理员" PASSWORD="21232f297a57a5a743894a0e4a801fc3" STATUS="1" DEPT_OID="1"/>
+
+	<CORE_ROLES oid="1" rolecode="ROLE_GUEST" rolename="基本用户"/>
+	<CORE_ROLES oid="2" rolecode="ROLE_ADMIN" rolename="系统管理员"/>
+
+	<CORE_ROLE_RESOURCE resid="1" roleid="1"/>
+	<CORE_ROLE_RESOURCE resid="3" roleid="1"/>
+	<CORE_ROLE_RESOURCE resid="1" roleid="2"/>
+	<CORE_ROLE_RESOURCE resid="2" roleid="2"/>
+	<CORE_ROLE_RESOURCE resid="3" roleid="2"/>
+
+	<CORE_USER_ROLE roleid="1" userid="1"/>
+	<CORE_USER_ROLE roleid="2" userid="1"/>
+
+</dataset>

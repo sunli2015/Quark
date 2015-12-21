@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	 <package name="mportals" extends="default" namespace="/mportals">
+	 	<action name="login" class="cn.org.quark.admin.view.LoginAction">
+            <result name="success">/mportals/common/login.jsp</result>
+       	</action>
+       	<action name="main" class="cn.org.quark.admin.view.MainAction">
+            <result name="success">/mportals/common/main.jsp</result>
+       	</action>
+	 </package>
+	 <package name="pwd" extends="default" namespace="/pwd">
+	 	 <action name="pwd" class="cn.org.quark.admin.view.PwdAction">
+            <result name="success">/mportals/admin/pwd_edit.jsp</result>
+       </action>
+	 </package>
+    <package name="admin" extends="default,json-default" namespace="/admin">
+       <action name="user" class="cn.org.quark.admin.view.UserAction">
+            <result name="success" type="json">
+            	<param name="root">jsonData</param>
+            	<param name="excludeProperties">.*hibernateLazyInitializer,.*handler,.*roles,.*users</param>
+            	<param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="index">/mportals/admin/user_list.jsp</result>
+            <result name="input">/mportals/admin/user_edit.jsp</result>
+        </action>
+        <action name="userIndex" class="cn.org.quark.admin.view.UserIndexAction">
+            <result name="success">/mportals/admin/user_index.jsp</result>
+			<result name="treexml">/mportals/admin/dept_treexml.jsp</result>
+        </action>
+        <action name="dept" class="cn.org.quark.admin.view.DeptAction">
+            <result name="input">/mportals/admin/dept_edit.jsp</result>
+        </action>
+        <action name="role" class="cn.org.quark.admin.view.RoleAction">
+            <result name="success" type="json">
+            	<param name="root">jsonData</param>
+            	<param name="excludeProperties">.*hibernateLazyInitializer,.*handler,.*roles,.*users,.*module</param>
+            	<param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="index">/mportals/admin/role_list.jsp</result>
+        </action>
+        <action name="resource" class="cn.org.quark.admin.view.ResourceAction">
+       		<result name="select" type="json">
+            	<param name="root">jsonData</param>
+            	<param name="excludeProperties">.*hibernateLazyInitializer,.*handler,.*roles,.*resources,.*subModules,.*parentModule</param>
+            	<param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="success" type="json">
+            	<param name="root">jsonData</param>
+            	<param name="excludeProperties">.*hibernateLazyInitializer,.*handler,.*roles,.*resources,.*subModules,.*parentModule</param>
+            	<param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="selectIndex">/mportals/admin/res_select_list.jsp</result>
+            <result name="index">/mportals/admin/res_list.jsp</result>
+        </action>
+        <action name="resourceIndex" class="cn.org.quark.admin.view.ResourceIndexAction">
+            <result name="success">/mportals/admin/res_index.jsp</result>
+			<result name="treexml">/mportals/admin/modu_treexml.jsp</result>
+        </action>
+        <action name="modu" class="cn.org.quark.admin.view.ModuAction">
+            <result name="input">/mportals/admin/modu_edit.jsp</result>
+        </action>
+    </package>
+</struts>
+
+<!-- END SNIPPET: xworkSample -->
+

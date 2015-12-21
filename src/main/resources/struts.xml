@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.enable.SlashesInActionNames" value="true" />
+    <constant name="struts.custom.i18n.resources" value="application" />
+    <package name="default" extends="struts-default">
+        <interceptors>
+            	<interceptor-stack name="crudStack">
+                <interceptor-ref name="checkbox" />
+                <interceptor-ref name="params" />
+                <interceptor-ref name="staticParams" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+        <global-results>
+	        <result name="error">/error.jsp</result>
+	    </global-results>
+	    <global-exception-mappings>
+	        <exception-mapping exception="java.lang.Exception" result="error"/>
+	    </global-exception-mappings>
+    </package>
+    
+	<include file="plugin-struts.xml" />
+	<include file="cn/org/quark/admin/struts-admin.xml" />
+</struts>
