@@ -12,7 +12,7 @@ public class Constants extends ConfigurableConstants {
 
 	// 静态初始化读入springside.properties中的设置
 	static {
-		init("coral.properties");
+		init("quark.properties");
 	}
 
 	/**
@@ -22,7 +22,7 @@ public class Constants extends ConfigurableConstants {
 			"constant.default.password", "123456");
 	
 	/**
-	 * 从coral.properties中读取constant.message_bundle_key的值，
+	 * 从quark.properties中读取constant.message_bundle_key的值，
 	 * 如果配置文件不存在或配置文件中不存在该值时，默认取值"messages"
 	 */
 	public final static String MESSAGE_BUNDLE_KEY = getProperty(

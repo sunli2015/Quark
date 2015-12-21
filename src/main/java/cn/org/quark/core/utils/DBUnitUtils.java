@@ -2,9 +2,11 @@ package cn.org.quark.core.utils;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.dataset.xml.FlatXmlProducer;
+import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.search.SearchException;
 
@@ -69,7 +73,8 @@ public class DBUnitUtils {
 	 * @link http://dbunit.sourceforge.net/components.html#dataset
 	 */
 	public void insertTestData(File flatXMLFile) throws FileNotFoundException, IOException, DatabaseUnitException, SQLException {
-		ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSet(flatXMLFile)); 
+		InputStream in = new FileInputStream(flatXMLFile);
+		ReplacementDataSet dataSet = new ReplacementDataSet(new XmlDataSet(in)); 
 		dataSet.addReplacementObject("[null]", null);
 		DatabaseOperation.REFRESH.execute(getDatabaseConnection(),dataSet);
 		testDataSets.add(dataSet);

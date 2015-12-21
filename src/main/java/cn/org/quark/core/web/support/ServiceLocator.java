@@ -7,7 +7,7 @@ import cn.org.quark.core.exception.BizException;
 /**
  * 配合自定义ContextLoaderListener使用的工具类
  * @author lib
- * @see cn.org.coral.core.web.listener.ContextLoaderListener
+ * @see cn.org.quark.core.web.listener.ContextLoaderListener
  */
 public class ServiceLocator {
 

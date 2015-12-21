@@ -3,7 +3,7 @@
   xmlns:beans="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 	<http pattern="/css/**" security="none"/>
@@ -17,17 +17,17 @@
 	<http pattern="/**/*.css" security="none"/>
 	<http pattern="/mportals/login.action*" security="none"/>
   	<http pattern="/portal/*" security="none"/>
-  	
-  	<http pattern="/**" auto-config='true'  access-denied-page="/mportals/login.action?login_error=denied_error">
+  	<!-- access-denied-page="/mportals/login.action?login_error=denied_error" -->
+  	<http pattern="/**" auto-config='true'>
     	<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
     	<form-login login-page='/mportals/login.action' default-target-url="/mportals/main.action" 
-    	authentication-failure-handler-ref="authenticationFailureHandler"/>
+    	authentication-failure-handler-ref="authenticationFailureHandler" />
     	<logout logout-success-url="/mportals/login.action?logout=true" />
-    	<custom-filter ref="coralFilter" position="LAST"/>
+    	<custom-filter ref="quarkFilter" position="LAST"/>
     	<!-- <anonymous granted-authority="ROLE_ANONYMOUS" enabled="true" username="test"/> -->  
   	</http>
   	<!-- core Filter config -->
-  	<beans:bean id="coralFilter" class="cn.org.coral.core.security.filter.CoralFilter"></beans:bean>
+  	<beans:bean id="quarkFilter" class="cn.org.quark.core.security.filter.CoralFilter"></beans:bean>
 	<beans:bean id="authenticationFailureHandler" 
 	class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
 		<beans:property name="exceptionMappings">
@@ -61,7 +61,7 @@
         <beans:property name="authenticationManager" ref="org.springframework.security.authenticationManager"/>
     </beans:bean>
   	<beans:bean id="filterInvocationSecurityMetadataSource"
-        class="cn.org.coral.core.security.JdbcFilterInvocationDefinitionSourceFactoryBean">
+        class="cn.org.quark.core.security.JdbcFilterInvocationDefinitionSourceFactoryBean">
         <beans:property name="dataSource" ref="dataSource"/>
 	    <beans:property name="resourceQuery" value="
 	         select re.res_string,r.ROLECODE
@@ -71,7 +71,7 @@
     <!-- password md5 -->
     <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"></beans:bean>
 	<!-- query loginer object -->
-	<beans:bean id="loginerManager" class="cn.org.coral.core.security.filter.LoginerManager">
+	<beans:bean id="loginerManager" class="cn.org.quark.core.security.manager.LoginerManager">
 		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="loginerQuery">
 			<beans:value>select t1.oid,t1.logid,t1.cname,t1.password,t2.deptid,t2.deptname 
@@ -80,7 +80,7 @@
 			</beans:value>
 		</beans:property>
 	</beans:bean>
-	<beans:bean id="authResourceManager" class="cn.org.coral.core.security.filter.ResourceManager">
+	<beans:bean id="authResourceManager" class="cn.org.quark.core.security.manager.ResourceManager">
 		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="queryAuthByResTag">
 			<beans:value>select re.res_string,r.ROLECODE

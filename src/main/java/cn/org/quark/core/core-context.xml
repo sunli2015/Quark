@@ -6,13 +6,13 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
 			http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 			http://www.springframework.org/schema/aop
-			http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+			http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 			http://www.springframework.org/schema/tx
-			http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+			http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+			http://www.springframework.org/schema/context/spring-context-4.2.xsd">
     <!-- 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="localProperties">
@@ -50,7 +50,7 @@
     <!-- hibernate:sessionFactory config -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="cn.org.coral"/>
+		<property name="packagesToScan" value="cn.org.quark"/>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${db.dialect}</prop>
@@ -81,17 +81,17 @@
 	
 	<aop:aspectj-autoproxy/>
 	<aop:config proxy-target-class="true">
-		<aop:advisor pointcut="execution(* cn.org.coral..*Service.*(..))"
+		<aop:advisor pointcut="execution(* cn.org.quark..*Service.*(..))"
 			advice-ref="txAdvice" />
-		<aop:advisor pointcut="execution(* cn.org.coral..*ServiceImp.*(..))"
+		<aop:advisor pointcut="execution(* cn.org.quark..*ServiceImp.*(..))"
 			advice-ref="txAdvice" />
-		<aop:advisor pointcut="execution(* cn.org.coral..*Manager.*(..))"
+		<aop:advisor pointcut="execution(* cn.org.quark..*Manager.*(..))"
 			advice-ref="txAdvice" />
-		<aop:advisor pointcut="execution(* cn.org.coral..*ManagerImp.*(..))"
+		<aop:advisor pointcut="execution(* cn.org.quark..*ManagerImp.*(..))"
 			advice-ref="txAdvice" />
-		<aop:advisor pointcut="execution(* cn.org.coral..*Dao.*(..))"
+		<aop:advisor pointcut="execution(* cn.org.quark..*Dao.*(..))"
 			advice-ref="txAdvice" />
-		<aop:advisor pointcut="execution(* cn.org.coral..*DaoImp.*(..))"
+		<aop:advisor pointcut="execution(* cn.org.quark..*DaoImp.*(..))"
 			advice-ref="txAdvice" />
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -100,12 +100,13 @@
 			<tx:method name="query*" read-only="true" />
 			<tx:method name="find*" read-only="true" />
 			<tx:method name="is*" read-only="true" />
-			<tx:method name="query*" no-rollback-for="cn.org.coral.core.exception.BizException"/>
-			<tx:method name="report*" no-rollback-for="cn.org.coral.core.exception.BizException"/>
+			<tx:method name="query*" no-rollback-for="cn.org.quark.core.exception.BizException"/>
+			<tx:method name="report*" no-rollback-for="cn.org.quark.core.exception.BizException"/>
 			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
-	<import resource="classpath:cn/org/hecent/coral/core/init/init-context.xml"/>
-	<import resource="classpath:cn/org/hecent/coral/core/security/spring-security.xml"/>
+	<import resource="classpath:cn/org/quark/core/init/init-context.xml"/>
+	<import resource="classpath:cn/org/quark/core/security/spring-security.xml"/>
+	<import resource="classpath:cn/org/quark/core/quartz/quartz-context.xml"/>
 </beans>
 
