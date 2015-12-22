@@ -19,7 +19,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 
 import cn.org.quark.core.dao.support.Page;
@@ -36,7 +35,7 @@ import cn.org.quark.core.exception.BizException;
  * @see HibernateEntityDao
  */
 @SuppressWarnings("unchecked")
-public abstract class HibernateGenericDao extends HibernateDaoSupport{
+public abstract class HibernateGenericDao {
 	protected Log logger = LogFactory.getLog(getClass());
 	@Autowired
 	private SessionFactory sessionFactory;
