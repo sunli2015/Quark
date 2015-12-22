@@ -10,6 +10,7 @@ import cn.org.quark.core.utils.DBUnitUtils;
 public class InitManager extends JdbcDaoSupport {
 	private Resource location;
 	private String schema;
+	private String dbtype;
 	public void init() {
 		Integer count = super.getJdbcTemplate().queryForObject("select count(*) from CORE_ROLES",Integer.class);
 		if (count == 0) {
@@ -17,7 +18,7 @@ public class InitManager extends JdbcDaoSupport {
 			try {
 				f = location.getFile();
 				if(f.exists() && f.isDirectory()){
-					DBUnitUtils db = new DBUnitUtils(this.getDataSource(),schema);
+					DBUnitUtils db = new DBUnitUtils(this.getDataSource(),schema,dbtype);
 					for(File xml:f.listFiles()){
 						if(xml.getName().endsWith(".xml")){
 							db.insertTestData(xml);
@@ -39,4 +40,9 @@ public class InitManager extends JdbcDaoSupport {
 	public void setSchema(String schema) {
 		this.schema = schema;
 	}
+
+	public void setDbtype(String dbtype) {
+		this.dbtype = dbtype;
+	}
+	
 }

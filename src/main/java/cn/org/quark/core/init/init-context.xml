@@ -7,5 +7,6 @@
     <bean id="init" class="cn.org.quark.core.init.InitManager" init-method="init">
     	<property name="location" value="classpath:/init-data"/>
     	<property name="schema" value="${db.default_schema}"/>
+    	<property name="dbtype" value="${db.dbunit.dbtype}"/>
     </bean>
 </beans>

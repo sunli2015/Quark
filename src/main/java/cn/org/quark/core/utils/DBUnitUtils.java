@@ -16,6 +16,7 @@ import java.util.ListIterator;
 import javax.sql.DataSource;
 
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.database.search.TablesDependencyHelper;
@@ -26,8 +27,10 @@ import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlProducer;
 import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.search.SearchException;
+import org.xml.sax.InputSource;
 
 /**
  * 数据库工具类
@@ -40,8 +43,30 @@ public class DBUnitUtils {
 
 	private DataSource dataSource; //数据源
 	private String schema;
+	/**
+	 * reason:dbunit4.9 mysql插入异常
+	 * 需求初始化databaseConnection.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+	 * 新增dbtype
+	 * dbtype=Mysql=>class:MySqlMetadataHandler
+	 * dbtype!=Mysql=>class:DefaultMetadataHandler
+	 * LEO UPDATE 2015/12/22
+	 */
+	private String dbtype;
 	private List testDataSets = new ArrayList(); //插入数据库的临时数据
 
+	/**
+	 * LEO UPDATE 2015/12/22
+	 * @param d
+	 * @param schema
+	 * @param dbtype
+	 * @throws Exception
+	 */
+	public DBUnitUtils(DataSource d,String schema,String dbtype) throws Exception {
+		this.schema = schema;
+		this.dbtype=dbtype;
+		setDataSource(d);
+	}
+	
 	public DBUnitUtils(DataSource d,String schema) throws Exception {
 		this.schema = schema;
 		setDataSource(d);
@@ -74,7 +99,7 @@ public class DBUnitUtils {
 	 */
 	public void insertTestData(File flatXMLFile) throws FileNotFoundException, IOException, DatabaseUnitException, SQLException {
 		InputStream in = new FileInputStream(flatXMLFile);
-		ReplacementDataSet dataSet = new ReplacementDataSet(new XmlDataSet(in)); 
+		ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSet(new FlatXmlProducer(new InputSource(in)))); 
 		dataSet.addReplacementObject("[null]", null);
 		DatabaseOperation.REFRESH.execute(getDatabaseConnection(),dataSet);
 		testDataSets.add(dataSet);
@@ -228,7 +253,7 @@ public class DBUnitUtils {
 		this.dataSource = d;
 		initDbUnitConnection();
 	}
-
+	
 	/**
 	 * 释放数据库连接资源
 	 * 
@@ -251,14 +276,17 @@ public class DBUnitUtils {
 				databaseConnection = new DatabaseConnection(dataSource.getConnection());
 			else
 				databaseConnection = new DatabaseConnection(dataSource.getConnection(),schema);
+			
+			if(DBTYPE_MYSQL.equals(dbtype)){//LEO UPDATE 2015/12/22
+				databaseConnection.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+			}
 		}
 	}
-
 	private DatabaseConnection getDatabaseConnection() {
 		if (databaseConnection == null)
 			throw new RuntimeException("请先设置数据源,执行setDataSource()");
 		return databaseConnection;
 	}
-
+	public final static String DBTYPE_MYSQL= "Mysql";
 }
 
