@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.security.access.ConfigAttribute;
@@ -25,7 +26,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  *
  */
 public class JdbcFilterInvocationDefinitionSourceFactoryBean extends JdbcDaoSupport implements FactoryBean<FilterInvocationSecurityMetadataSource>{
-
+	
+	
 	public FilterInvocationSecurityMetadataSource getObject()
 			throws Exception {
 		return new DefaultFilterInvocationSecurityMetadataSource(this
