@@ -2,9 +2,9 @@
 
 <configuration>
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d %p [%c.%M] &gt;&gt;&gt; %m %n</pattern>
-		</layout>
+		</encoder>
 	</appender>
 	<appender name="default_logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -13,9 +13,9 @@
 				<MaxFileSize>1MB</MaxFileSize>
 			</TimeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d %p [%c.%M] &gt;&gt;&gt; %m %n</pattern>
-		</layout>
+		</encoder>
 	</appender>
 	<appender name="debug_logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -24,9 +24,9 @@
 				<MaxFileSize>1MB</MaxFileSize>
 			</TimeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d %p [%c.%M] &gt;&gt;&gt; %m %n</pattern>
-		</layout>
+		</encoder>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>DEBUG</level>  
 			<onMatch>ACCEPT</onMatch>  
@@ -40,9 +40,9 @@
 				<MaxFileSize>1MB</MaxFileSize>
 			</TimeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d %p [%c.%M] &gt;&gt;&gt; %m %n</pattern>
-		</layout>
+		</encoder>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>INFO</level>  
 			<onMatch>ACCEPT</onMatch>  
@@ -56,9 +56,9 @@
 				<MaxFileSize>1MB</MaxFileSize>
 			</TimeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d %p [%c.%M] &gt;&gt;&gt; %m %n</pattern>
-		</layout>
+		</encoder>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>WARN</level>  
 			<onMatch>ACCEPT</onMatch>  
@@ -72,9 +72,9 @@
 				<MaxFileSize>1MB</MaxFileSize>
 			</TimeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
+		<encoder>
 			<pattern>%d %p [%c.%M] &gt;&gt;&gt; %m %n</pattern>
-		</layout>
+		</encoder>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>ERROR</level>  
 			<onMatch>ACCEPT</onMatch>  
@@ -109,7 +109,7 @@
     	<appender-ref ref="error_logfile" />
   	</logger>
 	<root>
-		<level value="DEBUG" />
+		<level value="WARN" />
 		<appender-ref ref="stdout" />
 		<appender-ref ref="default_logfile" />
 	</root>
