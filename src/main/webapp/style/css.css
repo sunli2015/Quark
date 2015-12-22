@@ -1,0 +1,29 @@
+/* 全局样式 */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,address,code,del,em,img,dl,dt,dd,ol,ul,li,fieldset,form,label,table,tbody,tfoot,thead,tr,th,td{
+margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-family:inherit;vertical-align:baseline;}img{border:none;}
+body{font-size:12px;font-family:"宋体",Verdana, Geneva, sans-serif;}ul,ol{list-style-type:none;}a{text-decoration:none;color:#4f4f4f;}
+.clear{display:block;height:0;line-height:0;overflow:hidden;clear:both;font-size:0;}
+/*链接样式*/
+a:link{}
+a:visited{} 
+a:hover{text-decoration:underline;}	
+a:active{} 
+/* */
+body{ background:url(../images/webdl_02.png) top left repeat-x;}
+#all{ width:1000px; margin:0 auto;}
+#logo{ text-align:center; padding:70px 0 30px 0;}
+#from { width:100%;height:52px; padding:20px 0 0; overflow:hidden;}
+#from img{padding:0 10px;}
+#from input{ height:49px; width:200px; padding-left:43px; border:none; font-size:24px; color:#999; line-height:49px;border:1px solid #83afdf; }
+#from input:hover{border:#e0ad84;}
+#input_zh{background:url(../images/lon_pic_06.png) 0 0 no-repeat;}
+#input_mm{background:url(../images/lon_pic_14.png) 0 0 no-repeat; }
+#checkp{height:21px;color:#FFF; font-size:16px;font-weight:bolder; padding:10px 0 0 500px;}
+#checkbox{width:23px; height:21px; background:url(../images/lon_pic_19.png) 0 0 no-repeat; border:none; padding:0; margin:10px 0 15px -60px;}	
+#button{ padding:33px 0 0 280px;;}
+#button a{ display:block; width:159px; height:94px; float:left; margin:0 22px;}
+#button_dl{ background:url(../images/lon_pic_26.png) 0 0 no-repeat;}
+#button_dl:hover{ background:url(../images/lon_pic_hover_26.png) 0 0 no-repeat;}
+#button_zc{ background:url(../images/lon_pic_28.png) 0 2px no-repeat;}
+#button_zc:hover{ background:url(../images/lon_pic_hover_28.png) 0 2px no-repeat;}

@@ -5,12 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 hello!
 <%
 Test t = new Test();
-t.print("first maven jsp");
+t.print("xxxxx");
 %>
+<input type="text">
 </body>
 </html>
