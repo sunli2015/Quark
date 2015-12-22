@@ -24,7 +24,7 @@ public class CoreModule implements java.io.Serializable {
 	@Id
 	@Column(length = 32,name="OID")
 	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String oid;
 	@Column(name="ORDERID")
 	private Long orderid;

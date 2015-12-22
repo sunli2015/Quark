@@ -27,7 +27,7 @@ public class CoreUser implements java.io.Serializable {
 	@Id
 	@Column(length = 32)
 	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String oid;//OID
 	
 	
