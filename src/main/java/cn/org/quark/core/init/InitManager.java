@@ -2,23 +2,26 @@ package cn.org.quark.core.init;
 
 import java.io.File;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import cn.org.quark.core.utils.DBUnitUtils;
 
-public class InitManager extends JdbcDaoSupport {
+public class InitManager  {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	private Resource location;
 	private String schema;
 	private String dbtype;
 	public void init() {
-		Integer count = super.getJdbcTemplate().queryForObject("select count(*) from CORE_ROLES",Integer.class);
+		Integer count = jdbcTemplate.queryForObject("select count(*) from CORE_ROLES",Integer.class);
 		if (count == 0) {
 			File f;
 			try {
 				f = location.getFile();
 				if(f.exists() && f.isDirectory()){
-					DBUnitUtils db = new DBUnitUtils(this.getDataSource(),schema,dbtype);
+					DBUnitUtils db = new DBUnitUtils(jdbcTemplate.getDataSource(),schema,dbtype);
 					for(File xml:f.listFiles()){
 						if(xml.getName().endsWith(".xml")){
 							db.insertTestData(xml);
