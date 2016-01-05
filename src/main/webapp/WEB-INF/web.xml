@@ -3,7 +3,7 @@
 <!-- config:request encode -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>cn.org.quark.core.web.filter.WebFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -88,9 +88,10 @@
     		<taglib-uri>http://www.quark.org</taglib-uri>
     		<taglib-location>/WEB-INF/tld/quark.tld</taglib-location>
     	</taglib>
+    	<!-- 
     	<taglib>
     		<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
     		<taglib-location>/WEB-INF/tld/c.tld</taglib-location>
-    	</taglib>
+    	</taglib> -->
     </jsp-config>
 </web-app>
