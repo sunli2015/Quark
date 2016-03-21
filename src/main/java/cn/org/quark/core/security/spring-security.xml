@@ -26,6 +26,9 @@
     	<custom-filter ref="quarkFilter" position="LAST"/>
     	<csrf disabled="true"/>
     	<anonymous enabled="false"/>
+    	<headers>
+    		<frame-options disabled="false" policy="SAMEORIGIN"/>
+    	</headers>
     	<!-- <anonymous granted-authority="ROLE_ANONYMOUS" enabled="true" username="test"/> -->
   	</http>
   	<beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
