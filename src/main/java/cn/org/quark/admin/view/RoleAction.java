@@ -12,8 +12,7 @@ import cn.org.quark.core.web.struts2.JsonEntityAction;
  * @author Leo
  *
  */
-@Service
-@Scope("prototype")
+
 public class RoleAction extends JsonEntityAction<CoreRole, RoleManager>{
 	@Autowired
 	private RoleManager roleManger;

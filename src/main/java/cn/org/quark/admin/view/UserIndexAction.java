@@ -14,8 +14,7 @@ import cn.org.quark.core.web.struts2.BaseAction;
  * @author Leo
  *
  */
-@Service
-@Scope("prototype")
+
 public class UserIndexAction extends BaseAction{
 	
 	/**
@@ -23,9 +22,8 @@ public class UserIndexAction extends BaseAction{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Override
 	public String execute(){
-		return SUCCESS;
+		return "SUCCESS";
 	}
 	/**
 	 * 部门树

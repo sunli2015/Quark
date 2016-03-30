@@ -9,13 +9,10 @@ import cn.org.quark.core.web.struts2.BaseAction;
  * @author Leo
  *
  */
-@Service
-@Scope("prototype")
 public class MainAction extends BaseAction{
 
-	@Override
 	public String execute() throws Exception {
-		return SUCCESS;
+		return "SUCCESS";
 	}
 
 }

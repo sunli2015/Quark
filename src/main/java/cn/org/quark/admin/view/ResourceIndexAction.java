@@ -10,8 +10,7 @@ import cn.org.quark.admin.entity.CoreModule;
 import cn.org.quark.admin.manager.ModuManager;
 import cn.org.quark.core.web.struts2.BaseAction;
 
-@Service
-@Scope("prototype")
+
 public class ResourceIndexAction extends BaseAction {
 
 	private static final long serialVersionUID = -1415788085132574622L;
@@ -33,9 +32,9 @@ public class ResourceIndexAction extends BaseAction {
 	public void setId(String id) {
 		this.id = id;
 	}
-	@Override
+
 	public String execute(){
-		return SUCCESS;
+		return "SUCCESS";
 	}
 	public String treeXml(){
 		if(id.equals("0"))

@@ -8,8 +8,6 @@ import cn.org.quark.admin.entity.CoreModule;
 import cn.org.quark.admin.manager.ModuManager;
 import cn.org.quark.core.web.struts2.BaseEntityAction;
 
-@Service
-@Scope("prototype")
 public class ModuAction extends BaseEntityAction<CoreModule, ModuManager> {
 
 	private static final long serialVersionUID = -3122220426821374096L;

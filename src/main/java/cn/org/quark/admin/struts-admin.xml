@@ -13,10 +13,14 @@
             <result name="success">/mportals/common/main.jsp</result>
        	</action>
 	 </package>
-	 <package name="pwd" extends="default" namespace="/pwd">
+	 <package name="pwd" extends="default,json-default" namespace="/pwd">
 	 	 <action name="pwd" class="cn.org.quark.admin.view.PwdAction">
             <result name="success">/mportals/admin/pwd_edit.jsp</result>
-       </action>
+            <result name="modifyPwd" type="json">
+            	<param name="root">jsonData</param>
+            	<param name="ignoreHierarchy">false</param>
+            </result>
+       	</action>
 	 </package>
     <package name="admin" extends="default,json-default" namespace="/admin">
        <action name="user" class="cn.org.quark.admin.view.UserAction">

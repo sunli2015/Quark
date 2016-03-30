@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 import cn.org.quark.admin.entity.CoreDept;
 import cn.org.quark.admin.manager.DeptManager;
 import cn.org.quark.core.web.struts2.BaseEntityAction;
-@Service
-@Scope("prototype")
+
 public class DeptAction extends BaseEntityAction<CoreDept, DeptManager>{
 	@Autowired
 	private DeptManager deptManager;

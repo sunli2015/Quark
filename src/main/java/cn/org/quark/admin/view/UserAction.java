@@ -17,30 +17,29 @@ import cn.org.quark.core.web.struts2.JsonEntityAction;
  * @author Leo
  * 
  */
-@Service
-@Scope("prototype")
+
 public class UserAction extends JsonEntityAction<CoreUser, UserManager>{
 	@Autowired
 	private UserManager userManager;
 	public UserManager getUserManager() {
 		return userManager;
 	}
-	@Override
-	protected void doListEntity(CriteriaSetup criteriaSetup, int pageSize) {
-
-		if(!UtilString.isEmpty(deptId)){
-			criteriaSetup.addCriterion(Restrictions.eq("dept.oid", deptId));
-		}
-		if(!UtilString.isEmpty(entity.getLogid()))
-			criteriaSetup.addCriterion(Restrictions.like("logid", entity.getLogid(),MatchMode.ANYWHERE));
-		if(!UtilString.isEmpty(entity.getCname()))
-			criteriaSetup.addCriterion(Restrictions.like("cname", entity.getCname(),MatchMode.ANYWHERE));
-		if(!UtilString.isEmpty(entity.getIdno()))
-			criteriaSetup.addCriterion(Restrictions.like("idno", entity.getIdno(),MatchMode.ANYWHERE));
-		if(entity.getStatus() != null)
-			criteriaSetup.addCriterion(Restrictions.eq("status", entity.getStatus()));
-		super.doListEntity(criteriaSetup, pageSize);
-	}
+//	@Override
+//	protected void doListEntity(CriteriaSetup criteriaSetup, int pageSize) {
+//
+//		if(!UtilString.isEmpty(deptId)){
+//			criteriaSetup.addCriterion(Restrictions.eq("dept.oid", deptId));
+//		}
+//		if(!UtilString.isEmpty(entity.getLogid()))
+//			criteriaSetup.addCriterion(Restrictions.like("logid", entity.getLogid(),MatchMode.ANYWHERE));
+//		if(!UtilString.isEmpty(entity.getCname()))
+//			criteriaSetup.addCriterion(Restrictions.like("cname", entity.getCname(),MatchMode.ANYWHERE));
+//		if(!UtilString.isEmpty(entity.getIdno()))
+//			criteriaSetup.addCriterion(Restrictions.like("idno", entity.getIdno(),MatchMode.ANYWHERE));
+//		if(entity.getStatus() != null)
+//			criteriaSetup.addCriterion(Restrictions.eq("status", entity.getStatus()));
+//		super.doListEntity(criteriaSetup, pageSize);
+//	}
 	private String deptId;
 	public String getDeptId() {
 		return deptId;

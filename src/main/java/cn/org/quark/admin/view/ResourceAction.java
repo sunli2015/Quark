@@ -13,8 +13,7 @@ import cn.org.quark.core.utils.UtilString;
 import cn.org.quark.core.web.struts2.JsonEntityAction;
 import cn.org.quark.core.web.support.PageRequestUtils;
 
-@Service
-@Scope("prototype")
+
 public class ResourceAction extends JsonEntityAction<CoreResource, ResourceManager>{
 	
 	/**
@@ -36,22 +35,22 @@ public class ResourceAction extends JsonEntityAction<CoreResource, ResourceManag
 	
 	protected void doSelectListEntity(CriteriaSetup criteriaSetup, String tableId,
 			int pageSize) {
-		Page _page = PageRequestUtils.getPage(getHttpServletRequest());
-		Page page = getEntityManager().pagedQuery(criteriaSetup,_page.getCurPage(),_page.getPageSize());
-		this.setEntitys(this.getEntityManager().listByRole(this.getRoleid(), page.getResult()));
-		page.setData(this.getEntitys());
-		jsonData.setPage(page.getCurrentPageNo());
-		jsonData.setTotal(page.getTotalCount());
-		jsonData.getRows().addAll(page.getResult());
+//		Page _page = PageRequestUtils.getPage(getHttpServletRequest());
+//		Page page = getEntityManager().pagedQuery(criteriaSetup,_page.getCurPage(),_page.getPageSize());
+//		this.setEntitys(this.getEntityManager().listByRole(this.getRoleid(), page.getResult()));
+//		page.setData(this.getEntitys());
+//		jsonData.setPage(page.getCurrentPageNo());
+//		jsonData.setTotal(page.getTotalCount());
+//		jsonData.getRows().addAll(page.getResult());
 	}
 	
-	@Override
-	protected void doListEntity(CriteriaSetup criteriaSetup, int pageSize) {
-		if(!UtilString.isEmpty(moduId)){
-			criteriaSetup.addCriterion(Restrictions.eq("module.oid", moduId));
-		}
-		super.doListEntity(criteriaSetup, pageSize);
-	}
+//	@Override
+//	protected void doListEntity(CriteriaSetup criteriaSetup, int pageSize) {
+//		if(!UtilString.isEmpty(moduId)){
+//			criteriaSetup.addCriterion(Restrictions.eq("module.oid", moduId));
+//		}
+//		super.doListEntity(criteriaSetup, pageSize);
+//	}
 
 	private String roleid;
 	private String moduId ;

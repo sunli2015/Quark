@@ -6,6 +6,7 @@ import cn.org.quark.admin.manager.UserManager;
 import cn.org.quark.core.login.Loginer;
 import cn.org.quark.core.utils.UtilString;
 import cn.org.quark.core.web.struts2.BaseAction;
+import cn.org.quark.core.web.support.JsonData;
 /**
  * 修改密码
  * @author Leo
@@ -18,21 +19,25 @@ public class PwdAction extends BaseAction{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Override
+
 	public String execute() throws Exception {
-		Loginer loginer =getLoginer();
+		Loginer loginer =null;//getLoginer();
 		setOid(loginer.getUserid());
 		if(!UtilString.isEmpty(oldPwd)){
 			if(userManager.isRightPwd(oid,oldPwd)){
 				if(newPwd.equals(newPwdAgain)){
 					userManager.changePwd(oid, newPwd);
-					this.addActionMessage("密码修改成功！");
+//					this.addActionMessage("密码修改成功！");
 				}
 			}else{
-				this.addActionMessage("旧密码输入错误！");
+//				this.addActionMessage("旧密码输入错误！");
 			}
 		}
-		return SUCCESS;
+		return "SUCCESS";
+	}
+	protected JsonData jsonData = new JsonData();
+	public String modifyPwd(){
+		return "modifyPwd";
 	}
 	private String oid;
 	private String oldPwd;
@@ -68,4 +73,11 @@ public class PwdAction extends BaseAction{
 	public UserManager getUserManager() {
 		return userManager;
 	}
+	public JsonData getJsonData() {
+		return jsonData;
+	}
+	public void setJsonData(JsonData jsonData) {
+		this.jsonData = jsonData;
+	}
+	
 }
