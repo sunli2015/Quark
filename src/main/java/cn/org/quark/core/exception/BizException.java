@@ -1,5 +1,7 @@
 package cn.org.quark.core.exception;
 
+import cn.org.quark.core.common.RtnCode;
+
 
 /**
  * 业务异常基类.
@@ -13,15 +15,17 @@ public class BizException extends RuntimeException {
 	 */
 	private String messageKey;
 	
-	public BizException() {
+	public BizException(String messageKey) {
+		super(RtnCode.getErrMsg(messageKey));
+		this.messageKey = messageKey;
 	}
 
-	public BizException(String message) {
+	public BizException(String messageKey ,String message) {
 		super(message);
-		this.messageKey = message;
+		this.messageKey = messageKey;
 	}
 
-	public BizException(String message, Throwable cause) {
+	public BizException(String messageKey ,String message, Throwable cause) {
 		super(message, cause);
 		this.messageKey = message;
 	}
@@ -37,5 +41,6 @@ public class BizException extends RuntimeException {
 	 */
 	public String getMessageKey() {
 		return messageKey;
-	}	
+	}
+	
 }

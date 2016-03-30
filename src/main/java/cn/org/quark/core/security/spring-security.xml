@@ -15,14 +15,14 @@
 	<http pattern="/**/*.jpg" security="none"/>
 	<http pattern="/**/*.png" security="none"/>
 	<http pattern="/**/*.css" security="none"/>
-	<http pattern="/mportals/login.action*" security="none"/>
+	<http pattern="/manager/login.do*" security="none"/>
   	<http pattern="/portal/*" security="none"/>
   	<!-- access-denied-page="/mportals/login.action?login_error=denied_error" -->
   	<http pattern="/**" auto-config='true' access-decision-manager-ref="accessDecisionManager">
     	<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
-    	<form-login login-page='/mportals/login.action' default-target-url="/mportals/main.action" 
+    	<form-login login-page='/manager/login.do' default-target-url="/manager/main.do" 
     	authentication-failure-handler-ref="authenticationFailureHandler" />
-    	<logout logout-success-url="/mportals/login.action?logout=true" />
+    	<logout logout-success-url="/manager/login.do?logout=true" />
     	<custom-filter ref="quarkFilter" position="LAST"/>
     	<csrf disabled="true"/>
     	<anonymous enabled="false"/>
@@ -46,11 +46,11 @@
 		<beans:property name="exceptionMappings">
 			<beans:map>
 			<beans:entry key="org.springframework.security.core.userdetails.UsernameNotFoundException" 
-			value="/mportals/login.action?login_error=user_not_found_error"/>
+			value="/manager/login.action?login_error=user_not_found_error"/>
 			<beans:entry key="org.springframework.security.authentication.BadCredentialsException" 
-			value="/mportals/login.action?login_error=user_psw_error"/>
+			value="/manager/login.action?login_error=user_psw_error"/>
 			<beans:entry key="org.springframework.security.authentication.DisabledException" 
-			value="/mportals/login.action?login_error=disabled_user_error"/>
+			value="/manager/login.action?login_error=disabled_user_error"/>
 			</beans:map>
 		</beans:property>
 	</beans:bean>

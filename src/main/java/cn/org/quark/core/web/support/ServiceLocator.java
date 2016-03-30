@@ -33,7 +33,7 @@ public class ServiceLocator {
 		try {
 			return context.getBean(beanName);
 		} catch (Exception e) {
-			throw new BizException("spring fail loading bean ....",e);
+			throw new BizException("","spring fail loading bean ....",e);
 		}
 	}
 

@@ -349,7 +349,7 @@ public abstract class HibernateGenericDao {
 		try {
 			return (Serializable) propertyUtils.getProperty(entity, getIdName(entityClass));
 		} catch (Exception e) {
-			throw new BizException("getId异常",e);
+			throw new BizException("","getId异常",e);
 		}
 	}
 

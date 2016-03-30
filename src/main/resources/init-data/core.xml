@@ -3,9 +3,9 @@
 	<CORE_MODULE OID="1" module_name="系统功能模块" PARENT_MODULE_ID="[null]" entity_class_name="[null]" process_def_name="[null]" view_page_url="[null]" edit_page_url="[null]"/>
 	
 
-	<CORE_RESOURCES oid="1" rname="开放的主页" rcode="OPEN_INDEX" res_string="/mportals/main.action*" module_id="1"/>
+	<CORE_RESOURCES oid="1" rname="开放的主页" rcode="OPEN_INDEX" res_string="/manager/main.do*" module_id="1"/>
 	<CORE_RESOURCES oid="2" rname="系统管理" rcode="ADMIN" res_string="/admin/**" module_id="1"/>
-	<CORE_RESOURCES oid="3" rname="密码修改" rcode="MODIFYPWD" res_string="/pwd/pwd.do" module_id="1"/>
+	<CORE_RESOURCES oid="3" rname="密码修改" rcode="MODIFYPWD" res_string="/user/editpwd.do" module_id="1"/>
 
 
 	<CORE_DEPT oid="1" deptname="部门"/>
