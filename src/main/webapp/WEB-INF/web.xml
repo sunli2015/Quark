@@ -3,7 +3,7 @@
 <!-- config:request encode -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>cn.org.quark.core.web.filter.WebFilter</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>

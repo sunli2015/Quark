@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<%--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div> --%>
-	<div id="region_center" data-options="region:'center'"  title="登陆用户：ADMIN">
+	<div id="region_center" data-options="region:'center'" title="登陆用户：ADMIN">
 		<div id="tt" class="easyui-tabs" style="display: none;"></div>
 	</div>
 </body>

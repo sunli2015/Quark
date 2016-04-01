@@ -7,7 +7,7 @@
 		<title>${title}</title>
 		<link rel="stylesheet" type="text/css"
 			href="${ctx}/style/default.css">
-		<%@ include file="/mportals/common/login_error_message.inc"%>
+		<%@ include file="/commons/login_error_message.inc"%>
 		<style type="text/css">
 /*主页面标题*/
 #main-page-title {
@@ -81,9 +81,7 @@
 					</td>
 					<td width="30%" align="right">
 						<div style="color: red;">
-							<c:if test="${not empty param.login_error}">&nbsp;&nbsp;&nbsp;&nbsp;${msg}<br>
-								<br>
-							</c:if>
+							&nbsp;&nbsp;&nbsp;&nbsp;<c:if test="${not empty param.login_error}">${msg}</c:if>
 						</div>
 						<div>
 
