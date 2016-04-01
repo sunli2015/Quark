@@ -1,6 +1,8 @@
 package cn.org.quark.admin.manager;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
@@ -64,5 +66,34 @@ public class ModuManager extends HibernateEntityDao<CoreModule>{
 		String hql = " from CoreModule modu where modu.entityClassName = ?";
 		 List<CoreModule> modules = this.find(hql,new Object[]{entityClassName});
 		 return modules.isEmpty() ? null : modules.get(0);
+	}
+	/**
+	 * 构建生成菜单树
+	 * @return
+	 */
+	public String buildTree(){
+		treeHtml = new StringBuilder();
+		List<CoreModule> list = this.createCriteria(Restrictions.isNull("parentModule")).list();
+		for(CoreModule module : list){
+			_buildTree(module);
+		}
+		return treeHtml.toString();
+	}
+	private StringBuilder treeHtml ;
+	private void _buildTree(CoreModule module){
+		Set<CoreModule> set = module.getSubModules();
+		if(set.isEmpty()){
+			treeHtml.append("<li id='").append(module.getOid()).append("'>").append(module.getModuleName()).append("</li>");
+			return ;
+		}
+		treeHtml.append("<li><span>").append(module.getModuleName()).append("</span>");
+		for(Iterator<CoreModule> it = set.iterator();it.hasNext();){
+			treeHtml.append("<ul>");
+			CoreModule _module = it.next();
+			_buildTree(_module);
+			treeHtml.append("</ul>");
+		}
+		treeHtml.append("</li>");
+		return ;
 	}
 }

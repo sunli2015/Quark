@@ -46,11 +46,11 @@
 		<beans:property name="exceptionMappings">
 			<beans:map>
 			<beans:entry key="org.springframework.security.core.userdetails.UsernameNotFoundException" 
-			value="/manager/login.action?login_error=user_not_found_error"/>
+			value="/manager/login.do?login_error=user_not_found_error"/>
 			<beans:entry key="org.springframework.security.authentication.BadCredentialsException" 
-			value="/manager/login.action?login_error=user_psw_error"/>
+			value="/manager/login.do?login_error=user_psw_error"/>
 			<beans:entry key="org.springframework.security.authentication.DisabledException" 
-			value="/manager/login.action?login_error=disabled_user_error"/>
+			value="/manager/login.do?login_error=disabled_user_error"/>
 			</beans:map>
 		</beans:property>
 	</beans:bean>

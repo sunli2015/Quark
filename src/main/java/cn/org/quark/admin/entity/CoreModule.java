@@ -16,8 +16,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "CORE_MODULE")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","resources"})
 public class CoreModule implements java.io.Serializable {
 
 	private static final long serialVersionUID = -3089192096580606222L;
