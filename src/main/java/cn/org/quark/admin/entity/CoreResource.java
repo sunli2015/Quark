@@ -52,6 +52,9 @@ public class CoreResource implements java.io.Serializable {
 	@Transient
 	private Boolean selected;
 	
+	@Transient
+	private String moduleOid;
+	
 	public String getOid() {
 		return oid;
 	}
@@ -114,6 +117,14 @@ public class CoreResource implements java.io.Serializable {
 
 	public void setRcode(String rcode) {
 		this.rcode = rcode;
+	}
+
+	public String getModuleOid() {
+		return moduleOid;
+	}
+
+	public void setModuleOid(String moduleOid) {
+		this.moduleOid = moduleOid;
 	}
 
 
