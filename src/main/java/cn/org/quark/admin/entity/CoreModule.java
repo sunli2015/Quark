@@ -25,7 +25,7 @@ public class CoreModule implements java.io.Serializable {
 
 	private static final long serialVersionUID = -3089192096580606222L;
 	@Id
-	@Column(length = 32,name="OID")
+	@Column(length = 64,name="OID")
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String oid;

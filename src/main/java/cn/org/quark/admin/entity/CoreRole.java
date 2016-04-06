@@ -16,13 +16,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "CORE_ROLES")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","resources","users"})
 public class CoreRole implements java.io.Serializable {
 
 	private static final long serialVersionUID = -8116465701943141377L;
 	@Id
-	@Column(length = 32)
+	@Column(length = 64)
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String oid;

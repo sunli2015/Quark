@@ -1,18 +1,11 @@
 package cn.org.quark.admin.controller;
 
-import java.util.List;
-
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.org.quark.admin.entity.CoreModule;
 import cn.org.quark.admin.manager.ModuManager;
-import cn.org.quark.core.web.support.ResultData;
-import cn.org.quark.core.web.support.RtnData;
 
 @Controller("mvcModuleAction")
 @RequestMapping("/module")

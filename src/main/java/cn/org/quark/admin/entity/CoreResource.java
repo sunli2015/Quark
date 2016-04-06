@@ -25,7 +25,7 @@ public class CoreResource implements java.io.Serializable {
 
 	private static final long serialVersionUID = 2613435851698286320L;
 	@Id
-	@Column(length = 32)
+	@Column(length = 64)
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")	
 	private String oid;
