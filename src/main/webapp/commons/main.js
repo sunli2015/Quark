@@ -45,11 +45,11 @@ function addTab(title, url){
 		};
         
 		var _h = $("#region_center").height();
-		console.log("region_center:",_h);
+		//console.log("region_center:",_h);
 		if(tth == 0) tth = $("#tt").height();
-		console.log("tt:",tth);
+		//console.log("tt:",tth);
 		var height = _h-tth;
-		console.log("height:",height);
+		//console.log("height:",height);
         var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:'+height+';"></iframe>';
         $('#tt').tabs('add',{
 	            title:title,
