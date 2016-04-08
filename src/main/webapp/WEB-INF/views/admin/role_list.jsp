@@ -30,8 +30,40 @@
 			});
 		});
 		
+		$('#btngrant').click(function(){
+			var row = $('#dg').datagrid('getSelected');
+			console.log("row:",row);
+			if(null == row){
+				$.messager.alert('提示','请选择一条记录','info');
+				return ;
+			}
+			$('#grant_roleid').val(row.oid);
+			$('#ifr_resdialog').attr('src',CONTEXT_PATH+'/module/index.do?select=1');
+			$('#resdialog').dialog('open');
+		});
+		
 	});
-
+	var grant = function(){
+		var roleid = $('#grant_roleid').val();
+		console.log('roleid',roleid);
+		var checked = $('#ifr_resdialog').contents().find("#ifr_reslist").contents().find("#selectedlist").html();
+		console.log('selectedlist:',checked);
+		var url = CONTEXT_PATH+'/role/grant.do';
+		$.post(url,{
+			roleid:roleid,
+			resourceIds:checked
+		},function(result){
+			console.log('result:',result);
+			if(result.code == '0'){
+				$.messager.alert('提示','保存成功','info',function(){
+					$('#resdialog').dialog('close');
+				});
+			} else {
+				$.messager.alert('提示','保存失败：'+result.errMsg,'info');
+			}
+			
+		});
+	}
 	</script>
   </head>
 
@@ -53,6 +85,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" id="btnappend">新增</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btnedit">编辑</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">权限</a>
 	</div>
     <!-- page -->
     <div id="pp" style="background:#efefef;border:1px solid #ccc;"></div>
@@ -82,5 +115,22 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">关闭</a>
     </div>
     
+    
+    <!-- grant -->
+    <input id="grant_roleid" type="hidden"/>
+    <div id="resdialog" class="easyui-dialog" style="width:650px;height:455px;padding-bottom: 0" closed="true"  data-options="title:'选择权限',modal:true,
+			toolbar:[{
+				text:'保存',
+				iconCls:'icon-save',
+				handler:function(){grant();}
+			},{
+				text:'关闭',
+				iconCls:'icon-close',
+				handler:function(){$('#resdialog').dialog('close');}
+			}]">
+    <iframe id="ifr_resdialog" src="" scrolling="auto" frameborder="0" style="width:100%;height:385px;"></iframe>
+	</div>
+	
+	
   </body>
 </html>

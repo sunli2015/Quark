@@ -11,9 +11,9 @@ $(function(){
 		onClick: function(node){
 			var id = node.id;
 			var height = $("#region_center").height();
-			console.log("height:",height);
-			var url = CONTEXT_PATH+"/resource/index.do?moduleId="+id;
-	        var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:'+height+';"></iframe>';
+			//console.log("height:",height);
+			var url = CONTEXT_PATH+"/resource/index.do?moduleId="+id+"&select=${param.select}";
+	        var content = '<iframe id="ifr_reslist" scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:'+height+';"></iframe>';
 	        $("#region_center").append(content);
 		}
 	});
