@@ -24,7 +24,6 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResultData<List<CoreRole>> list(Page page) throws Exception{
-
 		return super.list(page);
 		
 	}
