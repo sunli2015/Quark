@@ -14,13 +14,17 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 import org.springframework.aop.framework.ProxyFactory;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "CORE_USERS")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","roles","dept"})
 public class CoreUser implements java.io.Serializable {
 
 	private static final long serialVersionUID = -8865934112915062913L;
@@ -56,6 +60,10 @@ public class CoreUser implements java.io.Serializable {
 			inverseJoinColumns={@JoinColumn(name="ROLEID")})
 	private Set<CoreRole> roles = new HashSet<CoreRole>(0);
 
+	
+	@Transient
+	private String deptOid;
+	
 	public String getOid() {
 		return oid;
 	}
@@ -134,6 +142,14 @@ public class CoreUser implements java.io.Serializable {
 
 	public void setRoles(Set<CoreRole> roles) {
 		this.roles = roles;
+	}
+
+	public String getDeptOid() {
+		return deptOid;
+	}
+
+	public void setDeptOid(String deptOid) {
+		this.deptOid = deptOid;
 	}
 	
 }

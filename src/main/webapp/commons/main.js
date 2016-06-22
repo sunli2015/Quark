@@ -13,7 +13,7 @@ $(function(){
 			 */
 			if(id == 'm_res') addTab(node.text,CONTEXT_PATH+"/module/index.do");//资源管理
 			if(id == 'm_role') addTab(node.text,CONTEXT_PATH+"/role/index.do");//角色管理
-			if(id == 'm_user') addTab(node.text,CONTEXT_PATH+"/admin/userIndex.action");//用户管理
+			if(id == 'm_user') addTab(node.text,CONTEXT_PATH+"/dept/index.do");//用户管理
 			if(id == 'pwd') addTab(node.text,CONTEXT_PATH+"/user/editpwd.do");//修改密码
 			if(id == 'logout') logout();//注销
 			

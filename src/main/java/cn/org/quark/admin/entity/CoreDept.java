@@ -5,6 +5,7 @@ import java.util.Set;
 
 
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +18,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "CORE_DEPT")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","users"})
 public class CoreDept implements java.io.Serializable {
 
 	private static final long serialVersionUID = -3803800474454329950L;
