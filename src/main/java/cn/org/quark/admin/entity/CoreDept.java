@@ -6,6 +6,7 @@ import java.util.Set;
 
 
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "CORE_DEPT")
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","users"})
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","users","subDepts"})
 public class CoreDept implements java.io.Serializable {
 
 	private static final long serialVersionUID = -3803800474454329950L;
@@ -51,6 +53,11 @@ public class CoreDept implements java.io.Serializable {
 	@OneToMany(mappedBy = "dept", cascade = CascadeType.REMOVE)
 	private Set<CoreUser> users = new HashSet<CoreUser>(0);
 
+	@Transient
+	private String parentDeptOid;
+	@Transient
+	private Set<CoreDept> subDept = new HashSet<CoreDept>(0);
+	
 	public String getOid() {
 		return oid;
 	}
@@ -105,6 +112,22 @@ public class CoreDept implements java.io.Serializable {
 
 	public void setUsers(Set<CoreUser> users) {
 		this.users = users;
+	}
+
+	public String getParentDeptOid() {
+		return parentDeptOid;
+	}
+
+	public void setParentDeptOid(String parentDeptOid) {
+		this.parentDeptOid = parentDeptOid;
+	}
+
+	public Set<CoreDept> getSubDept() {
+		return subDept;
+	}
+
+	public void setSubDept(Set<CoreDept> subDept) {
+		this.subDept = subDept;
 	}
 
 	

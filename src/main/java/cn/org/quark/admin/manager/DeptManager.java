@@ -1,5 +1,6 @@
 package cn.org.quark.admin.manager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import cn.org.quark.admin.entity.CoreDept;
-import cn.org.quark.admin.entity.CoreModule;
 import cn.org.quark.core.Constants;
 import cn.org.quark.core.dao.hibernate5.HibernateEntityDao;
 import cn.org.quark.core.utils.UtilString;
@@ -76,29 +76,47 @@ public class DeptManager extends HibernateEntityDao<CoreDept>{
 	 * 构建生成菜单树
 	 * @return
 	 */
-	public String buildTree(){
-		treeHtml = new StringBuilder();
+	public List<CoreDept> buildTree(){
+		//treeHtml = new StringBuilder();
+		list1.clear();
 		List<CoreDept> list = this.createCriteria(Restrictions.isNull("parentDept")).list();
 		for(CoreDept dept : list){
-			_buildTree(dept);
+			CoreDept d = new CoreDept();
+			d.setOid(dept.getOid());
+			d.setDeptid(dept.getDeptid());
+			d.setDeptname(dept.getDeptname());
+			list1.add(d);
+			_buildTree(d,dept);
 		}
-		return treeHtml.toString();
+		System.out.println("list1:"+list1);
+		return list1;
 	}
-	private StringBuilder treeHtml ;
-	private void _buildTree(CoreDept dept){
+	private List<CoreDept> list1 = new ArrayList<CoreDept>();
+	
+	//private StringBuilder treeHtml ;
+	
+	private void _buildTree(CoreDept r ,CoreDept dept){
 		Set<CoreDept> set = dept.getSubDepts();
 		if(set.isEmpty()){
-			treeHtml.append("<li id='").append(dept.getOid()).append("'>").append(dept.getDeptname()).append("</li>");
+			//treeHtml.append("<li id='").append(dept.getOid()).append("'>").append(dept.getDeptname()).append("</li>");
 			return ;
 		}
-		treeHtml.append("<li><span>").append(dept.getDeptname()).append("</span>");
+		//treeHtml.append("<li><span>").append(dept.getDeptname()).append("</span>");
 		for(Iterator<CoreDept> it = set.iterator();it.hasNext();){
-			treeHtml.append("<ul>");
 			CoreDept _dept = it.next();
-			_buildTree(_dept);
-			treeHtml.append("</ul>");
+			
+			CoreDept d = new CoreDept();
+			d.setOid(_dept.getOid());
+			d.setDeptid(_dept.getDeptid());
+			d.setDeptname(_dept.getDeptname());
+			r.getSubDept().add(d);
+			//treeHtml.append("<ul>");
+			
+			_buildTree(d,_dept);
+			//treeHtml.append("</ul>");
 		}
-		treeHtml.append("</li>");
+		//treeHtml.append("</li>");
+		
 		return ;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import cn.org.quark.admin.entity.CoreUser;
 import cn.org.quark.admin.manager.RoleManager;
 import cn.org.quark.admin.manager.UserManager;
 import cn.org.quark.core.common.RtnCode;
+import cn.org.quark.core.dao.support.CriteriaSetup;
 import cn.org.quark.core.dao.support.Page;
 import cn.org.quark.core.exception.BizException;
 import cn.org.quark.core.login.LoginUtil;
@@ -63,9 +65,12 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	}
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData<List<CoreUser>> list(Page page) throws Exception{
-		return super.list(page);
+	public ResultData<List<CoreUser>> list(String deptId , Page page) throws Exception{
+		CriteriaSetup criteriaSetup = new CriteriaSetup();
+		criteriaSetup.addCriterion(Restrictions.eq("dept.oid", deptId));
+		return super.doListEntity(criteriaSetup, page);
 	}
+
 	/**
 	 * 删除
 	 * @param id

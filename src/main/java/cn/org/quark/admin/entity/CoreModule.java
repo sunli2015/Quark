@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "CORE_MODULE")
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","resources"})
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","resources","subModules"})
 public class CoreModule implements java.io.Serializable {
 
 	private static final long serialVersionUID = -3089192096580606222L;
@@ -55,7 +56,13 @@ public class CoreModule implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "parentModule", cascade = CascadeType.REMOVE)
 	private Set<CoreModule> subModules = new HashSet<CoreModule>(0);
-
+	
+	
+	@Transient
+	private String parentModuleOid;
+	@Transient
+	private Set<CoreModule> subModule = new HashSet<CoreModule>(0);
+	
 	public String getOid() {
 		return this.oid;
 	}
@@ -150,6 +157,22 @@ public class CoreModule implements java.io.Serializable {
 
 	public void setEditPageUrl(String editPageUrl) {
 		this.editPageUrl = editPageUrl;
+	}
+
+	public Set<CoreModule> getSubModule() {
+		return subModule;
+	}
+
+	public void setSubModule(Set<CoreModule> subModule) {
+		this.subModule = subModule;
+	}
+
+	public String getParentModuleOid() {
+		return parentModuleOid;
+	}
+
+	public void setParentModuleOid(String parentModuleOid) {
+		this.parentModuleOid = parentModuleOid;
 	}
 
 }

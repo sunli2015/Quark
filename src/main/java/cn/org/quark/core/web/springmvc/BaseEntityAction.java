@@ -86,7 +86,7 @@ abstract public class BaseEntityAction<T, M extends EntityDao<T>> extends BaseAc
 	 */
 	protected ResultData<List<T>> doListEntity(CriteriaSetup criteriaSetup, Page page) throws Exception {
 		prepare();
-		Page<T> data = entityManager.pagedQuery(new CriteriaSetup(), page.getCurPage(), page.getPageSize());
+		Page<T> data = entityManager.pagedQuery(criteriaSetup, page.getCurPage(), page.getPageSize());
 		ResultData<List<T>> resultData = new ResultData<List<T>>();
 		RtnData<List<T>> rtnData= new RtnData<List<T>>();
 		rtnData.setData(data.getResult());

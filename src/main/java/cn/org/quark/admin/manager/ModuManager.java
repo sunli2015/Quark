@@ -1,5 +1,6 @@
 package cn.org.quark.admin.manager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import cn.org.quark.admin.entity.CoreDept;
 import cn.org.quark.admin.entity.CoreModule;
 import cn.org.quark.core.dao.hibernate5.HibernateEntityDao;
 
@@ -71,29 +73,43 @@ public class ModuManager extends HibernateEntityDao<CoreModule>{
 	 * 构建生成菜单树
 	 * @return
 	 */
-	public String buildTree(){
-		treeHtml = new StringBuilder();
+	public List<CoreModule> buildTree(){
+		list1.clear();
 		List<CoreModule> list = this.createCriteria(Restrictions.isNull("parentModule")).list();
 		for(CoreModule module : list){
-			_buildTree(module);
+			CoreModule d = new CoreModule();
+			d.setOid(module.getOid());
+			d.setModuleName(module.getModuleName());
+			list1.add(d);
+
+			_buildTree(d,module);
 		}
-		return treeHtml.toString();
+		return list1;
 	}
-	private StringBuilder treeHtml ;
-	private void _buildTree(CoreModule module){
+
+	private List<CoreModule> list1 = new ArrayList<CoreModule>();
+
+	private void _buildTree(CoreModule r ,CoreModule module){
 		Set<CoreModule> set = module.getSubModules();
 		if(set.isEmpty()){
-			treeHtml.append("<li id='").append(module.getOid()).append("'>").append(module.getModuleName()).append("</li>");
+			//treeHtml.append("<li id='").append(dept.getOid()).append("'>").append(dept.getDeptname()).append("</li>");
 			return ;
 		}
-		treeHtml.append("<li><span>").append(module.getModuleName()).append("</span>");
+		//treeHtml.append("<li><span>").append(dept.getDeptname()).append("</span>");
 		for(Iterator<CoreModule> it = set.iterator();it.hasNext();){
-			treeHtml.append("<ul>");
 			CoreModule _module = it.next();
-			_buildTree(_module);
-			treeHtml.append("</ul>");
+			
+			CoreModule d = new CoreModule();
+			d.setOid(_module.getOid());
+			d.setModuleName(_module.getModuleName());
+			r.getSubModule().add(d);
+			//treeHtml.append("<ul>");
+			
+			_buildTree(d,_module);
+			//treeHtml.append("</ul>");
 		}
-		treeHtml.append("</li>");
+		//treeHtml.append("</li>");
+		
 		return ;
 	}
 }
