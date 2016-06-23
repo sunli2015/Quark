@@ -167,8 +167,5 @@
     <ul id="tt" class="easyui-tree" data-options="animate:true,checkbox:true,cascadeCheck:true"></ul>
 	</div>
 	
-
-		
-	</div>
   </body>
 </html>
