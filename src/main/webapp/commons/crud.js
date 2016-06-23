@@ -6,6 +6,7 @@
 			formDialogId : '#dlg',//表单dialogDIV的id
 			formId : '#ff',//表单ID
 			editParamId : 'id',//编辑参数的ID
+			datagrid:true//表格数据
 	};
 	$.fn.extend({
 		initProp:function(options){
@@ -38,7 +39,8 @@
 					}
 					var _total = result.data.total;
 					var _pageSize = result.data.pageSize;
-					$(golbalProp.paginationId).pagination({
+					var pageObj = obj.datagrid("getPager");
+					pageObj.pagination({
 					    total:_total,
 					    pageSize:_pageSize,
 					    pageNumber:prop.curPage,
@@ -60,23 +62,39 @@
 		},
 		removeit:function(options){
 			var def = {
-					url:''
+					url:'',
+					datagrid:true,
+					fnCallback:function(obj){
+						var pageObj = obj.datagrid("getPager");
+						
+						var pageSize = pageObj.pagination('options').pageSize;
+						 var pageNumber = pageObj.pagination('options').pageNumber;
+						 obj.loadData({
+							 isPagination:true,
+							 curPage:pageNumber,
+							 pageSize:pageSize,
+							 url:golbalProp.listUrl
+						 });
+					}
 			};
 			var prop = $.extend({},def,options);
-			
+			console.log(prop);
 			
 			return this.each(function(){
 				var obj = $(this);
-				
-				var row = obj.datagrid('getSelected');
-				 console.log("row:",row);
-				 if(null == row){
-					 $.messager.alert('提示','请选择一条记录','info');
-					 return ;
-				 }
+				var url = prop.url;
+				if(prop.datagrid){
+					var row = obj.datagrid('getSelected');
+					 console.log("row:",row);
+					 if(null == row){
+						 $.messager.alert('提示','请选择一条记录','info');
+						 return ;
+					 }
+					 url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/delete.do?id="+row.oid;
+				}
+				console.log(prop);
 				 $.messager.confirm('删除','你确定要删除吗？',function(r){
 					 if(r){
-						 var url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/delete.do?id="+row.oid;
 						 $.get(url,function(result){
 							 var code = result.code;
 							 var errMsg = result.errMsg;
@@ -85,15 +103,7 @@
 								 msg += "删除失败："+errMsg;
 							 } 
 							 $.messager.alert('提示',msg,'info',function(){
-								 var pageSize = $(golbalProp.paginationId).pagination('options').pageSize;
-								 var pageNumber = $(golbalProp.paginationId).pagination('options').pageNumber;
-								 obj.loadData({
-									 isPagination:true,
-									 curPage:pageNumber,
-									 pageSize:pageSize,
-									 url:golbalProp.listUrl
-								 });
-								
+								 prop.fnCallback(obj);
 							 });
 						 });
 					 }
@@ -110,20 +120,26 @@
 		editit:function(options){
 			var def = {
 					url:'',
+					datagrid:true,
 					fnSetMultiParam:function(data){}
 			};
 			var prop = $.extend({},def,options);
 			
 			 return this.each(function(){
 				 var obj = $(this);
-				 
-				 var row = obj.datagrid('getSelected');
-				 console.log("row:",row);
-				 if(null == row){
-					 $.messager.alert('提示','请选择一条记录','info');
-					 return ;
+				 var url = "";
+				 if(!prop.datagrid){
+					 url = prop.url;
+				 } else {
+					 var row = obj.datagrid('getSelected');
+					 console.log("row:",row);
+					 if(null == row){
+						 $.messager.alert('提示','请选择一条记录','info');
+						 return ;
+					 }
+					 url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/edit.do?id="+row.oid;
 				 }
-				 var url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/edit.do?id="+row.oid;
+				 
 				 $.get(url,function(result){
 					 var data = result.data.data;
 					 console.log("edit row:",data);
@@ -135,7 +151,22 @@
 		},
 		saveit:function(options){
 			var def = {
-					url:''
+					url:'',
+					fnCallback:function(obj){//默认是表格回调处理
+						var id = $('#'+golbalProp.editParamId).val();
+						var pageObj = obj.datagrid("getPager");
+						
+			    		 var pageSize = pageObj.pagination('options').pageSize;
+			    		 var pageNumber = 1;
+			    		 if(id){
+			    			 pageNumber = pageObj.pagination('options').pageNumber;
+			    			 console.log('edit save:'+pageNumber);
+			    		 }
+			    		 obj.loadData({isPagination:true,
+								 curPage:pageNumber,
+								 pageSize:pageSize,
+								 url:golbalProp.listUrl});
+					}
 			};
 			var prop = $.extend({},def,options);
 			
@@ -156,17 +187,7 @@
 				    	}
 				    	$.messager.alert('提示',msg,'info',function(){
 				    		 $(golbalProp.formDialogId).dialog('close');
-				    		 var id = $('#'+golbalProp.editParamId).val();
-				    		 var pageSize = $(golbalProp.paginationId).pagination('options').pageSize;
-				    		 var pageNumber = 1;
-				    		 if(id){
-				    			 pageNumber = $(golbalProp.paginationId).pagination('options').pageNumber;
-				    			 console.log('edit save:'+pageNumber);
-				    		 }
-				    		 obj.loadData({isPagination:true,
-									 curPage:pageNumber,
-									 pageSize:pageSize,
-									 url:golbalProp.listUrl});
+				    		 prop.fnCallback(obj);
 				    	});
 				    }
 				});

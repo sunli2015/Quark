@@ -97,7 +97,7 @@
   <body>
   	<!-- list -->
     <table id="dg" title="用户列表" class="easyui-datagrid" style="width:100%;height:auto"
-			toolbar="#tb" pagination="false" idField="oid"
+			toolbar="#tb" pagination="true" idField="oid"
             rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
@@ -115,8 +115,6 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">权限</a>
 	</div>
-    <!-- page -->
-    <div id="pp" style="background:#efefef;border:1px solid #ccc;"></div>
     
     <!-- edit -->
     <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px" closed="true" buttons="#dlg-buttons">

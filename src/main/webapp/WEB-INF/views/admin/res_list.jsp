@@ -128,7 +128,7 @@
   	
   	<!-- list -->
     <table id="dg" title="资源列表" class="easyui-datagrid" style="width:100%;height:auto"
-			toolbar="#tb" pagination="false" idField="oid"
+			toolbar="#tb" pagination="true" idField="oid"
             rownumbers="true" fitColumns="true" singleSelect="${singleSelect }">
         <thead>
             <tr>
@@ -162,8 +162,6 @@
     	</c:choose>
 		
 	</div>
-    <!-- page -->
-    <div id="pp" style="background:#efefef;border:1px solid #ccc;"></div>
     
     <c:if test="${param.select!=1 }">
     <!-- edit -->

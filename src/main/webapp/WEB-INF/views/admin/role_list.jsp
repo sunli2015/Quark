@@ -71,13 +71,13 @@
   	<!-- list -->
     <table id="dg" title="角色列表" class="easyui-datagrid" style="width:100%;height:auto"
             url=""
-            toolbar="#tb" pagination="false"
+            toolbar="#tb" pagination="true" 
             rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="rolecode" width="50">角色编码</th>
-                <th field="rolename" width="50">角色名称</th>
-                <th field="descn" width="50">描述</th>
+                <th field="rolecode" width="30%">角色编码</th>
+                <th field="rolename" width="30%">角色名称</th>
+                <th field="descn" width="38%">描述</th>
             </tr>
         </thead>
     </table>
@@ -87,8 +87,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">资源</a>
 	</div>
-    <!-- page -->
-    <div id="pp" style="background:#efefef;border:1px solid #ccc;"></div>
+    
     
     <!-- edit -->
     <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
