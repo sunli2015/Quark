@@ -13,6 +13,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -278,6 +279,7 @@ public abstract class HibernateGenericDao {
 		if (totalCount < 1)
 			return new Page();
 		criteria.setProjection(null);
+		criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 		int startIndex = Page.getStartOfPage(pageNo, pageSize);
 		List list = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
 		return new Page(startIndex, totalCount, pageSize, list);

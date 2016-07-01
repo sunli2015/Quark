@@ -27,6 +27,12 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 		return super.list(page);
 		
 	}
+	@RequestMapping("/queryBy")
+	@ResponseBody
+	public ResultData<CoreRole> queryBy(String rolecode) throws Exception{
+		CoreRole coreRole = super.getEntityManager().findUniqueBy("rolecode", "ROLE_"+rolecode);
+		return super.fill(coreRole);
+	}
 	
 	@RequestMapping("/index")
 	public String index() {

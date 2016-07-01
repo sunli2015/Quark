@@ -2,6 +2,7 @@ package cn.org.quark.admin.controller;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,23 @@ public class ResourceAction extends BaseEntityAction<CoreResource,ResourceManage
 		return super.doListEntity(criteriaSetup, page);
 		
 	}
+	
+	@RequestMapping("/queryByRoleId")
+	@ResponseBody
+	public ResultData<List<CoreResource>> queryByRole(final String roleId) throws Exception{
+		CriteriaSetup criteriaSetup = new CriteriaSetup(){
+
+			@Override
+			public void setup(Criteria criteria) {
+				criteria.createAlias("roles", "r").add(Restrictions.eq("r.oid", roleId));
+			}
+			
+		};
+		
+		return super.doListEntity(criteriaSetup, new Page());
+		
+	}
+	
 	
 	@RequestMapping("/index")
 	public String index() {

@@ -12,11 +12,30 @@
 		$('#dg').loadData({//加载表格数据
 			isPagination:true,
 			url:CONTEXT_PATH+"/resource/list.do?moduleId=${param.moduleId}",
+			fnCallback:function(){
+				loadSelected();
+			}
 		});
 		
 		<c:choose>
 			<c:when test='${param.select==1 }'>
 			var selectedlist = new Array();
+			
+			function loadSelected(){
+				var url = CONTEXT_PATH+"/resource/queryByRoleId.do?roleId=${param.roleId}";
+				$.post(url,null,function(result){
+					console.log("result:",result);
+					var list = result.data.data;
+					$.each(list,function(i,d){
+						var index = $('#dg').datagrid("getRowIndex",d.oid);
+						//alert("oid:"+d.oid+"=>index:"+index);
+						if(index != -1)
+						$('#dg').datagrid("checkRow",index);
+					});
+					displaySelectedStr();
+				}
+				);
+			}
 			function displaySelectedStr(){
 				var str = '';
 				var id = '';

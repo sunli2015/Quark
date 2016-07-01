@@ -60,7 +60,12 @@ public class CoreRole implements java.io.Serializable {
 	}
 
 	public void setRolecode(String rolecode) {
-		this.rolecode = "ROLE_"+rolecode;
+		if(rolecode.indexOf("ROLE_") ==-1){
+			this.rolecode = "ROLE_"+rolecode;
+		} else {
+			this.rolecode = rolecode;
+		}
+		
 	}
 
 	public String getRolename() {

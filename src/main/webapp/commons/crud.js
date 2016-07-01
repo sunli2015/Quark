@@ -17,7 +17,8 @@
 					isPagination:true,
 					curPage:1,
 					pageSize:10,
-					url:''
+					url:'',
+					fnCallback:function(){}
 			};
 			
 			var prop = $.extend({},def,options);
@@ -34,9 +35,6 @@
 					console.log("result",result);
 					var list = result.data.data;
 					obj.datagrid("loadData",list);
-					if(!prop.isPagination){
-						return ;
-					}
 					var _total = result.data.total;
 					var _pageSize = result.data.pageSize;
 					var pageObj = obj.datagrid("getPager");
@@ -48,15 +46,15 @@
 							$(this).pagination('loading');
 							console.log('pageNumber:'+pageNumber+',pageSize:'+pageSize);
 							obj.loadData({
-								isPagination:false,
 								curPage:pageNumber,
 								pageSize:pageSize,
 								url:prop.url
 							});
 							$(this).pagination('loaded');
+							prop.fnCallback();
 						}
 					});
-
+					prop.fnCallback();
 				});
 			});
 		},
@@ -70,7 +68,6 @@
 						var pageSize = pageObj.pagination('options').pageSize;
 						 var pageNumber = pageObj.pagination('options').pageNumber;
 						 obj.loadData({
-							 isPagination:true,
 							 curPage:pageNumber,
 							 pageSize:pageSize,
 							 url:golbalProp.listUrl
@@ -162,11 +159,12 @@
 			    			 pageNumber = pageObj.pagination('options').pageNumber;
 			    			 console.log('edit save:'+pageNumber);
 			    		 }
-			    		 obj.loadData({isPagination:true,
+			    		 obj.loadData({
 								 curPage:pageNumber,
 								 pageSize:pageSize,
 								 url:golbalProp.listUrl});
-					}
+					},
+					fnOnSubmit:function(){return true;}
 			};
 			var prop = $.extend({},def,options);
 			
@@ -175,8 +173,7 @@
 				$(golbalProp.formId).form('submit', {
 				    url:prop.url,//CONTEXT_PATH+"/resource/save.do",
 				    onSubmit: function(){
-				        // do some check
-				        // return false to prevent submit;
+				    	return prop.fnOnSubmit();
 				    },
 				    success:function(data){
 				    	console.log("save===》"+data);

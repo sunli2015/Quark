@@ -87,14 +87,10 @@ abstract public class BaseEntityAction<T, M extends EntityDao<T>> extends BaseAc
 	protected ResultData<List<T>> doListEntity(CriteriaSetup criteriaSetup, Page page) throws Exception {
 		prepare();
 		Page<T> data = entityManager.pagedQuery(criteriaSetup, page.getCurPage(), page.getPageSize());
-		ResultData<List<T>> resultData = new ResultData<List<T>>();
-		RtnData<List<T>> rtnData= new RtnData<List<T>>();
-		rtnData.setData(data.getResult());
-		rtnData.setTotal(data.getTotalCount());
-		rtnData.setPageSize(data.getPageSize());
-		resultData.setData(rtnData);
-		return resultData;
+		return fill(data);
 	}
+	
+	
 	/**
 	 * 删除
 	 * @param id
@@ -118,11 +114,7 @@ abstract public class BaseEntityAction<T, M extends EntityDao<T>> extends BaseAc
 		prepare();
 		T entity = entityManager.get(id);
 		resetEditEntity(entity);
-		ResultData<T> resultData = new ResultData<T>();
-		RtnData<T> rtnData= new RtnData<T>();
-		rtnData.setData(entity);
-		resultData.setData(rtnData);
-		return resultData;
+		return fill(entity);
 	}
 	/**
 	 * 重置编辑获取的实体
@@ -141,6 +133,34 @@ abstract public class BaseEntityAction<T, M extends EntityDao<T>> extends BaseAc
 		prepare();
 		entityManager.save(entity);;
 		return new ResultData<T>();
+	}
+	/**
+	 * LIST结果填充
+	 * @param data
+	 * @return
+	 */
+	protected ResultData<List<T>> fill(Page<T> data){
+		ResultData<List<T>> resultData = new ResultData<List<T>>();
+		RtnData<List<T>> rtnData= new RtnData<List<T>>();
+		rtnData.setData(data.getResult());
+		rtnData.setTotal(data.getTotalCount());
+		rtnData.setPageSize(data.getPageSize());
+		resultData.setData(rtnData);
+		return resultData;
+	}
+	/**
+	 * 对象T结果填充
+	 * @param data
+	 * @return
+	 */
+	protected ResultData<T> fill(T data){
+		ResultData<T> resultData = new ResultData<T>();
+		RtnData<T> rtnData= new RtnData<T>();
+		rtnData.setData(data);
+		rtnData.setTotal(1);
+		rtnData.setPageSize(1);
+		resultData.setData(rtnData);
+		return resultData;
 	}
 	
 }

@@ -21,12 +21,42 @@
 		});
 		$('#btnedit').click(function(){
 			$('#dg').editit({//初始化编辑表单
-				url: CONTEXT_PATH+"/role/edit.do"
+				url: CONTEXT_PATH+"/role/edit.do",
+				fnSetMultiParam:function(){
+					var _id = $("#id").val();
+					if(_id != ""){
+						$("#rolecode").css("disabled","true");
+					}
+				}
 			});
 		});
 		$('#btnsave').click(function(){
 			$('#dg').saveit({//保存
-				url: CONTEXT_PATH+"/role/save.do"
+				url: CONTEXT_PATH+"/role/save.do",
+				fnOnSubmit:function(){
+					var _id = $("#id").val();
+					if(_id == ""){
+						var rtn = false;
+						var _rolecode = $("#rolecode").val();
+						$.ajax({
+							url:CONTEXT_PATH+"/role/queryBy.do",
+							type:"post",
+							dataType:"json",
+							data:{rolecode:_rolecode},
+							async:false,
+							success:function(result){
+								var d = result.data.data;
+								console.log("d",d);
+								if(d == null ) rtn = true;
+							}
+						});
+						if(!rtn){
+							$.messager.alert('提示','角色编码已存在','warn');
+						}
+						return rtn;
+					}
+					return true;
+				}
 			});
 		});
 		
@@ -38,7 +68,7 @@
 				return ;
 			}
 			$('#grant_roleid').val(row.oid);
-			$('#ifr_resdialog').attr('src',CONTEXT_PATH+'/module/index.do?select=1');
+			$('#ifr_resdialog').attr('src',CONTEXT_PATH+'/module/index.do?select=1&roleId='+row.oid);
 			$('#resdialog').dialog('open');
 		});
 		
@@ -96,7 +126,7 @@
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>角色编码:</td>
-	    			<td><input class="easyui-textbox" type="text" name="rolecode" data-options="required:true"></input></td>
+	    			<td><input class="easyui-textbox" type="text" id="rolecode" name="rolecode" data-options="required:true"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>角色名称:</td>
