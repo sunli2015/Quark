@@ -33,7 +33,11 @@
 		});
 		$('#btnsave').click(function(){
 			$('#dg').saveit({//保存
-				url: CONTEXT_PATH+"/user/save.do"
+				url: CONTEXT_PATH+"/user/save.do",
+				fnOnSubmit:function(){
+					var isvalid = $("#ff").form('enableValidation').form('validate');
+					return isvalid;
+				}
 			});
 		});
 		$('#btngrant').click(function(){

@@ -13,7 +13,9 @@
 			isPagination:true,
 			url:CONTEXT_PATH+"/resource/list.do?moduleId=${param.moduleId}",
 			fnCallback:function(){
+				<c:if test='${param.select==1 }'>
 				loadSelected();
+				</c:if>
 			}
 		});
 		
@@ -29,13 +31,29 @@
 					$.each(list,function(i,d){
 						var index = $('#dg').datagrid("getRowIndex",d.oid);
 						//alert("oid:"+d.oid+"=>index:"+index);
-						if(index != -1)
-						$('#dg').datagrid("checkRow",index);
+						if(index != -1){
+							$('#dg').datagrid("checkRow",index);
+							}
+						
+						_handleSelectedArray(d);
 					});
 					displaySelectedStr();
 				}
 				);
 			}
+			
+			function _handleSelectedArray(obj){
+				var exist = false;
+				$.each(selectedlist,function(i,d){
+					if(d.oid == obj.oid){
+						exist = true;
+					}
+				});
+				if(!exist){
+					selectedlist.push({"oid":obj.oid,"rname":obj.rname});
+				}
+			}
+			
 			function displaySelectedStr(){
 				var str = '';
 				var id = '';
@@ -54,7 +72,8 @@
 			}
 			$('#dg').datagrid({
 				onCheck:function(i,row){
-					selectedlist.push(row);
+					
+					_handleSelectedArray(row);
 					displaySelectedStr();
 				},
 				onUncheck:function(i,row){
@@ -71,7 +90,8 @@
 				onSelectAll:function(rows){
 					_handle(rows,function(index,row){
 						if(index == -1){
-							selectedlist.push(row);
+							//selectedlist.push(row);
+							_handleSelectedArray(row);
 						}
 					});
 					displaySelectedStr();
@@ -100,11 +120,6 @@
 				});
 			}
 			
-			$('#btnsave').click(function(){
-				var chklist = $('#dg').datagrid("getChecked");
-				
-				console.log('row id:${param.roleid }');
-			});
 			
 			</c:when>
 			<c:otherwise>
@@ -127,7 +142,11 @@
 			});
 			$('#btnsave').click(function(){
 				$('#dg').saveit({//保存
-					url: CONTEXT_PATH+"/resource/save.do"
+					url: CONTEXT_PATH+"/resource/save.do",
+					fnOnSubmit:function(){
+						var isvalid = $("#ff").form('enableValidation').form('validate');
+						return isvalid;
+					}
 				});
 			});
 			</c:otherwise>
@@ -160,7 +179,7 @@
 	    		<c:otherwise>
 	    		<th field="rcode" width="20%">资源编码</th>
                 <th field="rname" width="20%">资源名称</th>
-                <th field="resString" width="40%">资源URL</th>
+                <th field="resString" width="38%">资源URL</th>
                 <th field="descn" width="20%">资源描述</th>
 	    		</c:otherwise>
 	    		</c:choose>

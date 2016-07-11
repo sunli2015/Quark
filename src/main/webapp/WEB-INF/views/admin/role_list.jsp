@@ -34,6 +34,10 @@
 			$('#dg').saveit({//保存
 				url: CONTEXT_PATH+"/role/save.do",
 				fnOnSubmit:function(){
+					var isvalid = $("#ff").form('enableValidation').form('validate');
+					if(!isvalid){
+						return isvalid;
+					}
 					var _id = $("#id").val();
 					if(_id == ""){
 						var rtn = false;

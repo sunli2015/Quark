@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/commons/taglibs.inc"%>
 <c:set var="title" value="Tree" />
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>${title}</title>
 <%@ include file="/commons/public.inc"%>
@@ -13,6 +13,10 @@ $(function(){
 	$('#btnsave').click(function(){
 		$('#region_center').saveit({//保存
 			url: CONTEXT_PATH+"/dept/save.do",
+			fnOnSubmit:function(){
+				var isvalid = $("#ff").form('enableValidation').form('validate');
+				return isvalid;
+			},
 			fnCallback:function(obj){
 				loadTreeData();
 			}
@@ -51,17 +55,20 @@ function loadTreeData(){
 			data:tree,
 			onClick: function(node){
 				var id = node.id;
-				var height = $("#region_center").height();
-				//console.log("height:",height);
-				var url = CONTEXT_PATH+"/user/index.do?deptId="+id;
-				$("#region_center").empty();
-		        var content = '<iframe id="ifr_reslist" scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:'+height+';"></iframe>';
-		        $("#region_center").append(content);
+				showlist(id);
 			},
 		    onContextMenu: function(e, node){
 				e.preventDefault();
 				// select the node
 				$('#funtree').tree('select', node.target);
+				
+				var obj = $('#funtree').tree('getSelected');
+				if(obj.id == '1'){
+					$("#mm_del").hide();
+				} else {
+					$("#mm_del").show();
+				}
+				
 				// display context menu
 				$('#mm').menu('show', {
 					left: e.pageX,
@@ -69,7 +76,18 @@ function loadTreeData(){
 				});
 			}
 		});
+		showlist(1);
 	});
+}
+function showlist(id){
+	var height = $("#region_center").height();
+	//console.log("height:",height);
+	var url = CONTEXT_PATH+"/user/index.do?deptId="+id;
+	$("#region_center").empty();
+    var content = '<iframe id="ifr_reslist" scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:'+height+';"></iframe>';
+    $("#region_center").append(content);
+    
+    $('#ifr_reslist').height(height);
 }
 function append(){
 	$('#region_center').appendit(function(){
@@ -111,7 +129,7 @@ function edit(){
 	<div id="mm" class="easyui-menu" style="width:120px;">
 		<div onclick="append()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="edit()" data-options="iconCls:'icon-edit'">修改</div>
-		<div onclick="remove1()" data-options="iconCls:'icon-remove'">删除</div>
+		<div onclick="remove1()" id="mm_del" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
 	
 	<!-- edit -->
