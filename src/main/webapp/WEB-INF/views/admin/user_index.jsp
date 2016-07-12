@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/commons/taglibs.inc"%>
 <c:set var="title" value="Tree" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>${title}</title>
@@ -93,7 +94,9 @@ function append(){
 	$('#region_center').appendit(function(){
 		var obj = $('#funtree').tree('getSelected');
 		$("#parentDeptOid").val(obj.id);
-		
+		$("#deptid").textbox({
+			readonly:false
+		});
 	});//初始化新增表单
 }
 function remove1(){
@@ -113,6 +116,9 @@ function edit(){
 		datagrid:false,
 		fnSetMultiParam:function(data){
 			$('#parentDeptOid').val(data.parentDeptOid);
+			$("#deptid").textbox({
+				readonly:true
+			});
 		}
 	});
 }
@@ -140,7 +146,7 @@ function edit(){
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>部门编号:</td>
-	    			<td><input class="easyui-textbox" type="text" name="deptid" data-options="required:true"></input></td>
+	    			<td><input class="easyui-textbox" type="text" id="deptid" name="deptid" data-options="required:true"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>部门名称:</td>

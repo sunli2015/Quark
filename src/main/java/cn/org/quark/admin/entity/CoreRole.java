@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -47,6 +48,9 @@ public class CoreRole implements java.io.Serializable {
 			cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private Set<CoreUser> users = new HashSet<CoreUser>(0);
 
+	@Transient
+	private boolean checked = false;
+	
 	public String getOid() {
 		return oid;
 	}
@@ -98,6 +102,14 @@ public class CoreRole implements java.io.Serializable {
 
 	public void setUsers(Set<CoreUser> users) {
 		this.users = users;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 	
 	

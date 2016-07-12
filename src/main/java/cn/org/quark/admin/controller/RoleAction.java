@@ -2,6 +2,7 @@ package cn.org.quark.admin.controller;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.org.quark.admin.entity.CoreResource;
 import cn.org.quark.admin.entity.CoreRole;
 import cn.org.quark.admin.manager.RoleManager;
+import cn.org.quark.core.dao.support.CriteriaSetup;
 import cn.org.quark.core.dao.support.Page;
 import cn.org.quark.core.utils.UtilString;
 import cn.org.quark.core.web.springmvc.BaseEntityAction;
@@ -27,6 +29,13 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 		return super.list(page);
 		
 	}
+	@RequestMapping("/listByUserId")
+	@ResponseBody
+	public ResultData<List<CoreRole>> list(String userid) throws Exception{
+		Page<CoreRole> data = super.getEntityManager().queryByUserId(userid, 1, Page.MAX_PAGE_SIZE);
+		return super.fill(data);
+	}
+	
 	@RequestMapping("/queryBy")
 	@ResponseBody
 	public ResultData<CoreRole> queryBy(String rolecode) throws Exception{

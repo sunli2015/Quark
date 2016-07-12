@@ -17,16 +17,19 @@
 			$('#dg').removeit({url:CONTEXT_PATH+"/role/delete.do"});//删除
 		});
 		$('#btnappend').click(function(){
-			$('#dg').appendit();//初始化新增表单
+			$('#dg').appendit(function(){
+				$("#rolecode").textbox({
+					readonly:false
+				});
+			});//初始化新增表单
 		});
 		$('#btnedit').click(function(){
 			$('#dg').editit({//初始化编辑表单
 				url: CONTEXT_PATH+"/role/edit.do",
 				fnSetMultiParam:function(){
-					var _id = $("#id").val();
-					if(_id != ""){
-						$("#rolecode").css("disabled","true");
-					}
+					$("#rolecode").textbox({
+						readonly:true
+					});
 				}
 			});
 		});

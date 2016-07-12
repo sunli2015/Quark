@@ -59,6 +59,23 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 		ResultData resultData = new ResultData();
 		return resultData;
 	}
+	
+	/**
+	 * 修改密码
+	 * @param oldPwd
+	 * @param newPwd
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/modifystatus")
+	@ResponseBody
+	public ResultData modifyStatus(String oid , String status) throws Exception{
+		super.getEntityManager().changeStatus(oid, status);
+		ResultData resultData = new ResultData();
+		return resultData;
+	}
+	
+	
 	@RequestMapping("/index")
 	public String index() {
 		return "admin/user_list";

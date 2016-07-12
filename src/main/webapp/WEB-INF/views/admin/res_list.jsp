@@ -129,6 +129,9 @@
 			$('#btnappend').click(function(){
 				$('#dg').appendit(function(){
 						$('#moduleOid').val('${param.moduleId}');
+						$("#rcode").textbox({
+							readonly:false
+						});
 					}
 				);//初始化新增表单
 			});
@@ -137,6 +140,9 @@
 					url: CONTEXT_PATH+"/resource/edit.do",
 					fnSetMultiParam:function(data){
 						$('#moduleOid').val(data.moduleOid);
+						$("#rcode").textbox({
+							readonly:true
+						});
 					}
 				});
 			});
@@ -210,7 +216,7 @@
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>资源编码:</td>
-	    			<td><input class="easyui-textbox" type="text" name="rcode" data-options="required:true"></input></td>
+	    			<td><input class="easyui-textbox" type="text" id="rcode" name="rcode" data-options="required:true"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>资源名称:</td>

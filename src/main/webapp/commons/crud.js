@@ -189,6 +189,18 @@
 				    }
 				});
 			});
+		},
+		reloadData:function(){
+			return this.each(function(){
+				var obj = $(this);
+				var pageObj = obj.datagrid("getPager");
+	    		var pageSize = pageObj.pagination('options').pageSize;
+	    		var pageNumber = pageObj.pagination('options').pageNumber;
+	    		obj.loadData({
+						 curPage:pageNumber,
+						 pageSize:pageSize,
+						 url:golbalProp.listUrl});
+			});
 		}
 		
 	});
