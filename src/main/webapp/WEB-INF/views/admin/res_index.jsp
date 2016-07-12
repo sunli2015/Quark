@@ -57,7 +57,9 @@ function loadTreeData(){
 			onClick: function(node){
 				var id = node.id;
 				showlist(id);
-			},
+			}
+		<c:if test="${param.select !=1 }">
+			,
 		    onContextMenu: function(e, node){
 				e.preventDefault();
 				// select the node
@@ -75,6 +77,7 @@ function loadTreeData(){
 					top: e.pageY
 				});
 			}
+		</c:if>
 		});
 		showlist(1);
 	});
@@ -89,6 +92,7 @@ function showlist(id){
     $("#region_center").append(content);
     $('#ifr_reslist').height(height);
 }
+<c:if test="${param.select !=1 }">
 function append(){
 	$('#region_center').appendit(function(){
 		var obj = $('#funtree').tree('getSelected');
@@ -116,7 +120,7 @@ function edit(){
 		}
 	});
 }
-
+</c:if>
 </script>
 </head>
 
@@ -126,12 +130,12 @@ function edit(){
 	</div>
 	<div id="region_center" data-options="region:'center'"></div>
 	
+	<c:if test="${param.select !=1 }">
 	<div id="mm" class="easyui-menu" style="width:120px;">
 		<div onclick="append()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="edit()" data-options="iconCls:'icon-edit'">修改</div>
 		<div onclick="remove1()" id="mm_del" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
-	
 	<!-- edit -->
     <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
 	    <form id="ff" method="post">
@@ -153,6 +157,7 @@ function edit(){
         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="btnsave" style="width:90px">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">关闭</a>
     </div>
+    </c:if>
 </body>
 </html>
 

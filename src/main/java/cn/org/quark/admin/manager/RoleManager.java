@@ -26,7 +26,7 @@ public class RoleManager extends HibernateEntityDao<CoreRole>{
 	
 	@RemoteMethod
 	public void changeRes(String roleid,String[] checked){
-		System.out.println(roleid);
+//		System.out.println(roleid);
 		CoreRole role = this.get(roleid);
 		Set<CoreResource> resList= role.getResources();
 		if(!resList.isEmpty()) resList.clear();

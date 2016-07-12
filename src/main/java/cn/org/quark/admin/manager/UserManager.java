@@ -18,8 +18,8 @@ import cn.org.quark.admin.entity.CoreRole;
 import cn.org.quark.admin.entity.CoreUser;
 import cn.org.quark.core.Constants;
 import cn.org.quark.core.dao.hibernate5.HibernateEntityDao;
+import cn.org.quark.core.security.manager.RefreshAuthManager;
 import cn.org.quark.core.utils.UtilString;
-import cn.org.quark.core.web.support.ServiceLocator;
 /**
  * 用户管理器
  * @author Leo
@@ -111,9 +111,7 @@ public class UserManager extends HibernateEntityDao<CoreUser>{
 		CoreUser u = this.get(oid);
 		u.setRoles(set);
 		super.save(u);
-		FilterInvocationSecurityMetadataSource fids = (FilterInvocationSecurityMetadataSource)ServiceLocator.getBean("filterInvocationSecurityMetadataSource");
-		FilterSecurityInterceptor filter = (FilterSecurityInterceptor) ServiceLocator.getBean("filterSecurityInterceptor");
-		filter.setSecurityMetadataSource(fids);
+		RefreshAuthManager.refresh();
 	}
 	@Autowired
 	private BasePasswordEncoder passwordEncoder;

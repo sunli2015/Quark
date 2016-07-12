@@ -10,7 +10,6 @@
 	<script type="text/javascript">
 	$(function(){
 		$('#dg').loadData({//加载表格数据
-			isPagination:true,
 			url:CONTEXT_PATH+"/user/list.do?deptId=${param.deptId}",
 		});
 		
@@ -79,6 +78,13 @@
 				$('#roledialog').dialog('open');
 			});
 		});
+		$("#search").click(function(){
+			var qname = $("#search_name").val();
+			$("#dg").loadData({
+				url:CONTEXT_PATH+"/user/list.do?deptId=${param.deptId}",
+				qparam:{'name':qname}
+			});
+		});
 	});
 	var grant = function(){
 		var userid = $('#grant_userid').val();
@@ -126,7 +132,10 @@
 						console.log('result:',result);
 						if(result.code == '0'){
 							$.messager.alert('提示','修改成功','info',function(){
-								$('#dg').reloadData();
+								var qname = $("#search_name").val();
+								$('#dg').reloadData({
+									qparam:{'name':qname}
+								});
 							});
 						} else {
 							$.messager.alert('提示','修改失败：'+result.errMsg,'info');
@@ -135,10 +144,7 @@
 					});
 			 }
 		 });
-		
-		
-		
-		
+
 	}
 	</script>
   </head>
@@ -164,6 +170,10 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btnedit">编辑</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">权限</a>
+		<div style="padding-left: 5px;">
+		姓名: <input class="easyui-textbox" style="width:110px" id="search_name">
+		<a href="#" class="easyui-linkbutton" id="search" iconCls="icon-search">查询</a>
+		</div>
 	</div>
 
     <!-- edit -->

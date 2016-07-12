@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/editpwd")
+	@RequestMapping("/pwdedit")
 	public String editPwd(){
 		return "admin/pwd_edit";
 	}
@@ -46,7 +47,7 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	 * @param newPwd
 	 * @return
 	 */
-	@RequestMapping("/modifypwd")
+	@RequestMapping("/pwdmodify")
 	@ResponseBody
 	public ResultData modifyPwd(String oldPwd , String newPwd,HttpServletRequest request){
 		Loginer loginer = LoginUtil.getLoginer(request);
@@ -82,9 +83,12 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	}
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData<List<CoreUser>> list(String deptId , Page page) throws Exception{
+	public ResultData<List<CoreUser>> list(String deptId ,String name, Page page) throws Exception{
 		CriteriaSetup criteriaSetup = new CriteriaSetup();
 		criteriaSetup.addCriterion(Restrictions.eq("dept.oid", deptId));
+		if(!UtilString.isEmpty(name)){
+			criteriaSetup.addCriterion(Restrictions.like("cname", name,MatchMode.ANYWHERE));
+		}
 		return super.doListEntity(criteriaSetup, page);
 	}
 

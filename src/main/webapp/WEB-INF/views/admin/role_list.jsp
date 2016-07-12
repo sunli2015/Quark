@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/commons/taglibs.inc"%>
-<c:set var="title" value="系统资源维护" />
+<c:set var="title" value="角色维护" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -154,7 +154,7 @@
     
     <!-- grant -->
     <input id="grant_roleid" type="hidden"/>
-    <div id="resdialog" class="easyui-dialog" style="width:650px;height:455px;padding-bottom: 0" closed="true"  data-options="title:'选择权限',modal:true,
+    <div id="resdialog" class="easyui-dialog" style="width:650px;height:455px;padding-bottom: 0" closed="true"  data-options="title:'选择资源',modal:true,
 			toolbar:[{
 				text:'保存',
 				iconCls:'icon-save',

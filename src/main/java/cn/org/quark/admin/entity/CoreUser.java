@@ -17,8 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Proxy;
-import org.springframework.aop.framework.ProxyFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -33,7 +31,6 @@ public class CoreUser implements java.io.Serializable {
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String oid;//OID
-	
 	
 	@ManyToOne(targetEntity = CoreDept.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "DEPT_OID")

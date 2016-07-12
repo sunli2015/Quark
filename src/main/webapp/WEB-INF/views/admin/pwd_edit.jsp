@@ -13,7 +13,7 @@ $(function(){
 		if(!isval){
 			return ;
 		}
-		var url =CONTEXT_PATH+"/user/modifypwd.do";
+		var url =CONTEXT_PATH+"/user/pwdmodify.do";
 		var oldPwd = $("#oldPwd").val();
 		var newPwd = $("#newPwd").val();
 		var newPwdAgain = $("#newPwdAgain").val();
