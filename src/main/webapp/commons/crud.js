@@ -8,54 +8,63 @@
 			editParamId : 'id',//编辑参数的ID
 			datagrid:true//表格数据
 	};
+	/**
+	 * load data
+	 */
+	function _loadData(obj,options){
+		var def = {
+				curPage:1,
+				pageSize:10,
+				url:'',
+				fnCallback:function(){},
+				qparam:{}
+		};
+		
+		var prop = $.extend({},def,options);
+		$.extend(golbalProp,{listUrl:prop.url});
+		
+		var url = prop.url;//CONTEXT_PATH+"/resource/list.do?moduleId=${param.moduleId}"+param;
+		//query param ajax post to server
+		var _qparam = $.extend({},{
+			'curPage':prop.curPage,
+			'pageSize':prop.pageSize},prop.qparam);
+		
+		
+		$.post(url,_qparam,function(result){
+			//console.log("result",result);
+			var list = result.data.data;
+			obj.datagrid("loadData",list);
+			var _total = result.data.total;
+			var _pageSize = result.data.pageSize;
+			var pageObj = obj.datagrid("getPager");
+			pageObj.pagination({
+			    total:_total,
+			    pageSize:_pageSize,
+			    pageNumber:prop.curPage,
+			    onSelectPage:function(pageNumber, pageSize){
+					$(this).pagination('loading');
+					console.log('pageNumber:'+pageNumber+',pageSize:'+pageSize);
+					obj.loadData({
+						curPage:pageNumber,
+						pageSize:pageSize,
+						url:prop.url,
+						qparam:prop.qparam
+					});
+					$(this).pagination('loaded');
+					prop.fnCallback();
+				}
+			});
+			prop.fnCallback();
+		});
+	};
 	$.fn.extend({
 		initProp:function(options){
 			$.extend(golbalProp,options);
 		},
 		loadData:function(options){
-			var def = {
-					isPagination:true,
-					curPage:1,
-					pageSize:10,
-					url:'',
-					fnCallback:function(){}
-			};
-			
-			var prop = $.extend({},def,options);
-			
-			$.extend(golbalProp,{listUrl:prop.url});
-			
 			return this.each(function(){
 				var obj = $(this);
-				var url = prop.url;//CONTEXT_PATH+"/resource/list.do?moduleId=${param.moduleId}"+param;
-				console.log("url:",url);
-				$.post(url,{
-					'curPage':prop.curPage,
-					'pageSize':prop.pageSize},function(result){
-					console.log("result",result);
-					var list = result.data.data;
-					obj.datagrid("loadData",list);
-					var _total = result.data.total;
-					var _pageSize = result.data.pageSize;
-					var pageObj = obj.datagrid("getPager");
-					pageObj.pagination({
-					    total:_total,
-					    pageSize:_pageSize,
-					    pageNumber:prop.curPage,
-					    onSelectPage:function(pageNumber, pageSize){
-							$(this).pagination('loading');
-							console.log('pageNumber:'+pageNumber+',pageSize:'+pageSize);
-							obj.loadData({
-								curPage:pageNumber,
-								pageSize:pageSize,
-								url:prop.url
-							});
-							$(this).pagination('loaded');
-							prop.fnCallback();
-						}
-					});
-					prop.fnCallback();
-				});
+				_loadData(obj,options);
 			});
 		},
 		removeit:function(options){
@@ -190,16 +199,17 @@
 				});
 			});
 		},
-		reloadData:function(){
+		reloadData:function(options){
 			return this.each(function(){
 				var obj = $(this);
 				var pageObj = obj.datagrid("getPager");
 	    		var pageSize = pageObj.pagination('options').pageSize;
 	    		var pageNumber = pageObj.pagination('options').pageNumber;
-	    		obj.loadData({
-						 curPage:pageNumber,
-						 pageSize:pageSize,
-						 url:golbalProp.listUrl});
+	    		_loadData(obj,{
+					 curPage:pageNumber,
+					 pageSize:pageSize,
+					 url:golbalProp.listUrl,
+					 qparam:options.qparam});
 			});
 		}
 		
