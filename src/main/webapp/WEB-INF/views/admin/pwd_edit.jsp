@@ -21,6 +21,7 @@ $(function(){
 		$.post(url,param,function(result){
 			if(result.code == '0'){
 				$.messager.alert('提示','操作成功');
+				resetval();
 			} else {
 				$.messager.alert('提示','操作失败：'+result.errMsg);
 			}
@@ -28,10 +29,13 @@ $(function(){
 		});
 	});
 	$("#reset").click(function(){
-		$("#oldPwd").val("");
-		$("#newPwd").val("");
-		$("#newPwdAgain").val("");
+		resetval();
 	});
+	function resetval(){
+		$('#oldPwd').textbox('reset');
+		$('#newPwd').textbox('reset');
+		$('#newPwdAgain').textbox('reset');
+	}
 });
 </script>
 </head>
