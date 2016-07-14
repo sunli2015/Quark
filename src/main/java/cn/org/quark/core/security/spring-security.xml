@@ -74,7 +74,7 @@
         <beans:property name="authenticationManager" ref="org.springframework.security.authenticationManager"/>
     </beans:bean>
   	<beans:bean id="filterInvocationSecurityMetadataSource"
-        class="cn.org.quark.core.security.JdbcFilterInvocationDefinitionSourceFactoryBean">
+        class="cn.org.quark.core.security.JdbcSecurityMetadataSource">
         <beans:property name="dataSource" ref="dataSource"/>
 	    <beans:property name="resourceQuery" value="
 	         select re.res_string,r.ROLECODE

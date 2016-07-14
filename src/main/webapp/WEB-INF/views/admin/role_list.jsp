@@ -66,7 +66,7 @@
 				}
 			});
 		});
-		
+		<coral:auth res="admin_res">
 		$('#btngrant').click(function(){
 			var row = $('#dg').datagrid('getSelected');
 			console.log("row:",row);
@@ -78,8 +78,9 @@
 			$('#ifr_resdialog').attr('src',CONTEXT_PATH+'/module/index.do?select=1&roleId='+row.oid);
 			$('#resdialog').dialog('open');
 		});
-		
+		</coral:auth>
 	});
+	<coral:auth res="admin_res">
 	var grant = function(){
 		var roleid = $('#grant_roleid').val();
 		console.log('roleid',roleid);
@@ -101,6 +102,7 @@
 			
 		});
 	}
+	</coral:auth>
 	</script>
   </head>
 
@@ -122,7 +124,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" id="btnappend">新增</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btnedit">编辑</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">资源</a>
+		<coral:auth res="admin_res"><a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">资源</a></coral:auth>
 	</div>
     
     
@@ -151,7 +153,7 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">关闭</a>
     </div>
     
-    
+    <coral:auth res="admin_res">
     <!-- grant -->
     <input id="grant_roleid" type="hidden"/>
     <div id="resdialog" class="easyui-dialog" style="width:650px;height:455px;padding-bottom: 0" closed="true"  data-options="title:'选择资源',modal:true,
@@ -166,7 +168,7 @@
 			}]">
     <iframe id="ifr_resdialog" src="" scrolling="auto" frameborder="0" style="width:100%;height:385px;"></iframe>
 	</div>
-	
+	</coral:auth>
 	
   </body>
 </html>

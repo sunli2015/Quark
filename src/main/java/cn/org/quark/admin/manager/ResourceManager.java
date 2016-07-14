@@ -35,6 +35,7 @@ public class ResourceManager extends HibernateEntityDao<CoreResource>{
 				CoreRole role = it.next();
 				role.getResources().remove(res);
 			}
+			RefreshAuthManager.refresh();
 		}
 		super.removeById(id);
 	}

@@ -13,6 +13,7 @@ import cn.org.quark.admin.entity.CoreRole;
 import cn.org.quark.admin.entity.CoreUser;
 import cn.org.quark.core.dao.hibernate5.HibernateEntityDao;
 import cn.org.quark.core.dao.support.Page;
+import cn.org.quark.core.security.manager.RefreshAuthManager;
 
 /**
  * 角色业务逻辑
@@ -34,6 +35,7 @@ public class RoleManager extends HibernateEntityDao<CoreRole>{
 			CoreResource res = this.get(CoreResource.class, id);
 			role.getResources().add(res);
 		}
+		RefreshAuthManager.refresh();
 	}
 	/**
 	 * 

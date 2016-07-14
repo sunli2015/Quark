@@ -52,6 +52,7 @@
 				}
 			});
 		});
+		<coral:auth res="admin_role">
 		$('#btngrant').click(function(){
 			var row = $('#dg').datagrid('getSelected');
 			console.log("row:",row);
@@ -59,9 +60,7 @@
 				$.messager.alert('提示','请选择一条记录','info');
 				return ;
 			}
-			
-			
-			
+
 			$("#grant_userid").val(row.oid);
 			var url = CONTEXT_PATH+'/role/listByUserId.do?userid='+row.oid;
 			var tree= new Array();
@@ -78,6 +77,7 @@
 				$('#roledialog').dialog('open');
 			});
 		});
+		</coral:auth>
 		$("#search").click(function(){
 			var qname = $("#search_name").val();
 			$("#dg").loadData({
@@ -86,6 +86,7 @@
 			});
 		});
 	});
+	<coral:auth res="admin_role">
 	var grant = function(){
 		var userid = $('#grant_userid').val();
 		console.log('userid',userid);
@@ -111,6 +112,7 @@
 			
 		});
 	};
+	</coral:auth>
 	function formatOper(val,row,index){
 		if(val == 1){
 			return '<a href="#" onclick="modstatus(\''+row.oid+'\',0);">禁用</a>';
@@ -169,7 +171,7 @@
     	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" id="btnappend">新增</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btnedit">编辑</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">权限</a>
+		<coral:auth res="admin_role"><a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btngrant">权限</a></coral:auth>
 		<div style="padding-left: 5px;">
 		姓名: <input class="easyui-textbox" style="width:110px" id="search_name">
 		<a href="#" class="easyui-linkbutton" id="search" iconCls="icon-search">查询</a>
@@ -214,7 +216,7 @@
         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="btnsave" style="width:90px">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">关闭</a>
     </div>
-    
+    <coral:auth res="admin_role">
     <!-- grant -->
     <input id="grant_userid" type="hidden"/>
     <div id="roledialog" class="easyui-dialog" style="width:390px;height:355px;padding-bottom: 0" closed="true"  data-options="title:'选择权限',modal:true,
@@ -229,6 +231,6 @@
 			}]">
     <ul id="tt" class="easyui-tree" data-options="animate:true,checkbox:true,cascadeCheck:true"></ul>
 	</div>
-	
+	</coral:auth>
   </body>
 </html>

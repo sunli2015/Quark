@@ -1,8 +1,13 @@
+<%@page import="cn.org.quark.core.login.Loginer"%>
+<%@page import="cn.org.quark.core.login.LoginUtil"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/commons/taglibs.inc"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+Loginer loginer = LoginUtil.getLoginer(request);
+request.setAttribute("loginer", loginer);
 %>
 <c:set var="title" value="QUARK平台" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -25,9 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li>
 				<span>系统管理</span>
 				<ul>
-					<li id="m_res">系统资源管理</li>
-					<li id="m_role">角色管理</li>
-					<li id="m_user">人事权限管理</li>
+					<coral:auth res="admin_res"><li id="m_res">系统资源管理</li></coral:auth>
+					<coral:auth res="admin_role"><li id="m_role">角色管理</li></coral:auth>
+					<coral:auth res="admin_user"><li id="m_user">人事权限管理</li></coral:auth>
 				</ul>
 			</li>
 			<li id="pwd">修改密码</li>
@@ -52,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<%--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div> --%>
-	<div id="region_center" data-options="region:'center'" title="登陆用户：ADMIN">
+	<div id="region_center" data-options="region:'center'" title="登陆工号：${loginer.loginid } 姓名：${loginer.cname }">
 		<div id="tt" class="easyui-tabs" style="display: none;"></div>
 	</div>
 </body>
