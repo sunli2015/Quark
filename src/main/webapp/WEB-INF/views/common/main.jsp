@@ -35,7 +35,7 @@ request.setAttribute("loginer", loginer);
 					<coral:auth res="admin_user"><li id="m_user">人事权限管理</li></coral:auth>
 				</ul>
 			</li>
-			<li id="pwd">修改密码</li>
+			<coral:auth res="pwd_modify"><li id="pwd">修改密码</li></coral:auth>
 			<li id="logout">注销</li>
 		</ul>
 		<%--

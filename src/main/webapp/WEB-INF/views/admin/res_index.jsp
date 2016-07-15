@@ -65,7 +65,7 @@ function loadTreeData(){
 				// select the node
 				$('#funtree').tree('select', node.target);
 				var obj = $('#funtree').tree('getSelected');
-				if(obj.id == '1'){
+				if(obj.id == '1' || obj.id == '2'){
 					$("#mm_del").hide();
 				} else {
 					$("#mm_del").show();
@@ -79,7 +79,7 @@ function loadTreeData(){
 			}
 		</c:if>
 		});
-		showlist(1);
+		showlist(2);
 	});
 }
 function showlist(id){

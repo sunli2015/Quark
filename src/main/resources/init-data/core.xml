@@ -1,11 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 	<CORE_MODULE OID="1" module_name="系统功能模块" PARENT_MODULE_ID="[null]" entity_class_name="[null]" process_def_name="[null]" view_page_url="[null]" edit_page_url="[null]"/>
-	
+	<CORE_MODULE OID="2" module_name="权限管理模块" PARENT_MODULE_ID="1" entity_class_name="[null]" process_def_name="[null]" view_page_url="[null]" edit_page_url="[null]"/>
 
-	<CORE_RESOURCES oid="1" rname="开放的主页" rcode="OPEN_INDEX" res_string="/manager/main.do*" module_id="1"/>
-	<CORE_RESOURCES oid="2" rname="系统管理" rcode="ADMIN" res_string="/admin/**" module_id="1"/>
-	<CORE_RESOURCES oid="3" rname="密码修改" rcode="MODIFYPWD" res_string="/user/editpwd.do" module_id="1"/>
+	<CORE_RESOURCES oid="1" rname="开放的主页" rcode="OPEN_INDEX" res_string="/manager/main.do*" module_id="2"/>
+	<CORE_RESOURCES oid="2" rname="资源管理" rcode="admin_res" res_string="/resource/**" module_id="2"/>
+	<CORE_RESOURCES oid="3" rname="角色管理" rcode="admin_role" res_string="/role/**" module_id="2"/>
+	<CORE_RESOURCES oid="4" rname="人事管理" rcode="admin_user" res_string="/user/**" module_id="2"/>
+	<CORE_RESOURCES oid="5" rname="部门查询" rcode="admin_dept_tree" res_string="/dept/index*.do" module_id="2"/>
+	<CORE_RESOURCES oid="6" rname="部门管理" rcode="admin_dept" res_string="/dept/**" module_id="2"/>
+	<CORE_RESOURCES oid="7" rname="密码修改" rcode="pwd_modify" res_string="/user/pwd*" module_id="2"/>
+
 
 
 	<CORE_DEPT oid="1" deptname="部门"/>
@@ -16,10 +21,14 @@
 	<CORE_ROLES oid="2" rolecode="ROLE_ADMIN" rolename="系统管理员"/>
 
 	<CORE_ROLE_RESOURCE resid="1" roleid="1"/>
-	<CORE_ROLE_RESOURCE resid="3" roleid="1"/>
+	<CORE_ROLE_RESOURCE resid="7" roleid="1"/>
 	<CORE_ROLE_RESOURCE resid="1" roleid="2"/>
 	<CORE_ROLE_RESOURCE resid="2" roleid="2"/>
 	<CORE_ROLE_RESOURCE resid="3" roleid="2"/>
+	<CORE_ROLE_RESOURCE resid="4" roleid="2"/>
+	<CORE_ROLE_RESOURCE resid="5" roleid="2"/>
+	<CORE_ROLE_RESOURCE resid="6" roleid="2"/>
+	<CORE_ROLE_RESOURCE resid="7" roleid="2"/>
 
 	<CORE_USER_ROLE roleid="1" userid="1"/>
 	<CORE_USER_ROLE roleid="2" userid="1"/>

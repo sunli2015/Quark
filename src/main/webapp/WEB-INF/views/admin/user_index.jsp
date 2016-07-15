@@ -11,6 +11,7 @@
 $(function(){
 	loadTreeData();
 
+	<coral:auth res="admin_dept">
 	$('#btnsave').click(function(){
 		$('#region_center').saveit({//保存
 			url: CONTEXT_PATH+"/dept/save.do",
@@ -23,7 +24,7 @@ $(function(){
 			}
 		});
 	});
-	
+	</coral:auth>
 	
 });
 
@@ -41,7 +42,7 @@ function buildtree(r,d){
 }
 
 function loadTreeData(){
-	var url = CONTEXT_PATH+'/dept/tree.do';
+	var url = CONTEXT_PATH+'/dept/indexTree.do';
 	var tree= new Array();
 	
 	$.post(url,{},function(result){
@@ -57,7 +58,9 @@ function loadTreeData(){
 			onClick: function(node){
 				var id = node.id;
 				showlist(id);
-			},
+			}
+			<coral:auth res="admin_dept">
+			,
 		    onContextMenu: function(e, node){
 				e.preventDefault();
 				// select the node
@@ -76,6 +79,7 @@ function loadTreeData(){
 					top: e.pageY
 				});
 			}
+			</coral:auth>
 		});
 		showlist(1);
 	});
@@ -90,6 +94,7 @@ function showlist(id){
     
     $('#ifr_reslist').height(height);
 }
+<coral:auth res="admin_dept">
 function append(){
 	$('#region_center').appendit(function(){
 		var obj = $('#funtree').tree('getSelected');
@@ -122,7 +127,7 @@ function edit(){
 		}
 	});
 }
-
+</coral:auth>
 </script>
 </head>
 
@@ -132,6 +137,8 @@ function edit(){
 	</div>
 	<div id="region_center" data-options="region:'center'" >
 	</div>
+	
+	<coral:auth res="admin_dept">
 	<div id="mm" class="easyui-menu" style="width:120px;">
 		<div onclick="append()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="edit()" data-options="iconCls:'icon-edit'">修改</div>
@@ -163,6 +170,7 @@ function edit(){
         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="btnsave" style="width:90px">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">关闭</a>
     </div>
+    </coral:auth>
 </body>
 </html>
 

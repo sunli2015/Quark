@@ -21,7 +21,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 /**
- * 
+ * JDBC管理资源
  * @author Leo
  *
  */
@@ -63,13 +63,13 @@ public class JdbcSecurityMetadataSource extends JdbcDaoSupport implements Filter
 		return FilterInvocation.class.isAssignableFrom(clazz);
 	}
 	/**
-	 * 
+	 * 重置资源集合
 	 */
 	public void resetRequestMap(){
 		this.requestMap = null;
 	}
 	/**
-	 * 
+	 * 构建资源信息
 	 * @return
 	 */
 	private LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
@@ -86,6 +86,10 @@ public class JdbcSecurityMetadataSource extends JdbcDaoSupport implements Filter
 
         return requestMap;
     }
+	/**
+	 * 查询资源
+	 * @return
+	 */
 	private Map<String, String> findResources() {
         Map<String, String> resourceMap = new LinkedHashMap<String, String>();
         ResourceMapping resourceMapping = new ResourceMapping(getDataSource(),resourceQuery);

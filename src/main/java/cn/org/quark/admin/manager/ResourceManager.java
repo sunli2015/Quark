@@ -10,6 +10,7 @@ import cn.org.quark.admin.entity.CoreResource;
 import cn.org.quark.admin.entity.CoreRole;
 import cn.org.quark.core.dao.hibernate5.HibernateEntityDao;
 import cn.org.quark.core.security.manager.RefreshAuthManager;
+import cn.org.quark.core.utils.UtilString;
 
 @Service
 public class ResourceManager extends HibernateEntityDao<CoreResource>{
@@ -38,6 +39,18 @@ public class ResourceManager extends HibernateEntityDao<CoreResource>{
 			RefreshAuthManager.refresh();
 		}
 		super.removeById(id);
+	}
+
+	@Override
+	public void save(Object o) {
+		super.save(o);
+		//有关联角色的资源变更，进行刷新权限
+		CoreResource res = (CoreResource)o;
+		if(!UtilString.isEmpty(res.getOid())){
+			if(!res.getRoles().isEmpty()){
+				RefreshAuthManager.refresh();
+			}
+		}
 	}
 	
 }

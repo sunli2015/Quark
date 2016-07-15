@@ -56,17 +56,17 @@
 				<prop key="hibernate.dialect">${db.dialect}</prop>
 				<prop key="hibernate.show_sql">${db.show_sql}</prop>
 				<prop key="hibernate.default_schema">${db.default_schema}</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.format_sql">${db.format_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${db.use_sql_comments}</prop>
 				<prop key="hibernate.cache.use_query_cache">${db.use_query_cache}</prop>
-				<prop key="hibernate.default_batch_fetch_size">16</prop>
-				<prop key="hibernate.jdbc.fetch_size">30</prop>
-				<prop key="hibernate.jdbc.batch_size">25</prop>
+				<prop key="hibernate.default_batch_fetch_size">${db.default_batch_fetch_size}</prop>
+				<prop key="hibernate.jdbc.fetch_size">${db.jdbc.fetch_size}</prop>
+				<prop key="hibernate.jdbc.batch_size">${db.jdbc.batch_size}</prop>
 				<prop key="hibernate.cache.region.factory_class">${db.cache_provider_class}</prop>
 				<prop key="hibernate.current_session_context_class">${db.session_context_class}</prop>
 				<!-- none 不检查; update 检查（并生成新表） -->
 				<prop key="hibernate.hbm2ddl.auto">${db.hbm2ddl_auto}</prop>
-				<prop key="hibernate.jdbc.use_scrollable_resultset">false</prop>
+				<prop key="hibernate.jdbc.use_scrollable_resultset">${db.jdbc.use_scrollable_resultset}</prop>
 			</props>
 		</property>
 	</bean>

@@ -39,7 +39,7 @@ function addTab(title, url){
     if ($('#tt').tabs('exists', title)){
         $('#tt').tabs('select', title);
     } else {
-        if($('#tt').tabs("tabs").length > 2){//判断TAB的数量
+        if($('#tt').tabs("tabs").length > 10){//判断TAB的数量
 			$.messager.alert('警告','功能标签过多【10】，请关闭多余标签','warning');
 			return ;
 		};

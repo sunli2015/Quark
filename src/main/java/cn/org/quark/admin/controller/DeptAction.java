@@ -32,7 +32,7 @@ public class DeptAction extends BaseEntityAction<CoreDept,DeptManager>{
 		return super.list(page);
 	}
 	
-	@RequestMapping("/tree")
+	@RequestMapping("/indexTree")
 	@ResponseBody
 	public ResultData<CoreDept> tree(){
 		List<CoreDept> tree = deptManager.buildTree();
