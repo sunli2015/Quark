@@ -1,5 +1,4 @@
 (function($){
-	
 	var golbalProp = {
 			listUrl : '',//列表URL
 			paginationId : '#pp',//分页DIV的ID
@@ -57,6 +56,131 @@
 			prop.fnCallback();
 		});
 	};
+	/**
+	 * delete
+	 */
+	function _remove(obj,options){
+		var def = {
+				url:'',
+				datagrid:true,
+				fnCallback:function(obj){
+					var pageObj = obj.datagrid("getPager");
+					
+					var pageSize = pageObj.pagination('options').pageSize;
+					 var pageNumber = pageObj.pagination('options').pageNumber;
+					 obj.loadData({
+						 curPage:pageNumber,
+						 pageSize:pageSize,
+						 url:golbalProp.listUrl
+					 });
+				}
+		};
+		var prop = $.extend({},def,options);
+		console.log(prop);
+		var url = prop.url;
+		if(prop.datagrid){
+			var row = obj.datagrid('getSelected');
+			 console.log("row:",row);
+			 if(null == row){
+				 $.messager.alert('提示','请选择一条记录','info');
+				 return ;
+			 }
+			 url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/delete.do?id="+row.oid;
+		}
+		console.log(prop);
+		 $.messager.confirm('删除','你确定要删除吗？',function(r){
+			 if(r){
+				 $.get(url,function(result){
+					 var code = result.code;
+					 var errMsg = result.errMsg;
+					 var msg = "删除成功 ";
+					 if(code != '0'){
+						 msg += "删除失败："+errMsg;
+					 } 
+					 $.messager.alert('提示',msg,'info',function(){
+						 prop.fnCallback(obj);
+					 });
+				 });
+			 }
+		 });
+	};
+	/**
+	 * edit
+	 */
+	function _edit(obj,options){
+		var def = {
+				url:'',
+				datagrid:true,
+				fnSetMultiParam:function(data){}
+		};
+		var prop = $.extend({},def,options);
+		var url = "";
+		 if(!prop.datagrid){
+			 url = prop.url;
+		 } else {
+			 var row = obj.datagrid('getSelected');
+			 console.log("row:",row);
+			 if(null == row){
+				 $.messager.alert('提示','请选择一条记录','info');
+				 return ;
+			 }
+			 url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/edit.do?id="+row.oid;
+		 }
+		 
+		 $.get(url,function(result){
+			 var data = result.data.data;
+			 console.log("edit row:",data);
+			 $(golbalProp.formDialogId).dialog('open').dialog('center').dialog('setTitle','修改');
+			 $(golbalProp.formId).form('load',data);
+			 if(prop.fnSetMultiParam) prop.fnSetMultiParam(data);
+		 });
+	}
+	/**
+	 * save
+	 */
+	function _save(obj,options){
+		var def = {
+				url:'',
+				fnCallback:function(obj){//默认是表格回调处理
+					var id = $('#'+golbalProp.editParamId).val();
+					var pageObj = obj.datagrid("getPager");
+					
+		    		 var pageSize = pageObj.pagination('options').pageSize;
+		    		 var pageNumber = 1;
+		    		 if(id){
+		    			 pageNumber = pageObj.pagination('options').pageNumber;
+		    			 console.log('edit save:'+pageNumber);
+		    		 }
+		    		 obj.loadData({
+							 curPage:pageNumber,
+							 pageSize:pageSize,
+							 url:golbalProp.listUrl});
+				},
+				fnOnSubmit:function(){return true;}
+		};
+		var prop = $.extend({},def,options);
+		$(golbalProp.formId).form('submit', {
+		    url:prop.url,//CONTEXT_PATH+"/resource/save.do",
+		    onSubmit: function(){
+		    	return prop.fnOnSubmit();
+		    },
+		    success:function(data){
+		    	console.log("save===》"+data);
+		    	var data = eval('(' + data + ')');  // change the JSON string to javascript object
+		    	var msg = "保存成功";
+		    	if(data.code != '0'){
+		    		msg = '保存失败：'+data.errMsg;
+		    	}
+		    	$.messager.alert('提示',msg,'info',function(){
+		    		 $(golbalProp.formDialogId).dialog('close');
+		    		 prop.fnCallback(obj);
+		    	});
+		    }
+		});
+	}
+	/**
+	 * interface
+	 */
 	$.fn.extend({
 		initProp:function(options){
 			$.extend(golbalProp,options);
@@ -68,52 +192,9 @@
 			});
 		},
 		removeit:function(options){
-			var def = {
-					url:'',
-					datagrid:true,
-					fnCallback:function(obj){
-						var pageObj = obj.datagrid("getPager");
-						
-						var pageSize = pageObj.pagination('options').pageSize;
-						 var pageNumber = pageObj.pagination('options').pageNumber;
-						 obj.loadData({
-							 curPage:pageNumber,
-							 pageSize:pageSize,
-							 url:golbalProp.listUrl
-						 });
-					}
-			};
-			var prop = $.extend({},def,options);
-			console.log(prop);
-			
 			return this.each(function(){
 				var obj = $(this);
-				var url = prop.url;
-				if(prop.datagrid){
-					var row = obj.datagrid('getSelected');
-					 console.log("row:",row);
-					 if(null == row){
-						 $.messager.alert('提示','请选择一条记录','info');
-						 return ;
-					 }
-					 url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/delete.do?id="+row.oid;
-				}
-				console.log(prop);
-				 $.messager.confirm('删除','你确定要删除吗？',function(r){
-					 if(r){
-						 $.get(url,function(result){
-							 var code = result.code;
-							 var errMsg = result.errMsg;
-							 var msg = "删除成功 ";
-							 if(code != '0'){
-								 msg += "删除失败："+errMsg;
-							 } 
-							 $.messager.alert('提示',msg,'info',function(){
-								 prop.fnCallback(obj);
-							 });
-						 });
-					 }
-				 });
+				_remove(obj,options);
 			});
 		},
 		appendit:function(fnSetMultiParam){
@@ -124,79 +205,15 @@
 			});
 		},
 		editit:function(options){
-			var def = {
-					url:'',
-					datagrid:true,
-					fnSetMultiParam:function(data){}
-			};
-			var prop = $.extend({},def,options);
-			
 			 return this.each(function(){
 				 var obj = $(this);
-				 var url = "";
-				 if(!prop.datagrid){
-					 url = prop.url;
-				 } else {
-					 var row = obj.datagrid('getSelected');
-					 console.log("row:",row);
-					 if(null == row){
-						 $.messager.alert('提示','请选择一条记录','info');
-						 return ;
-					 }
-					 url = prop.url+"?"+golbalProp.editParamId+"="+row.oid;//CONTEXT_PATH+"/resource/edit.do?id="+row.oid;
-				 }
-				 
-				 $.get(url,function(result){
-					 var data = result.data.data;
-					 console.log("edit row:",data);
-					 $(golbalProp.formDialogId).dialog('open').dialog('center').dialog('setTitle','修改');
-					 $(golbalProp.formId).form('load',data);
-					 if(prop.fnSetMultiParam) prop.fnSetMultiParam(data);
-				 });
+				 _edit(obj,options);
 			 });
 		},
 		saveit:function(options){
-			var def = {
-					url:'',
-					fnCallback:function(obj){//默认是表格回调处理
-						var id = $('#'+golbalProp.editParamId).val();
-						var pageObj = obj.datagrid("getPager");
-						
-			    		 var pageSize = pageObj.pagination('options').pageSize;
-			    		 var pageNumber = 1;
-			    		 if(id){
-			    			 pageNumber = pageObj.pagination('options').pageNumber;
-			    			 console.log('edit save:'+pageNumber);
-			    		 }
-			    		 obj.loadData({
-								 curPage:pageNumber,
-								 pageSize:pageSize,
-								 url:golbalProp.listUrl});
-					},
-					fnOnSubmit:function(){return true;}
-			};
-			var prop = $.extend({},def,options);
-			
 			return this.each(function(){
 				var obj = $(this);
-				$(golbalProp.formId).form('submit', {
-				    url:prop.url,//CONTEXT_PATH+"/resource/save.do",
-				    onSubmit: function(){
-				    	return prop.fnOnSubmit();
-				    },
-				    success:function(data){
-				    	console.log("save===》"+data);
-				    	var data = eval('(' + data + ')');  // change the JSON string to javascript object
-				    	var msg = "保存成功";
-				    	if(data.code != '0'){
-				    		msg = '保存失败：'+data.errMsg;
-				    	}
-				    	$.messager.alert('提示',msg,'info',function(){
-				    		 $(golbalProp.formDialogId).dialog('close');
-				    		 prop.fnCallback(obj);
-				    	});
-				    }
-				});
+				_save(obj,options);
 			});
 		},
 		reloadData:function(options){
