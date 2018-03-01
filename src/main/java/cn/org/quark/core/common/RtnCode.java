@@ -12,6 +12,7 @@ public class RtnCode {
 	public static final String SUCC = "0";
 	public static final String PWD_OLDPWD_INCORRECT = "1001";
 	public static final String INVALIDATE_PARAM = "1002";
+	public static final String CANNOT_OPERATE = "1003";
 	public static final String OTHER_ERROR = "9999";
 
 	private final static Map<String,String> map = new HashMap<String,String>(){
@@ -19,6 +20,7 @@ public class RtnCode {
 			put(SUCC, "成功");
 			put(PWD_OLDPWD_INCORRECT, "旧密码不正确");
 			put(INVALIDATE_PARAM, "无效参数");
+			put(CANNOT_OPERATE, "无法操作");
 			put(OTHER_ERROR, "未知异常");
 		}
 	};

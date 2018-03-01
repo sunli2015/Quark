@@ -55,8 +55,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="region_center" data-options="region:'center'"  title="登陆用户：ADMIN">
 		<div id="tt" class="easyui-tabs" style="display: none;"></div>
 	</div>
-
-	<div id="alert" style="padding: 5px;"></div>
-
 </body>
 </html>

@@ -101,6 +101,11 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	@RequestMapping("/delete")
 	@ResponseBody
 	public ResultData<CoreUser> delete(String id) throws Exception{
+		if("1".equals(id)){
+			ResultData r = new ResultData();
+			r.setCode(RtnCode.CANNOT_OPERATE);
+			return r;
+		}
 		return super.delete(id);
 	}
 	

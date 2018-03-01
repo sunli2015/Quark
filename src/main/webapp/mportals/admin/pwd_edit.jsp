@@ -5,44 +5,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>${title}</title>
-<script type="text/javascript" src="${ctx }/js/jquery/jquery-1.8.3.min.js"></script>
-<%@ include file="/common/ui_form_js.inc"%>
-<%@ include file="/common/validity_js.inc"%>
+<%@ include file="/commons/public.inc"%>
 <script type="text/javascript">
-$(function() {
-	$("#dialog-form").openWin({
-		height: 280,
-		type:'twoBtn'
-		});
-	
-	$("#editform").validity(function() {
-		$("#oldPwd").require().maxLength(30);
-		$("#newPwd").require().maxLength(30);
-		$("#newPwdAgain").require().maxLength(30);
-		$("#newPwdAgain").match(function(val){
-			return val == $("#newPwd").val();
-			},"新密码与确认密码不符");
-	}); 
-});
+function submitForm(){
+	var url =CONTEXT_PATH+"/pwd/pwd!modifyPwd.action";
+	var oldPwd = $("#oldPwd").val();
+	var newPwd = $("#newPwd").val();
+	var newPwdAgain = $("#newPwdAgain").val();
+	var param = {"oldPwd":oldPwd,"newPwd":newPwd,"newPwdAgain":newPwdAgain};
+	$.getJSON(url,param,function(result){
+		alert(result.operResult);
+	});
+}
 </script>
-
 </head>
 <body>
-<DIV ID="message"><%@ include file="/common/messages.inc"%></DIV>
-<div id="dialog-form" title="修改密码">
-	<s:form method="post" action="pwd" namespace="/admin" theme="simple" id="editform">
-	<fieldset id="editForm">
-	<s:hidden name="oid" value="%{#request.entity.oid}"/>
-	<s:hidden name="entity.oid"/>
-	<s:hidden name="entity.parentDept.oid" value="%{#request.poid}"/>
-	<label for="oldPwd">请输入旧密码:</label>
-	<s:password id="oldPwd" name="oldPwd" cssClass="text ui-widget-content ui-corner-all" title="旧密码"/>
-	<label for="newPwd">请输入新密码:</label>
-	<s:password id="newPwd" name="newPwd" cssClass="text ui-widget-content ui-corner-all" title="新密码"/>
-	<label for="newPwdAgain">再次确认密码:</label>
-	<s:password id="newPwdAgain" name="newPwdAgain" cssClass="text ui-widget-content ui-corner-all" title="确认新密码"/>
-	</fieldset>
-	</s:form>
+<div class="easyui-panel" title="${title }" style="width: 400px;">
+	<div style="padding:10px 60px 20px 60px;">
+    <form id="ff" class="easyui-form" method="post" data-options="validate:true">
+    	<table cellpadding="5">
+    		<tr>
+    			<td>请输入旧密码:</td>
+    			<td><input class="easyui-textbox" type="password" id="oldPwd" name="oldPwd" data-options="required:true" title="旧密码"></input></td>
+    		</tr>
+    		<tr>
+    			<td>请输入新密码:</td>
+    			<td><input class="easyui-textbox" type="password" id="newPwd" name="newPwd" data-options="required:true" title="新密码"></input></td>
+    		</tr>
+    		<tr>
+    			<td>再次确认密码:</td>
+    			<td><input class="easyui-textbox" type="password" id="newPwdAgain" name="newPwdAgain" data-options="required:true" title="确认密码"></input></td>
+    		</tr>
+    	</table>
+    </form>
+    <div style="text-align:center;padding:5px">
+    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+    </div>
+    </div>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 			Ext.MessageBox.confirm('提示', '您确定退出系统么?', logout);
 			break;
 		case "index":
-			Ext.get('application-info-iframe').dom.src=CONTEXT_PATH+'/index1.jsp';
+			Ext.get('application-info-iframe').dom.src=CONTEXT_PATH+'/index.jsp';
 			break;
 		case "admin_user":
 			//Ext.get('application-info-iframe').dom.src=CONTEXT_PATH+'/admin/userIndex.action?cacheflag='+new Date().getTime();
