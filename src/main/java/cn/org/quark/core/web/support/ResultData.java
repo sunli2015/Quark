@@ -13,6 +13,7 @@ import cn.org.quark.core.common.RtnCode;
  *
  * @param <T>
  */
+@Deprecated
 public class ResultData<T> extends BaseVo{
 
 	/**
@@ -22,6 +23,7 @@ public class ResultData<T> extends BaseVo{
 	private String code ;//返回码
 	private String errMsg ;//错误信息
 	private RtnData<T> data;//返回数据
+	
 	public ResultData(){
 		this.code = RtnCode.SUCC ;
 		this.errMsg = RtnCode.getErrMsg(code) ;
@@ -74,4 +76,5 @@ public class ResultData<T> extends BaseVo{
 		}
 		return null;
 	}
+	
 }

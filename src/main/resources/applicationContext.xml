@@ -15,6 +15,7 @@
     <context:component-scan base-package="cn.org.quark">
     	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+    <mvc:resources location="/" mapping="/**/*.html"/>
 	<import resource="classpath:plugin-context.xml"/>
 </beans>
 

@@ -8,6 +8,7 @@ import cn.org.quark.core.dao.support.Page;
  *
  * @param <T>
  */
+@Deprecated
 public class RtnData<T> extends BaseVo{
 
 	/**
