@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.org.quark.biz.example.dao.ExampleDao">
+	<resultMap id="resultMap" type="cn.org.quark.biz.example.model.Example" >
+	   <id column="oid" property="oid" jdbcType="INTEGER" />
+	   <result column="name" property="name" jdbcType="VARCHAR" />
+	   <result column="insertDate" property="insertDate" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="common_where_if">
+        <if test="example.name != '' and example.name != null">
+            name like CONCAT('%',#{example.name},'%')
+        </if>
+	</sql>
+
+
+	<!-- queryForList -->
+	<select id="queryForList" resultMap="resultMap">
+		select oid,name,DATE_FORMAT(insertDate,'%Y-%m-%d %H:%i:%s') insertDate
+		from t_example
+		<where>
+            <include refid="common_where_if"/>
+        </where>
+        limit #{page.startIndex},#{page.pageSize}
+	</select>
+	<!-- queryForCount -->
+	<select id="queryForCount" resultType="java.lang.Long">
+		select count(1)
+		from t_example
+		<where>
+            <include refid="common_where_if"/>
+        </where>
+	</select>
+	<!-- insert -->
+	<insert id="insert" parameterType="cn.org.quark.biz.example.model.Example" >
+    	insert into t_example (name,insertDate) values (#{name,jdbcType=VARCHAR},STR_TO_DATE(#{insertDate},'%Y-%m-%d %H:%i:%s'))
+  	</insert>
+  	<select id="queryById" resultMap="resultMap">
+	  	select oid,name,DATE_FORMAT(insertDate,'%Y-%m-%d %H:%i:%s') insertDate
+		from t_example
+		where oid=#{id}
+  	</select>
+  	<!-- update -->
+  	<update id="update" parameterType="cn.org.quark.biz.example.model.Example" >
+	    update t_example 
+	    set 
+	    name = #{name},
+		insertDate = STR_TO_DATE('${insertDate}','%Y-%m-%d %H:%i:%s') 
+		where oid = #{oid}
+  	</update>
+  	<!-- delete -->
+  	<update id="delete">
+    	delete from  t_example where oid = #{id}
+  	</update>
+</mapper>

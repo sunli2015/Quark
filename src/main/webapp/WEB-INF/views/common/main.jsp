@@ -22,11 +22,12 @@ request.setAttribute("loginer", loginer);
 	<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">
 	XXX
 	</div>
-	<div data-options="region:'west',split:true" title="功能菜单" style="width:25%;">
+	<div data-options="region:'west',split:true" title="功能菜单" style="width:20%;">
 		<%--
 		功能列表菜单
 		 --%>
 		<ul id="funtree" class="easyui-tree">
+			<li id="example">样例</li>
 			<li>
 				<span>系统管理</span>
 				<ul>

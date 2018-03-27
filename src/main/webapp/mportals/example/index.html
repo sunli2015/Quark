@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>index.html</title>
+	<meta charset="utf-8">
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<link rel="stylesheet" type="text/css" href="../../commons/jquery-easyui-1.4.4/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../commons/jquery-easyui-1.4.4/themes/icon.css">
+	<script type="text/javascript" src="../../commons/jquery-easyui-1.4.4/jquery.min.js"></script>
+	<script type="text/javascript" src="../../commons/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../commons/jquery-easyui-1.4.4/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../../commons/crud.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		
+		$('#dg').loadData({//加载表格数据
+			url:CONTEXT_PATH+"/biz/example/list",
+		});
+		$("#search").click(function(){
+			var qname = $("#search_name").val();
+			$("#dg").loadData({
+				url:CONTEXT_PATH+"/biz/example/list",
+				qparam:{'name':qname}
+			});
+		});
+		
+		$('#btnappend').click(function(){
+			$('#dg').appendit();//初始化新增表单
+		});
+		$('#btnedit').click(function(){
+			$('#dg').editit({//初始化编辑表单
+				url: CONTEXT_PATH+"/biz/example/edit",
+				fnSetMultiParam:function(data){}
+			});
+		});
+		$('#btnsave').click(function(){
+			$('#dg').saveit({//保存
+				url: CONTEXT_PATH+"/biz/example/save",
+				fnOnSubmit:function(){
+					var isvalid = $("#ff").form('enableValidation').form('validate');
+					return isvalid;
+				}
+			});
+		});
+		$('#btndel').click(function(){
+			$('#dg').removeit({url:CONTEXT_PATH+"/biz/example/delete"});//删除
+		});
+	})
+	</script>
+  </head>
+  
+  <body>
+    <!-- list -->
+    <table id="dg" title="样例列表" class="easyui-datagrid" style="width:100%;height:auto"
+			toolbar="#tb" pagination="true" idField="oid"
+            rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+	    		<th field="oid" width="20%">id</th>
+                <th field="name" width="20%">姓名</th>
+                <th field="insertDate" width="20%">时间</th>
+                <th field="status" width="30%">操作</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb" style="height:auto">
+    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" id="btnappend">新增</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="btnedit">编辑</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" id="btndel">删除</a>
+		<div style="padding-left: 5px;">
+		姓名: <input class="easyui-textbox" style="width:110px" id="search_name">
+		<a href="#" class="easyui-linkbutton" id="search" iconCls="icon-search">查询</a>
+		</div>
+	</div>
+
+    <!-- edit -->
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:300px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
+	    <form id="ff" method="post">
+	    	<input type="hidden" id="oid" name="oid"/>
+	    	<table cellpadding="5">
+	    		<tr>
+	    			<td>姓名:</td>
+	    			<td><input class="easyui-textbox" type="text" id="name" name="name" data-options="required:true"></input></td>
+	    		</tr>
+	    		
+	    		<tr>
+	    			<td>插入时间:</td>
+	    			<td><input class="easyui-datebox" type="text" id="insertDate" name="insertDate" data-options="required:true"></input></td>
+	    		</tr>
+	    	</table>
+	    </form>
+	</div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" id="btnsave" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">关闭</a>
+    </div>
+  </body>
+</html>

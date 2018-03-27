@@ -1,3 +1,4 @@
+var CONTEXT_PATH = '/Quark';
 (function($){
 	var golbalProp = {
 			listUrl : '',//列表URL
@@ -128,7 +129,15 @@
 		 }
 		 
 		 $.get(url,function(result){
-			 var data = result.data.data;
+			 var data = null;
+			 if(result.data.data){//兼容原有返回对象
+				 data = result.data.data;
+			 } else {//建议：使用该对象
+				 if(result.data){
+					 data = result.data;
+				 }
+			 }
+			 
 			 console.log("edit row:",data);
 			 $(golbalProp.formDialogId).dialog('open').dialog('center').dialog('setTitle','修改');
 			 $(golbalProp.formId).form('load',data);

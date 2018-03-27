@@ -8,6 +8,7 @@ $(function(){
 		onClick: function(node){
 			var id = node.id;
 			if(id != 'logout') $('#tt').show();
+			if(id == 'example') addTab(node.text,CONTEXT_PATH+"/mportals/example/index.html");//样例管理
 			/**
 			 * 功能标识列表
 			 */
