@@ -1,6 +1,7 @@
 package cn.org.quark.admin.manager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -71,15 +72,47 @@ public class DeptManager extends HibernateEntityDao<CoreDept>{
 	}
 	
 	
-	
 	/**
-	 * 构建生成菜单树
+	 * 通过ID获取所有子部门
+	 * @param id
 	 * @return
 	 */
-	public List<CoreDept> buildTree(){
+	public List<CoreDept> queryLayerChildrenDept(String id){
+		List<CoreDept> list = queryChildrenDept(id);
+		List<CoreDept> _layerChildrenDept = new ArrayList<CoreDept>();
+		_buildLayerDept(_layerChildrenDept,list);
+		return _layerChildrenDept;
+	}
+	/**
+	 * 所有子部门放至LIST中
+	 * @param appendList
+	 * @param list
+	 */
+	private void _buildLayerDept(List<CoreDept> appendList ,Collection<CoreDept> list){
+		for(CoreDept dept : list){
+			appendList.add(dept);
+			Set<CoreDept> subDept = dept.getSubDept();
+			if(!subDept.isEmpty()){
+				_buildLayerDept(appendList,subDept);
+			} 
+		}
+		return ;
+	}
+	
+	/**
+	 * 获取当前部门及所有子部门
+	 * @return
+	 */
+	public List<CoreDept> queryChildrenDept(String id){
 		//treeHtml = new StringBuilder();
 		list1.clear();
-		List<CoreDept> list = this.createCriteria(Restrictions.isNull("parentDept")).list();
+		List<CoreDept> list = null;
+		if(UtilString.isEmpty(id)){
+			list = this.createCriteria(Restrictions.isNull("parentDept")).list();
+		} else {
+			list = this.createCriteria(Restrictions.or(Restrictions.eq("parentDept.oid", id),Restrictions.eq("oid", id))).list();
+		}
+
 		for(CoreDept dept : list){
 			CoreDept d = new CoreDept();
 			d.setOid(dept.getOid());
@@ -90,6 +123,13 @@ public class DeptManager extends HibernateEntityDao<CoreDept>{
 		}
 		System.out.println("list1:"+list1);
 		return list1;
+	}
+	/**
+	 * 构建生成菜单树
+	 * @return
+	 */
+	public List<CoreDept> buildTree(){
+		return queryChildrenDept(null);
 	}
 	private List<CoreDept> list1 = new ArrayList<CoreDept>();
 	

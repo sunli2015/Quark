@@ -159,10 +159,11 @@
         <thead>
             <tr>
 	    		<th field="logid" width="20%">登陆号</th>
-                <th field="cname" width="20%">姓名</th>
+                <th field="cname" width="15%">姓名</th>
                 <th field="idno" width="15%">工号</th>
-                <th field="mobile" width="15%">手机号码</th>
-                <th field="email" width="15%">邮箱</th>
+                <th field="deptName" width="15%">部门</th>
+                <th field="mobile" width="10%">手机号码</th>
+                <th field="email" width="10%">邮箱</th>
                 <th field="status" width="10%" data-options="formatter:formatOper">操作</th>
             </tr>
         </thead>

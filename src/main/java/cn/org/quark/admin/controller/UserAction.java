@@ -14,9 +14,11 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.org.quark.admin.entity.CoreDept;
 import cn.org.quark.admin.entity.CoreResource;
 import cn.org.quark.admin.entity.CoreRole;
 import cn.org.quark.admin.entity.CoreUser;
+import cn.org.quark.admin.manager.DeptManager;
 import cn.org.quark.admin.manager.RoleManager;
 import cn.org.quark.admin.manager.UserManager;
 import cn.org.quark.core.common.RtnCode;
@@ -84,8 +86,10 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResultData<List<CoreUser>> list(String deptId ,String name, Page page) throws Exception{
+		
+		List<CoreDept> coreDepts = deptManager.queryLayerChildrenDept(deptId);
 		CriteriaSetup criteriaSetup = new CriteriaSetup();
-		criteriaSetup.addCriterion(Restrictions.eq("dept.oid", deptId));
+		criteriaSetup.addCriterion(Restrictions.in("dept", coreDepts));
 		if(!UtilString.isEmpty(name)){
 			criteriaSetup.addCriterion(Restrictions.like("cname", name,MatchMode.ANYWHERE));
 		}
@@ -150,4 +154,6 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 	
 	@Autowired
 	private UserManager userManager;
+	@Autowired
+	private DeptManager deptManager;
 }

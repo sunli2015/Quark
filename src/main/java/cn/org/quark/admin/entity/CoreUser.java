@@ -60,6 +60,8 @@ public class CoreUser implements java.io.Serializable {
 	
 	@Transient
 	private String deptOid;
+	@Transient
+	private String deptName;
 	
 	public String getOid() {
 		return oid;
@@ -148,5 +150,8 @@ public class CoreUser implements java.io.Serializable {
 	public void setDeptOid(String deptOid) {
 		this.deptOid = deptOid;
 	}
-	
+
+	public String getDeptName() {
+		return dept.getDeptname();
+	}
 }

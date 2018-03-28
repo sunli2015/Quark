@@ -1,7 +1,10 @@
 package cn.org.quark.admin.entity;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+
+
 
 
 
@@ -15,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -48,7 +52,8 @@ public class CoreDept implements java.io.Serializable {
 	private CoreDept parentDept;
 
 	@OneToMany(mappedBy = "parentDept", cascade = CascadeType.REMOVE)
-	private Set<CoreDept> subDepts = new HashSet<CoreDept>(0);
+	@OrderBy("deptname asc")
+	private Set<CoreDept> subDepts = new LinkedHashSet<CoreDept>(0);
 
 	@OneToMany(mappedBy = "dept", cascade = CascadeType.REMOVE)
 	private Set<CoreUser> users = new HashSet<CoreUser>(0);
@@ -56,7 +61,7 @@ public class CoreDept implements java.io.Serializable {
 	@Transient
 	private String parentDeptOid;
 	@Transient
-	private Set<CoreDept> subDept = new HashSet<CoreDept>(0);
+	private Set<CoreDept> subDept = new LinkedHashSet<CoreDept>(0);
 	
 	public String getOid() {
 		return oid;
