@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.org.quark.biz.example.model.Example;
 import cn.org.quark.biz.example.service.ExampleService;
 import cn.org.quark.core.common.RtnCode;
+import cn.org.quark.core.web.support.JqGridPage;
+import cn.org.quark.core.web.support.JqGridPage;
 import cn.org.quark.core.web.support.Page;
 import cn.org.quark.core.web.support.RtnPageResult;
 import cn.org.quark.core.web.support.RtnResult;
@@ -28,8 +30,8 @@ public class ExampleController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public RtnPageResult<Example> list(Example example,Page page){
-		RtnPageResult<Example> resultData = new RtnPageResult<Example>();
+	public JqGridPage<Example> list(Example example,JqGridPage<Example> page ){
+		JqGridPage<Example> resultData = new JqGridPage<Example>();
 		try {
 			resultData = exampleService.query(example,page);
 		} catch (Exception e) {
@@ -49,6 +51,8 @@ public class ExampleController {
 		RtnStatusResult resultData = new RtnStatusResult();
 		try {
 			resultData = exampleService.save(example);
+			resultData.setResult("true");
+			resultData.setMessage("保存成功");
 		} catch (Exception e) {
 			resultData.setCode(RtnCode.OTHER_ERROR);
 			resultData.setErrMsg(""+e.getMessage());

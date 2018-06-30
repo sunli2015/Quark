@@ -1,6 +1,7 @@
 package cn.org.quark.biz.example.service;
 
 import cn.org.quark.biz.example.model.Example;
+import cn.org.quark.core.web.support.JqGridPage;
 import cn.org.quark.core.web.support.Page;
 import cn.org.quark.core.web.support.RtnPageResult;
 import cn.org.quark.core.web.support.RtnResult;
@@ -17,7 +18,7 @@ public interface ExampleService {
 	 * @return
 	 * @throws Exception
 	 */
-	public RtnPageResult<Example> query(Example example,Page<Example> page) throws Exception;
+	public JqGridPage<Example> query(Example example,JqGridPage<Example> page) throws Exception;
 	/**
 	 * 保存
 	 * @param example

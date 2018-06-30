@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import cn.org.quark.biz.example.dao.ExampleDao;
 import cn.org.quark.biz.example.model.Example;
 import cn.org.quark.biz.example.service.ExampleService;
+import cn.org.quark.core.web.support.JqGridPage;
 import cn.org.quark.core.web.support.Page;
 import cn.org.quark.core.web.support.RtnPageResult;
 import cn.org.quark.core.web.support.RtnResult;
@@ -20,16 +21,14 @@ public class ExampleServiceImpl implements ExampleService{
 	@Autowired
 	private ExampleDao exampleDao;
 	@Override
-	public RtnPageResult<Example> query(Example example,Page<Example> page) throws Exception {
-		RtnPageResult<Example> rtnData = new RtnPageResult<Example>();
+	public JqGridPage<Example> query(Example example,JqGridPage<Example> page) throws Exception {
 		
 		List<Example> data = exampleDao.queryForList(example,page);
 		long total = exampleDao.queryForCount(example);
-		page.setData(data);
-		page.setTotal(total);
-		
-		rtnData.setData(page);;
-		return rtnData;
+		page.setList(data);
+		page.setCount(total);
+
+		return page;
 	}
 	@Override
 	public RtnStatusResult save(Example example) throws Exception {

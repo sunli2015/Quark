@@ -18,6 +18,10 @@ public class RtnStatusResult extends BaseVo{
 	private static final long serialVersionUID = 1L;
 	private String code ;//返回码
 	private String errMsg ;//错误信息
+	
+	private String result;
+	private String message;
+	
 	public RtnStatusResult(){
 		this.code = RtnCode.SUCC ;
 		this.errMsg = RtnCode.getErrMsg(code) ;
@@ -40,6 +44,22 @@ public class RtnStatusResult extends BaseVo{
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public String getResult() {
+		this.result = "false";
+		if(this.code.equals(RtnCode.SUCC)){
+			this.result = "true";
+		}
+		return this.result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import cn.org.quark.biz.example.model.Example;
+import cn.org.quark.core.web.support.JqGridPage;
 import cn.org.quark.core.web.support.Page;
 /**
  * example的DAO
@@ -18,7 +19,7 @@ public interface ExampleDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Example> queryForList(@Param("example")Example example,@Param("page")Page page) throws Exception ;
+	public List<Example> queryForList(@Param("example")Example example,@Param("page")JqGridPage<Example> page) throws Exception ;
 	/**
 	 * 查询数量
 	 * @param example
