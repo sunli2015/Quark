@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>样例 </title>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-06130816">
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+ <!-- tab -->
+<link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
+  </head>
+  
+  <body>
+    <div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> 样例
+			</div>
+			<div class="box-tools pull-right">
+				<a href="list.html" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+				<a href="#" data-href="/Quark/mportals2/example/edit.html" class="btn btn-default add" title="新增样例"><i class="fa fa-plus"></i> 新增</a>
+			</div>
+		</div>
+		<div class="box-body">
+		<form id="searchForm" action="/Quark/biz/example/list" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
+				
+				<div class="form-group">	
+					<label class="control-label">编号：</label>
+					<div class="control-inline">
+<input type="text" id="oid" name="oid" value="" maxlength="200" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">	
+					<label class="control-label">名称：</label>
+					<div class="control-inline">
+<input type="text" id="name" name="name" value="" maxlength="200" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">开始时间：</label>
+					<div class="control-inline">
+<input type="text" id="startTime" name="startTime" value="" readonly="true" maxlength="20" class="form-control Wdate-date" onFocus="WdatePicker({lang:'zh_CN'})" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label">结束时间：</label>
+					<div class="control-inline">
+<input type="text" id="endTime" name="endTime" value="" readonly="true" maxlength="20" class="form-control Wdate-date" onFocus="WdatePicker({lang:'zh_CN'})" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<!-- tab -->
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.extend.js"></script>
+
+
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
+
+<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
+
+
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js?-06130816"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend.js?-06130816"></script>
+<!-- 
+<script src="/Quark/statics/jqGrid/4.7/js/i18n/zh_CN.js?-06130816"></script> -->
+<script src="/Quark/statics/common/jeesite.js?-06130816"></script>
+<!-- 
+<script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-06130816"></script> -->
+
+
+
+<!-- <script src="/Quark/statics/common/common.js?-06130816"></script> -->
+<script>
+$(function(){
+	$(".add").on('click',function(event){
+		//event.preventDefault();
+		var _title = $(this).attr("title");
+		var _href = $(this).attr("data-href");
+		console.log("title:",_title);
+		console.log("href:",_href);
+		//addTab(_title,_href);
+		parent.toTabPage($(this),_title,_href);
+		//js.tabPage.tabPageId="tabpanel";
+		//js.addTabPage($(this),_title,_href,"");
+	});
+	
+	$("#dataGrid").on('click',".btnEdit",function(event){
+		//event.preventDefault();
+		var _title = $(this).attr("title");
+		var _href = $(this).attr("data-href");
+		console.log("title:",_title);
+		console.log("href:",_href);
+		//addTab(_title,_href);
+		parent.toTabPage($(this),_title,_href);
+		//js.tabPage.tabPageId="tabpanel";
+		//js.addTabPage($(this),_title,_href,"");
+	});
+	$("#dataGrid").on('click',".btnDel",function(event){
+		var se=$(this);
+		var url=se.attr("data-href");
+		var title=se.attr("title");
+		var confirm=se.attr("data-confirm");
+		if(confirm!=undefined){
+			js.confirm(confirm,url,function(data){
+				if(data.result=="true"){
+					js.showMessage("删除成功");
+					$("#dataGrid").dataGrid("refresh");
+				}
+				},"json")
+			}
+		return false
+	});
+})
+
+
+/*function getTabPage(){
+	if(window.tabPage){return tabPage}try{if(parent.tabPage){return parent.tabPage}if(parent.parent.tabPage){return parent.parent.tabPage}
+	if(top.tabPage){return top.tabPage}}catch(e){}return null
+	}*/
+
+/*function addTab(_title,_href){
+		console.log("_title:"+_title);
+		console.log("_href:"+_href);
+	var tabpanel = js.tabPage;
+	console.log("tabpanel:",tabpanel);
+	var _html = '<iframe src="'+_href+'" width="100%" height="100%" frameborder="0"></iframe>';
+		
+	var _id = 'tp_'+(new Date()).getTime();
+	tabpanel.addTab({
+		id:_id,
+		title: _title,
+		html: _html,
+		closable: true,
+		disabled: false
+	});
+}
+*/
+
+// 初始化DataGrid对象
+var _dataGrid = $('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		/* {header:'车辆id', name:'carId', index:'a.car_id', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="/itsm/a/caruserecord/carUseRecord/form?id='+row.id+'" class="btnList" data-title="编辑用车记录信息表">'+(val||row.id)+'</a>';
+		}}, */
+		{header:'编号', name:'oid', index:'oid', width:150, align:"center"},
+		{header:'名称', name:'name', index:'name', width:150, align:"center"},
+		{header:'时间', name:'insertDate', index:'insertDate', width:150, align:"center"},
+		
+		/* {header:'创建时间', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'备注信息', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'状态', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel([{"id":"982837828615438336","updateDate":"2018-04-08 12:29","createBy":"system","status":"0","updateBy":"system","createDate":"2018-04-08 12:29","treeSorts":"0000000030,","treeSort":30,"treeLevel":0,"treeNames":"正常","treeLeaf":"1","parentCodes":"0,","dictCode":"982837828615438336","isSys":"1","cssStyle":"","dictLabelOrig":"正常","cssClass":"","description":"","dictValue":"0","dictType":"sys_search_status","dictLabel":"正常","parentCode":"0","isTreeLeaf":true,"isRoot":true},{"id":"982837828695130112","updateDate":"2018-04-08 12:29","createBy":"system","status":"0","updateBy":"system","createDate":"2018-04-08 12:29","treeSorts":"0000000040,","treeSort":40,"treeLevel":0,"treeNames":"停用","treeLeaf":"1","parentCodes":"0,","dictCode":"982837828695130112","isSys":"1","cssStyle":"color:#f00;","dictLabelOrig":"停用","cssClass":"","description":"","dictValue":"2","dictType":"sys_search_status","dictLabel":"停用","parentCode":"0","isTreeLeaf":true,"isRoot":true}], val, '未知', true);
+		}}, */
+		 {header:'操作', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				 actions.push('<a href="#" data-href="/Quark/mportals2/example/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑样例"><i class="fa fa-pencil"></i></a>&nbsp;');
+				 actions.push('<a href="#" data-href="/Quark/biz/example/delete?id='+row.oid+'" class="btnDel"  title="删除样例" data-confirm="确认要删除该样例吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			return actions.join('');
+		}}
+	],
+	/*jsonReader : {  
+        root : 'data.data', // 将rows修改为list  
+        page : 'curPage', // 将page修改为currPage  
+        total : 'pages', // 将total修改为totalPage  
+        records : 'total' // 将records修改为totals  
+    },*/
+    /*pager: '#dataGridPage',*/
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		console.log('data:',data);
+	}
+});
+/*var apis = {
+		delUrl:'/Quark/biz/example/delete'
+}
+function confirmDel(_id){
+	layer.confirm('确认删除 样例 吗？', {
+		 icon: 3,
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+		  //layer.msg('的确很重要', {icon: 1});
+		  
+		  js.showMessage("删除成功");
+					//$('#dataGrid').dataGrid().page();
+					
+					$("#dataGrid").dataGrid("refresh",b,a)
+					
+					console.log('contentWindow3333:');
+					js.getCurrentTabPage(function(contentWindow){
+						console.log('contentWindow111:',contentWindow);
+						contentWindow.page();
+					});
+					
+			/*js.ajaxSubmit(apis.delUrl,{id:_id}, function(data){
+				if(data.result == "true"){
+					js.showMessage("删除成功");
+					$('#dataGrid').dataGrid().page();
+				}
+			}, "json");
+		  
+		  
+		}, function(){
+		  layer.msg('也可以这样', {
+		    time: 20000, //20s后自动关闭
+		    btn: ['明白了', '知道了']
+		  });
+		});
+}*/
+
+</script>
+  </body>
+</html>

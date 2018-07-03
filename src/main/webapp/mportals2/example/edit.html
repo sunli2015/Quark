@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>样例 </title>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-06130816">
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+ <link rel="stylesheet" href="/Quark/statics/jquery-validation/1.16/jquery.validate.css?-06251059">
+ <link rel="stylesheet" href="/Quark/statics/jquery-toastr/2.0/toastr.min.css?-06251059">
+  </head>
+  
+  <body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> 新增样例
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+<form id="inputForm" action="/Quark/biz/example/save" method="post" class="form-horizontal">
+			<div class="box-body">
+				<div class="form-unit">基本信息</div>
+<input type="hidden" id="oid" name="oid" value=""/>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required">*</span> 名称：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+<input type="text" id="name" name="name" value="" maxlength="200" class="form-control required" required/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required">*</span> 时间：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+<input type="text" id="insertDate" name="insertDate" value="" readonly="true" maxlength="100" class="form-control Wdate-date required" required onclick="WdatePicker({lang:'zh_CN',dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								<span class="required hide">*</span> 备注信息：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+<textarea id="remarks" name="remarks" rows="4" maxlength="255" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
+<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
+<script src="/Quark/statics/my97/lang/zh_CN.js?-06130816"></script>
+<!-- 
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js?-06130816"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend.js?-06130816"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/i18n/zh_CN.js?-06130816"></script>
+ -->
+
+<script src="/Quark/statics/common/jeesite.js?-06130816"></script>
+<!-- <script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-06130816"></script>
+<script src="/Quark/statics/common/common.js?-06130816"></script> -->
+
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.js?-06251059"></script>
+<script src="/Quark/statics/jquery-validation/1.16/localization/messages_zh_CN.js?-06251059"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.extend.js?-06251059"></script>
+
+<script src="/Quark/statics/jquery-toastr/2.0/toastr.min.js?-06251059"></script>
+
+
+
+<script>
+var apis ={
+	editUrl :'/Quark/biz/example/edit'	
+}
+$(function(){
+	var _id = js.getParam("id");
+	js.ajaxSubmit(apis.editUrl,{id:_id}, function(data){
+		if(data.result == "true"){
+			var d = data.data;
+			$("#inputForm input").each(function(obj){
+				var name = $(this).attr("id");
+				$(this).val(d[name]);
+			})
+			
+		}
+	}, "json");
+	
+})
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == "true"){
+				js.closeCurrentTabPage(function(contentWindow){
+					console.log('contentWindow:',contentWindow);
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+</script>
+  </body>
+</html>
