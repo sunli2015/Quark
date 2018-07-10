@@ -16,13 +16,14 @@
 	<http pattern="/**/*.png" security="none"/>
 	<http pattern="/**/*.css" security="none"/>
 	<http pattern="/manager/login.do*" security="none"/>
+	<http pattern="/managerext/login.do*" security="none"/>
   	<http pattern="/portal/*" security="none"/>
   	<!-- access-denied-page="/mportals/login.action?login_error=denied_error" -->
   	<http pattern="/**" auto-config='true' access-decision-manager-ref="accessDecisionManager">
     	<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
-    	<form-login login-page='/manager/login.do' default-target-url="/manager/main.do" 
+    	<form-login login-page='/managerext/login.do' default-target-url="/managerext/main.do" 
     	authentication-failure-handler-ref="authenticationFailureHandler" />
-    	<logout logout-success-url="/manager/login.do?logout=true" />
+    	<logout logout-success-url="/managerext/login.do?logout=true" />
     	<custom-filter ref="quarkFilter" position="LAST"/>
     	<csrf disabled="true"/>
     	<anonymous enabled="false"/>

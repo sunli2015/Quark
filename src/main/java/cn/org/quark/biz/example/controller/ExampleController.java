@@ -11,9 +11,6 @@ import cn.org.quark.biz.example.model.Example;
 import cn.org.quark.biz.example.service.ExampleService;
 import cn.org.quark.core.common.RtnCode;
 import cn.org.quark.core.web.support.JqGridPage;
-import cn.org.quark.core.web.support.JqGridPage;
-import cn.org.quark.core.web.support.Page;
-import cn.org.quark.core.web.support.RtnPageResult;
 import cn.org.quark.core.web.support.RtnResult;
 import cn.org.quark.core.web.support.RtnStatusResult;
 
