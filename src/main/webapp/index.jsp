@@ -14,8 +14,8 @@ request.setAttribute("ctx", request.getContextPath());
 <link href="" rel="stylesheet">
 <script type="text/javascript" src="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/dist/js/adminlte.min.js"></script>
-
+<!-- <script type="text/javascript" src="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/dist/js/adminlte.min.js"></script> -->
+<script type="text/javascript" src="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/dist/js/adminlte.js"></script>
 
 <link rel="stylesheet" type="text/css" href="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -238,7 +238,7 @@ request.setAttribute("ctx", request.getContextPath());
         <!-- Optionally, you can add icons to the links -->
         <!-- <li class="active"><a href="http://www.baidu.com"><i class="fa fa-link"></i> <span>百度</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> -->
-        <li><a href="#" class="addTab" data-href="/Quark/mportals2/example/list.html"><i class="fa fa-link"></i> <span>样例</span></a></li>
+        <li><a href="#/mportals2/example/list.html" class="addTab" data-href="/Quark/mportals2/example/list.html"><i class="fa fa-link"></i> <span>样例</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>系统管理</span>
             <span class="pull-right-container">
@@ -387,6 +387,22 @@ $(document).ready(function(){
 		var _href=$(this).attr("data-href");
 		js.addTabPage($(this),_title,_href);
 	});
+	/**
+	*重新
+	**/
+  	/*$(document).on('click', ".sidebar-toggle", function (e) {
+	  	var _w = ($(top.window).width()-50);
+		var _h = ($(top.window).height()-50);
+	    var w = $(".main-sidebar").width();
+	    if(w < 50){
+	    	_w = _w - 180;
+	    } 
+
+	    console.log(_w);
+		console.log(_h);
+		js.tabPage.setRenderWH({width:_w+"px", height:_h+"px"});
+	  });*/
+	
 	/*window.tabPage = new TabPanel({
         renderTo:'tabpanel',  
         //width: '100%', 
@@ -400,7 +416,9 @@ $(document).ready(function(){
         ]
     });*/
 }); 
-
+/**
+ * 
+ */
 function toTabPage(obj,_title,_href){
 	js.addTabPage(obj,_title,_href);
 }

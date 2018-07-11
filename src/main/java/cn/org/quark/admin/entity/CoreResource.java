@@ -37,13 +37,16 @@ public class CoreResource implements java.io.Serializable {
 	@Column(length = 50)
 	private String rcode;//编码标识
 	@Column(length = 100)
-	private String rname;
-	//@Column(length = 10,name="RES_TYPE")
-	//private String resType;
+	private String rname;//资源名称
+	@Column(length = 10,name="RES_TYPE")
+	private String resType;//类型1：菜单2：按钮
 	@Column(length = 200,name="RES_STRING")
-	private String resString;
+	private String resString;//链接
 	@Column(length = 200)
-	private String descn;
+	private String descn;//资源描述
+	
+	@Column(length = 20,name="RES_ICON")
+	private String resIcon;//资源图标
 	
 	@ManyToMany(targetEntity=CoreRole.class,mappedBy="resources",
 			cascade={CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.LAZY)
@@ -125,6 +128,22 @@ public class CoreResource implements java.io.Serializable {
 
 	public void setModuleOid(String moduleOid) {
 		this.moduleOid = moduleOid;
+	}
+
+	public String getResType() {
+		return resType;
+	}
+
+	public void setResType(String resType) {
+		this.resType = resType;
+	}
+
+	public String getResIcon() {
+		return resIcon;
+	}
+
+	public void setResIcon(String resIcon) {
+		this.resIcon = resIcon;
 	}
 
 

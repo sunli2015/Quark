@@ -30,7 +30,9 @@
 							html:'<script>js.loading();<\/script><iframe id="'+c+'-frame" src="'+d+'" width="100%" height="100%" frameborder="0" onload="js.closeLoading();"></iframe>',
 							closable:(f==undefined?true:f),
 							onPreClose:function(i){js.closeLoading(1000,true)},
-							disabled:false})
+							disabled:false,
+							autoResizable:true,
+							widthResizable:true})
 			},
 			getCurrentTabPage:function(d){
 				var c=b("#"+this.tabPageId).tabPanel("getActiveTab");
@@ -49,7 +51,10 @@
 				if(f==true){b("#"+this.tabPageId).tabPanel("kill",d.id)}
 				return h
 			},
-			closeCurrentTabPage:function(c){getPrevTabPage(c,true)}
+			closeCurrentTabPage:function(c){getPrevTabPage(c,true)},
+			setRenderWH:function(wh){
+				b("#"+this.tabPageId).tabPanel("setRenderWH",wh);
+			}
 	};
 	window.tabPage=a
 })(window.jQuery);
