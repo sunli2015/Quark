@@ -58,39 +58,7 @@ request.setAttribute("ctx", request.getContextPath());
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
-                        <img src="statics/user.jpg" class="img-circle" alt="">
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
+
           <!-- /.messages-menu -->
 
           <!-- Notifications Menu -->
@@ -100,58 +68,6 @@ request.setAttribute("ctx", request.getContextPath());
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
             </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks Menu -->
-          <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- Inner menu: contains the tasks -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <!-- Task title and progress text -->
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <!-- The progress bar -->
-                      <div class="progress xs">
-                        <!-- Change the css width attribute to simulate progress -->
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
           </li>
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
@@ -164,11 +80,11 @@ request.setAttribute("ctx", request.getContextPath());
             </a>
             <ul class="dropdown-menu" style="width: 100%;">
               <li class="mt5" id="topAvater">
-					<a id="userInfo" href="#" data-href="../mportals/desktop.html" class="addTabPage">
+					<a id="userInfo" href="#" data-href="../mportals/adminext/userinfo/info.html?op=base" class="addTabPage">
 					<i class="fa fa-user"></i> 个人中心</a>
 				</li>
 				<li>
-					<a id="modifyPassword" href="#" data-href="../mportals/desktop.html" class="addTabPage">
+					<a id="modifyPassword" href="#" data-href="../mportals/adminext/userinfo/info.html?op=pwd" class="addTabPage">
 					<i class="fa fa-key"></i> 修改密码</a>
 				</li>
 				<li class="divider"></li>
@@ -244,15 +160,7 @@ request.setAttribute("ctx", request.getContextPath());
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  
-  
-	<div id="tabpanel" style="overflow: hidden; width: 100%;">
-	
-	</div>
-    
-    
-    
-    
+	<div id="tabpanel" style="overflow: hidden; width: 100%;"></div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -346,17 +254,12 @@ request.setAttribute("ctx", request.getContextPath());
 </div>
 
 <script type="text/javascript" >
-window.tabPage;  
-/*var jcTabs = [
-'<iframe src="error.jsp" width="100%" height="100%" frameborder="0"></iframe>',
-'1', '2', '3'
-];
-
-var _w = ($(top.window).width()-50)+"px";
-var _h = ($(top.window).height()-50)+"px";
-*/
 $(document).ready(function(){
-	
+	//解决窗口变化
+	$(document).on('click', ".sidebar-toggle", function (e) {
+		$(".sidebar-toggle").trigger("resize");
+	  });
+	//初始化首页
 	js.initTabPage("tabpanel",{
         height: function() {
             var f = $(window).height(),
@@ -372,73 +275,12 @@ $(document).ready(function(){
 		var _href=$(this).attr("data-href");
 		js.addTabPage($(this),_title,_href);
 	});
-	/*window.tabPage = new TabPanel({
-        renderTo:'tabpanel',  
-        //width: '100%', 
-        height: _h, 
-        widthResizable:true,
-        //border:'none',  
-        active : 0,
-        //maxLength : 10,  
-        items : [
-            {id:'tp_1',title:'首页',html:jcTabs[0],closable: false}
-        ]
-    });*/
 }); 
 
 function toTabPage(obj,_title,_href){
 	js.addTabPage(obj,_title,_href);
 }
-/*function addTab(t){
-	
-	
-	
-	console.log("tttttttttt",t);
-	var _html = "";
-	var _href="error.jsp";
-	var _title = $(t.document).find("span").html();
-	
-	console.log("=========>title:"+_title);
-	
-	var index = $(obj).data("tabId");
-	if(index == 1){
-		_html = '<iframe src="error.jsp" width="100%" height="100%" frameborder="0"></iframe>';
-	}
-	if(index == 2 ){
-		_html = '<iframe src="login.jsp" width="100%" height="100%" frameborder="0"></iframe>';
-	}
-	if(index == 3){
-		_html = '<iframe src="main.jsp" width="100%" height="100%" frameborder="0"></iframe>';
-	}
-	if(index == 4){
-		_title = "样例";
-		_html = '<iframe src="/Quark/mportals2/example/list.html" width="100%" height="100%" frameborder="0"></iframe>';
-		_href="/Quark/mportals2/example/list.html";
-	}
-	
-	
-	
-	js.addTabPage($(obj),_title,_href);
-	
-	/*var _id = 'tp_'+(new Date()).getTime();
-	$("li[id^='tp_']").each(function(i,d){
-		var title = $(d).find(".title").html();
-		var id = $(d).attr("id");
-		console.log("===>"+i,title);
-		if(title == _title){
-			_id=id;
-			return false;
-		}
-	})
-	
-	window.tabPage.addTab({
-		id:_id,
-		title: _title,
-		html: _html,
-		closable: true,
-		disabled: false
-	});
-}*/
+
 </script>
 
 </body>

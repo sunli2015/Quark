@@ -1,0 +1,280 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="个人中心" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>个人中心 </title>
+<!-- <script src="/itsm/global.min.js?ctx=/itsm/a"></script> -->
+<script src="/Quark/statics/jQuery/jquery-1.12.4.min.js"></script>
+<script src="/Quark/statics/jQuery/jquery-migrate-1.4.1.min.js"></script>
+<!--[if lt IE 9]><script src="/Quark/statics/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-07071142">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-07071142">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-07071142">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-07071142">
+<!-- <link rel="stylesheet" href="/Quark/statics/common/common.css?-07071142"> -->
+</head><body class="hold-transition ">
+<div class="wrapper">
+<!-- <link rel="stylesheet" href="/Quark/statics/jquery-plugins/jquery.strength.css?-07071142">
+<link rel="stylesheet" href="/Quark/statics/modules/sys/userInfo.css?-07071142"> -->
+<div class="main-content">
+	<div class="nav-tabs-custom nav-main">
+		<ul class="nav nav-tabs pull-right">
+			<li><a id="pwd-tab" href="#tab-2" data-toggle="tab">修改密码</a></li>
+			<li><a id="info-tab" href="#tab-1" data-toggle="tab">个人信息</a></li>
+			<li class="pull-left header">
+				<i class="fa icon-user" style="vertical-align:-1px;"></i>个人中心
+			</li>
+		</ul>
+		<div class="tab-content p0">
+			<div class="tab-pane active" id="tab-1">
+<form id="inputFormBase" action="/itsm/a/sys/user/infoSaveBase" method="post" class="form-horizontal">
+					<div class="box-body"><br/>
+						<div class="col-sm-offset-1 col-sm-3"><br/>
+							<div class="box box-main">
+								<div class="box-body box-profile">
+									<img id="avatarImg" class="profile-user-img img-responsive img-circle"
+										src="/Quark/statics/images/user1.jpg">
+									<h3 class="profile-username text-center">系统管理员</h3>
+									<p class="text-muted text-center">
+
+<span id="sex" class="icheck">
+<label><input type="radio" id="sex1" name="sex"
+			value="1" class="form-control required" checked> 男</label><label><input type="radio" id="sex2" name="sex"
+			value="2" class="form-control required"> 女</label></span>
+									</p>
+<input id="imageBase64" name="imageBase64" type="hidden" value="" class="">
+<a id="imageBase64Button" href="javascript:" class="btn btn-default btn-block">修改头像</a>
+<script>
+$("#imageBase64Button,#avatarImg").click(function(){
+	js.layer.open({
+		type: 2,
+		maxmin: true,
+		shadeClose: true,
+		title: '图片裁剪',
+		area: [(js.layer.$(js.layer.window).width() - 150) + 'px',
+		       (js.layer.$(js.layer.window).height() - 100) + 'px'],
+		content: '/itsm/tags/imageclip',
+		contentFormData: {
+			circle: 'true',
+			imageSrc: $("#avatarImg").attr('src'),
+			imageDefaultSrc: '/Quark/statics/images/user1.jpg'
+		},
+		btn: ['<i class="fa fa-check"></i> 确定',
+			'<i class="fa fa-eraser"></i> 清除',
+			'<i class="fa fa-close"></i> 关闭'],
+		btn1: function(index, layero){
+			var win = js.layer.iframeWindow(index);
+			win.$("#btnGetImageBase64").click();
+			$("#avatarImg").attr("src", win.imageBase64);
+			$("#imageBase64").val(win.imageBase64).change();
+			try { $('#imageBase64').valid(); }catch(e){}
+		},
+		btn2: function(index, layero){
+			$("#avatarImg").attr("src","/Quark/statics/images/user1.jpg");
+            $("#imageBase64").val("EMPTY").change();
+		}
+	});
+});
+</script>								</div>
+							</div>
+						</div>
+						<div class="col-sm-7"><br/>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-sm-3">
+											<span class="required">*</span> 用户昵称：</label>
+										<div class="col-sm-9">
+											<div class="input-group">
+<input type="text" id="userName" name="userName" value="系统管理员" maxlength="32" class="form-control required"/>
+												<span class="input-group-addon"><i class="fa fa-fw fa-user" style="margin-top:-2px;display:block;"></i></span>
+							                </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-sm-3" title="">
+											<span class="required hide">*</span> 电子邮箱：<i class="fa icon-question hide"></i></label>
+										<div class="col-sm-9">
+											<div class="input-group">
+<input type="text" id="email" name="email" value="" maxlength="300" class="form-control email"/>
+												<span class="input-group-addon"><i class="fa fa-fw fa-envelope" style="margin-top:-2px;display:block;"></i></span>
+							                </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-sm-3" title="">
+											<span class="required hide">*</span> 手机号码：<i class="fa icon-question hide"></i></label>
+										<div class="col-sm-9">
+											<div class="input-group">
+<input type="text" id="mobile" name="mobile" value="" maxlength="100" class="form-control mobile"/>
+												<span class="input-group-addon"><i class="fa fa-fw fa-mobile" style="margin-top:-2px;display:block;"></i></span>
+							                </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-sm-3" title="">
+											<span class="required hide">*</span> 办公电话：<i class="fa icon-question hide"></i></label>
+										<div class="col-sm-9">
+											<div class="input-group">
+<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control phone"/>
+												<span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
+							                </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-sm-3" title="">
+											<span class="required hide">*</span> 个性签名：<i class="fa icon-question hide"></i></label>
+										<div class="col-sm-9">
+<textarea id="sign" name="sign" rows="3" maxlength="100" class="form-control "></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br/>
+						</div>
+					</div>
+					<div class="box-footer">
+						<div class="row mr20 pr20">
+							<div class="text-center mr20 pr20">
+								<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+								<button type="button" class="btn btn-sm btn-default" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+							</div>
+						</div>
+					</div>
+</form>
+			</div>
+			<div class="tab-pane " id="tab-2">
+<form id="inputFormPwd" action="/Quark/user/pwdmodify.do" method="post" class="form-horizontal">
+					<div class="box-body">
+						<div class="form-unit">修改密码</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="control-label col-sm-3">旧密码：</label>
+									<div class="col-sm-8">
+										<input id="oldPassword" name="oldPwd" type="password" autocomplete="off" value="" maxlength="50" minlength="3" class="form-control required"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="control-label col-sm-3">新密码：</label>
+									<div class="col-sm-8">
+										<div class="strength strength-loose">
+											<input id="newPassword" name="newPwd" type="password" autocomplete="off" value="" maxlength="50" minlength="3" class="form-control required"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="control-label col-sm-3">确认新密码：</label>
+									<div class="col-sm-8">
+										<input id="confirmNewPassword" name="newPwdAgain" type="password" autocomplete="off" value="" maxlength="50" minlength="3" class="form-control required" equalTo="#newPassword"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<div class="row">
+							<div class="col-sm-offset-3 col-sm-10">
+								<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+								<button type="button" class="btn btn-sm btn-default" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+							</div>
+						</div>
+					</div>
+</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-07071142"></script>
+<!-- <script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-07071142"></script> -->
+<script src="/Quark/statics/layer/3.1/layer.js?-07071142"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-07071142"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.js?-07071142"></script>
+<script src="/Quark/statics/jquery-validation/1.16/localization/messages_zh_CN.js?-07071142"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.extend.js?-07071142"></script>
+<script src="/Quark/statics/common/jeesite.js?-07071142"></script>
+<!-- <script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-07071142"></script>
+<script src="/Quark/statics/common/common.js?-07071142"></script>
+<script src="/Quark/statics/common/des.js?-07071142"></script> -->
+<script src="/Quark/statics/jquery-plugins/jquery.strength.js?-07071142"></script>
+<script>
+$(function(){
+	var op = js.getParam("op");
+	console.log('====>'+op);
+	if(op == 'pwd'){
+		$('#pwd-tab').trigger('click');
+	} else {
+		$("#info-tab").trigger("click");
+	}
+	
+});
+// 个人信息
+$("#inputFormBase").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == Global.TRUE){
+				location = '/itsm/a/sys/user/info?op=base';
+			}
+		}, "json");
+    }
+});
+$('#sex input').on('ifCreated ifChecked', function(){
+	if ($(this).is(':checked')){
+		var s = $('#avatarImg').attr('src');
+		var m = "/Quark/statics/images/user1.jpg";
+		var w = "/Quark/statics/images/user2.jpg";
+		if (s == m || s == w){
+			$('#avatarImg').attr('src', "/Quark/statics/images/user"+$(this).val()+".jpg");
+		}
+	}
+});
+// 修改密码
+$("#newPassword").strength();
+$("#inputFormPwd").validate({
+	submitHandler: function(form){
+		/*var oldPassword = $('#oldPassword').val(),
+			newPassword = $('#newPassword').val(),
+			confirmNewPassword = $('#confirmNewPassword').val(),
+			secretKey = 'thinkgem,jeesite,com';
+		if (secretKey != ''){
+			$('#oldPassword').val(DesUtils.encode(oldPassword, secretKey));
+			$('#newPassword').val(DesUtils.encode(newPassword, secretKey));
+			$('#confirmNewPassword').val(DesUtils.encode(confirmNewPassword, secretKey));
+		}*/
+		js.ajaxSubmitForm($(form), function(data){
+			if(data.code == '0'){
+				js.showMessage("修改密码成功");
+				location = '/Quark/mportals/adminext/userinfo/info.html?op=pwd';
+			} else {
+				js.showMessage(data.errMsg);
+			}
+		}, "json");
+		$('#oldPassword').val(oldPassword);
+		$('#newPassword').val(newPassword);
+		$('#confirmNewPassword').val(confirmNewPassword);
+    }
+});
+</script>
