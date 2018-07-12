@@ -8,7 +8,7 @@ request.setAttribute("ctx", request.getContextPath());
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>测试前端框架</title>
+<title>Quark DEMO</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 <link href="" rel="stylesheet">
@@ -22,7 +22,9 @@ request.setAttribute("ctx", request.getContextPath());
 <link rel="stylesheet" type="text/css" href="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/bower_components/Ionicons/css/ionicons.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/statics/AdminLTE/AdminLTE-2.4.3/dist/css/skins/skin-blue-light.min.css">
- <link rel="stylesheet" href="/Quark/statics/jquery-toastr/2.0/toastr.min.css?-06251059">
+<link rel="stylesheet" href="/Quark/statics/jquery-toastr/2.0/toastr.min.css?-06251059">
+ <link rel="stylesheet" href="${ctx }/statics/common/jeesite.css">
+ 
 <!-- tab -->
 <link href="${ctx }/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="${ctx }/statics/jQuery/jquery.min.js"></script>
@@ -160,37 +162,21 @@ request.setAttribute("ctx", request.getContextPath());
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">超级管理员</span>
             </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <!-- <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li> -->
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">个人中心</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">修改密码</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <!-- <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div> -->
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">退出登陆</a>
-                </div>
-              </li>
+            <ul class="dropdown-menu" style="width: 100%;">
+              <li class="mt5" id="topAvater">
+					<a id="userInfo" href="#" data-href="../mportals/desktop.html" class="addTabPage">
+					<i class="fa fa-user"></i> 个人中心</a>
+				</li>
+				<li>
+					<a id="modifyPassword" href="#" data-href="../mportals/desktop.html" class="addTabPage">
+					<i class="fa fa-key"></i> 修改密码</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="${ctx }/logout">
+					<i class="fa fa-sign-out"></i> 退出登录</a>
+				</li>
+				<li class="mt10"></li>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
@@ -217,6 +203,7 @@ request.setAttribute("ctx", request.getContextPath());
           <p>超级管理员</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+          <a href="${ctx }/logout"><i class="fa fa-sign-out text-danger"></i> 注销</a>
         </div>
       </div>
 
@@ -379,7 +366,7 @@ $(document).ready(function(){
             return c < 300 ? 300 : c
         }
     });
-	js.addTabPage(null,'首页','error.jsp');
+	js.addTabPage(null,'首页','../mportals/desktop.html',false);
 	$(".addTab").on('click',function(){
 		var _title = $(this).find("span").html();
 		var _href=$(this).attr("data-href");

@@ -141,7 +141,7 @@ var _dataGrid = $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
 		{header:'资源名称', name:'rname', index:'name', width:150, align:"center",formatter: function(val, obj, row, act){
-			var s = '<i class="'+row.resIcon+'" style="color:undefined"></i>'+val;
+			var s = '<i class="'+row.resIcon+'" style="margin-right:5px;"></i>'+val;
 			console.log("aaaaaaaaaaa:",s)
 			return s;
 		}},
