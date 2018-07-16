@@ -115,6 +115,7 @@ $(function(){
 		console.log("title:",_title);
 		console.log("href:",_href);
 		//addTab(_title,_href);
+		debugger;
 		parent.toTabPage($(this),_title,_href);
 		//js.tabPage.tabPageId="tabpanel";
 		//js.addTabPage($(this),_title,_href,"");
@@ -140,8 +141,8 @@ $(function(){
 var _dataGrid = $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'资源名称', name:'rname', index:'name', width:150, align:"center",formatter: function(val, obj, row, act){
-			var s = '<i class="'+row.resIcon+'" style="margin-right:5px;"></i>'+val;
+		{header:'资源名称', name:'rname', index:'name', width:150, align:"left",formatter: function(val, obj, row, act){
+			var s = '<i class="'+row.resIcon+'"></i> '+val;
 			console.log("aaaaaaaaaaa:",s)
 			return s;
 		}},
@@ -160,6 +161,9 @@ var _dataGrid = $('#dataGrid').dataGrid({
 			return actions.join('');
 		}}
 	],
+	treeGrid: true,			// 启用树结构表格
+	defaultExpandLevel: 0,	// 默认展开的层次
+	expandNodeClearPostData: 'rname',
 	// 加载成功后执行事件
 	ajaxSuccess: function(data){
 		console.log('data:',data);
