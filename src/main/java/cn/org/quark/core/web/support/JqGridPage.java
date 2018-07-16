@@ -18,7 +18,7 @@ public class JqGridPage<T> extends RtnStatusResult{
 	private int prev;//前一页
 	private int next;//后一页
 	private int pageNo;
-	private int pageSize;
+	private int pageSize = 10;
 	private int last;//总页数
 	private long count;//总记录数
 	private List<T> list;//数据

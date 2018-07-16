@@ -19,8 +19,8 @@ public class RtnStatusResult extends BaseVo{
 	private String code ;//返回码
 	private String errMsg ;//错误信息
 	
-	private String result;
-	private String message;
+	private String result;//true/false
+	private String message;//提示语
 	
 	public RtnStatusResult(){
 		this.code = RtnCode.SUCC ;

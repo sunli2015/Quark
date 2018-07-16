@@ -92,7 +92,7 @@ public class ResourceAction extends BaseEntityAction<CoreResource,ResourceManage
 		if(UtilString.isEmpty(entity.getOid())) entity.setOid(null);
 		return super.save(entity);
 	}
-
+	
 	@Autowired
 	private ResourceManager resourceManager;
 }

@@ -30,6 +30,8 @@ import cn.org.quark.core.login.Loginer;
 import cn.org.quark.core.utils.UtilString;
 import cn.org.quark.core.web.springmvc.BaseEntityAction;
 import cn.org.quark.core.web.support.ResultData;
+import cn.org.quark.core.web.support.RtnResult;
+import cn.org.quark.core.web.support.RtnStatusResult;
 
 @Controller("mvcUserAction")
 @RequestMapping("/user")
@@ -62,7 +64,52 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 		ResultData resultData = new ResultData();
 		return resultData;
 	}
-	
+	/**
+	 * 修改个人信息
+	 * @param coreUser
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/modifyInfo")
+	@ResponseBody
+	public RtnStatusResult modifyInfo(CoreUser coreUser , HttpServletRequest request){
+		RtnStatusResult result = new RtnStatusResult();
+		try {
+			Loginer loginer = LoginUtil.getLoginer(request);
+			String id = loginer.getUserid();
+			CoreUser _coreUser = userManager.get(id);
+			_coreUser.setCname(coreUser.getCname());
+			_coreUser.setEmail(coreUser.getEmail());
+			_coreUser.setMobile(coreUser.getMobile());
+			_coreUser.setSex(coreUser.getSex());
+			_coreUser.setSign(coreUser.getSign());
+			userManager.save(_coreUser);
+		} catch (Exception e) {
+			result.setCode(RtnCode.OTHER_ERROR);
+			result.setMessage(e.getMessage());
+		}
+		return result;
+	}
+	/**
+	 * 查询用户信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryInfo")
+	@ResponseBody
+	public RtnResult<CoreUser> queryInfo(HttpServletRequest request){
+		RtnResult<CoreUser> result = new RtnResult<CoreUser>();
+		try {
+			Loginer loginer = LoginUtil.getLoginer(request);
+			String id = loginer.getUserid();
+			CoreUser _coreUser = userManager.get(id);
+			result.setData(_coreUser);
+		} catch (Exception e) {
+			result.setCode(RtnCode.OTHER_ERROR);
+			result.setMessage(e.getMessage());
+		}
+		return result;
+	}
 	/**
 	 * 修改密码
 	 * @param oldPwd

@@ -12,6 +12,7 @@ import cn.org.quark.core.common.RtnCode;
  * @author Leo
  *
  * @param <T>
+ * @see cn.org.quark.core.web.support.RtnResult,cn.org.quark.core.web.support.RtnStatusResult
  */
 @Deprecated
 public class ResultData<T> extends BaseVo{

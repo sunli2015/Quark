@@ -50,6 +50,12 @@ public class CoreUser implements java.io.Serializable {
 	@Column(length = 1)
 	private Long status;//状态
 
+	@Column(length = 2)
+	private String sex ;//男：1 女：2
+	
+	@Column(length = 1000)
+	private String sign;//个人签名
+	
 	@ManyToMany(targetEntity=CoreRole.class,
 			cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(name="CORE_USER_ROLE",
@@ -154,4 +160,22 @@ public class CoreUser implements java.io.Serializable {
 	public String getDeptName() {
 		return dept.getDeptname();
 	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+	
+	
 }
