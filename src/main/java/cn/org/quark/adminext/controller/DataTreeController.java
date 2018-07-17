@@ -3,8 +3,12 @@ package cn.org.quark.adminext.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import cn.org.quark.core.utils.UtilString;
 
 @Controller("DataTreeController")
 @RequestMapping("/dataTree")
@@ -21,7 +25,12 @@ public class DataTreeController {
 		return a;
 	}
 	@RequestMapping("/treeselect")
-	public String treeselect(){
-		return "commonext/treeselect";
+	public ModelAndView treeselect(String url , String check){
+		Assert.hasLength(url, "URL不能为空");
+		ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("commonext/treeselect");
+        modelAndView.addObject("url", UtilString.isEmpty(url)?"":url);
+        modelAndView.addObject("check", UtilString.isEmpty(check)?"":Boolean.parseBoolean(check));
+		return modelAndView;
 	}
 }
