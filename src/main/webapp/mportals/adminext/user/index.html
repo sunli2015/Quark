@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html style="overflow: hidden; height: 100%; border: none; padding: 0px; margin: 0px;">
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>样例 </title>
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery-1.12.4.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css">
+ <link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/zTreeStyle.css">
+ <link rel="stylesheet" href="/Quark/statics/jquery-plugins/jquery.layout-latest.css">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css">
+<link rel="stylesheet" href="/Quark/statics/layer/3.1/skin/default/layer.css">
+<link rel="stylesheet" href="/Quark/statics/metro/layer.css">
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/fonts/simple-line-icons.css">
+
+
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+
+ 
+ <!-- tab -->
+<!-- <link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/> -->
+  </head>
+  
+  <body class="hold-transition  ui-layout-container" style="overflow: hidden; width: auto; height: 100%; margin: 0px; position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px;">
+
+<div class="ui-layout-west  ui-layout-pane ui-layout-pane-west" style="position: absolute; margin: 0px; left: 0px; right: auto; top: 0px; bottom: 0px; height: 100%; z-index: 0; overflow: hidden; width: 180px; display: block; visibility: visible;">
+	<div class="main-content" style=" height: 100%;">
+		<div class="box box-main" style=" height: 100%;">
+			<div class="box-header" >
+				<div class="box-title">
+					<i class="fa icon-grid"></i> 组织机构
+				</div>
+				<div class="box-tools pull-right">
+				
+					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
+				</div>
+			</div>
+			<div class="ui-layout-content" style="position: relative; height: 100%; visibility: visible;">
+				<div id="tree" class="ztree"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui-layout-center ui-layout-pane ui-layout-pane-center" style="position: absolute; margin: 0px; left: 188px; right: 0px; top: 0px; bottom: 0px; height: 100%; width: 1041px; z-index: 0; overflow: hidden; display: block; visibility: visible;">
+	<iframe id="mainFrame" name="mainFrame" class="ui-layout-content p0" style="position: relative; height: 100%; visibility: visible;"
+		src="/Quark/mportals/adminext/user/list.html"></iframe>
+</div> 
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<div id="" class="ui-layout-resizer ui-layout-resizer-west ui-draggable-handle ui-layout-resizer-open ui-layout-resizer-west-open" title="调整大小/双击折叠" style="position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 2; cursor: w-resize; left: 180px; height: 327px; width: 8px; top: 0px;">
+<div id="" class="ui-layout-toggler ui-layout-toggler-west ui-layout-toggler-open ui-layout-toggler-west-open" title="折叠" style="position: absolute; display: none; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; visibility: visible; height: 50px; width: 8px; top: 138px; left: 0px;">
+	<span class="ui-content content-open" style="display: block; margin-top: 19px;"><i class="fa"></i></span>
+	<span class="ui-content content-closed" style="display: none; margin-top: 19px;"><i class="fa"></i></span>
+</div></div>
+ 
+<!-- <script type="text/javascript" src="/Quark/statics/jQuery/jquery-migrate-1.4.1.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery-ui-draggable-1.12.1.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.extend.js"></script>
+
+
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script> -->
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js"></script>
+
+<script src="/Quark/statics/layer/3.1/layer.js"></script>
+<script src="/Quark/statics/my97/WdatePicker.js"></script>
+<script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+<script src="/Quark/statics/jQuery/jquery-ui-draggable-1.12.1.min.js"></script>
+<script src="/Quark/statics/jQuery/jquery-ui-effect-1.12.1.min.js"></script>
+<script src="/Quark/statics/jquery-plugins/jquery.layout-latest.js"></script>
+<script src="/Quark/statics/common/jeesite.js"></script>
+<script src="/Quark/statics/common/i18n/jeesite_zh_CN.js"></script> 
+<!-- <script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend.js"></script> -->
+<!-- 
+<script src="/Quark/statics/jqGrid/4.7/js/i18n/zh_CN.js?-06130816"></script> -->
+
+
+
+
+
+
+ 
+
+
+
+
+<script>
+
+// 初始化布局
+ $('body').layout({
+	west__size: 180
+});
+// 主页框架
+var win = $("#mainFrame")[0].contentWindow;
+// 树结构初始化加载
+var setting = {view:{selectedMulti:false,showLine: true},data:{key:{title:"title"},simpleData:{enable:true}},
+	callback:{onClick:function(event, treeId, treeNode){
+		tree.expandNode(treeNode);
+		win.$('input[type=reset]').click();
+		//debugger;
+		win.$('#deptoid').val(treeNode.id);
+		//win.$('#deptName').val(treeNode.name);
+		win.page();
+	}}
+}, tree, loadTree=function(){
+	js.ajaxSubmit("/Quark/dept/ext/treeData", {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
+		tree = $.fn.zTree.init($("#tree"), setting, data);//.expandAll(true);
+		// 展开第一级节点
+		var nodes = tree.getNodesByParam("level", 0);
+		for(var i=0; i<nodes.length; i++) {
+			tree.expandNode(nodes[i], true, false, false);
+		}
+		// 展开第二级节点
+// 		nodes = tree.getNodesByParam("level", 1);
+// 		for(var i=0; i<nodes.length; i++) {
+// 			tree.expandNode(nodes[i], true, false, false);
+// 		}
+	}, null, null, js.text('loading.message'));
+};
+loadTree();
+// 工具栏按钮绑定
+$('#btnExpand').click(function(){
+	tree.expandAll(true);
+	$(this).hide();
+	$('#btnCollapse').show();
+});
+$('#btnCollapse').click(function(){
+	tree.expandAll(false);
+	$(this).hide();
+	$('#btnExpand').show();
+});
+$('#btnRefresh').click(function(){
+	loadTree();
+});
+//调用子页分页函数
+function page(){
+	win.page();
+}
+</script>
+
+ </body>
+</html>

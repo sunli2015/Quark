@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>编辑用户</title>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-06130816">
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+ <link rel="stylesheet" href="/Quark/statics/jquery-validation/1.16/jquery.validate.css?-06251059">
+ <link rel="stylesheet" href="/Quark/statics/jquery-toastr/2.0/toastr.min.css?-06251059">
+  </head>
+  
+  <body class="hold-transition ">
+<div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> 编辑用户
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>
+<form id="inputForm" action="/Quark/user/ext/saveit" method="post" class="form-horizontal">
+			<div class="box-body">
+				<div class="form-unit">基本信息</div>
+				<input type="hidden" id="oid" name="oid" value=""/>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" title="">
+								所属部门：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-10">
+								<div class="input-group">
+									<input id="parent" name="dept.oid" type="text" value="2" class="form-control ">
+									<span class="input-group-btn"><a id="parentButton" href="javascript:" class="btn btn-default"><i class="fa fa-search"></i></a></span>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				
+					
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required">*</span> 登录账号：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="logid" name="logid" value="" maxlength="200" class="form-control required" required/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required">*</span> 用户昵称：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="cname" name="cname" value="" maxlength="200" class="form-control required" required/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required">*</span> 手机号码：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="mobile" name="mobile" value="" maxlength="200" class="form-control required" required/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required">*</span> 邮箱：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+<input type="text" id="email" name="email" value="" maxlength="200" class="form-control required" required/>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+					</div>
+				</div>
+			</div>
+</form>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
+<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
+<script src="/Quark/statics/my97/lang/zh_CN.js?-06130816"></script>
+<!-- 
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js?-06130816"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend.js?-06130816"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/i18n/zh_CN.js?-06130816"></script>
+ -->
+
+<script src="/Quark/statics/common/jeesite.js?-06130816"></script>
+<!-- <script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-06130816"></script>
+<script src="/Quark/statics/common/common.js?-06130816"></script> -->
+
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.js?-06251059"></script>
+<script src="/Quark/statics/jquery-validation/1.16/localization/messages_zh_CN.js?-06251059"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.extend.js?-06251059"></script>
+
+<script src="/Quark/statics/jquery-toastr/2.0/toastr.min.js?-06251059"></script>
+
+<script src="/Quark/statics/icheck/1.0/icheck.js?-06130816"></script>
+
+<script>
+var apis ={
+	editUrl :'/Quark/user/ext/editit'	
+}
+$(function(){
+	
+	 /*$('input').iCheck({
+		    checkboxClass: 'icheckbox_minimal',
+		    radioClass: 'iradio_minimal',
+		    increaseArea: '20%' // optional
+		  });*/
+	
+	var _id = js.getParam("id");
+	js.ajaxSubmit(apis.editUrl,{id:_id}, function(data){
+		if(data.result == "true"){
+			var d = data.data;
+			$("#inputForm input,#inputForm textarea").each(function(obj){
+				var name = $(this).attr("id");
+				if($(this).attr("type") == 'radio'){
+					name = $(this).attr("name");
+					//console.log("type:"+$(this).attr("type"));
+					var v = $(this).val();
+					//console.log("==>"+name+"==>"+d[name]+"type v:"+v);
+					if(d[name] == v){
+						$(this).attr("checked","checked");
+					}
+					return ;
+				}
+				
+				$(this).val(d[name]);
+			})
+			
+		}
+	}, "json");
+	//选择上级资源
+	$("#parentButton").on("click",function(){
+		showlayer('上级资源','http://layer.layui.com/test/welcome.html');
+	});
+	//选择图标
+	$("#menuIconButton").on("click",function(){
+		showlayer('选择图标','http://layer.layui.com/test/welcome.html');
+	});
+	
+});
+function showlayer(_title,_url){
+	layer.open({
+	    type: 2,
+	    title: _title,
+	    maxmin: true,
+	    area: ['800px', '500px'],
+	    content: _url,
+	    end: function(){
+	      //layer.tips('Hi', '#about', {tips: 1})
+	    }
+	  });
+}
+$("#inputForm").validate({
+	submitHandler: function(form){
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result == "true"){
+				js.closeCurrentTabPage(function(contentWindow){
+					console.log('contentWindow:',contentWindow);
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+</script>
+  </body>
+</html>
