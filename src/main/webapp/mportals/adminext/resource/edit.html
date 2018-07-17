@@ -49,7 +49,8 @@
 								上级资源：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
 								<div class="input-group">
-									<input id="parent" name="parent" type="text" value="" class="form-control ">
+									<input id="parent_oid" name="parent.oid" type="hidden" value="" class="form-control ">
+									<input id="parent_rname" name="parent.rname" type="text" value="" class="form-control ">
 									<span class="input-group-btn"><a id="parentButton" href="javascript:" class="btn btn-default"><i class="fa fa-search"></i></a></span>
 								</div>
 
@@ -61,14 +62,11 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required">*</span> 资源类型：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<div class="radio" style="padding-top: 2px;">
-								  <label>
-								    <input type="radio" name="resType" id="resType1" value="1" checked>菜单
-								  </label>
-								  <label>
-								    <input type="radio" name="resType" id="resType2" value="2"> 按钮
-								  </label>
-								</div>
+								<span id="resType" class="icheck">
+									<label><input type="radio" id="resType1" name="resType" value="1" class="form-control" checked="checked">菜单</label>
+									<label><input type="radio" id="resType2" name="resType" value="2" class="form-control">按钮</label>
+								</span>
+		
 							</div>
 						</div>
 					</div>
@@ -174,13 +172,6 @@ var apis ={
 	editUrl :'/Quark/resource/ext/editit'	
 }
 $(function(){
-	
-	 /*$('input').iCheck({
-		    checkboxClass: 'icheckbox_minimal',
-		    radioClass: 'iradio_minimal',
-		    increaseArea: '20%' // optional
-		  });*/
-	
 	var _id = js.getParam("id");
 	js.ajaxSubmit(apis.editUrl,{id:_id}, function(data){
 		if(data.result == "true"){
@@ -193,7 +184,10 @@ $(function(){
 					var v = $(this).val();
 					//console.log("==>"+name+"==>"+d[name]+"type v:"+v);
 					if(d[name] == v){
-						$(this).attr("checked","checked");
+						//$(this).attr("checked","checked");
+						//console.log("this:",$(this));
+						$(this).iCheck('check');
+						
 					}
 					return ;
 				}
@@ -205,11 +199,11 @@ $(function(){
 	}, "json");
 	//选择上级资源
 	$("#parentButton").on("click",function(){
-		showlayer('上级资源','http://layer.layui.com/test/welcome.html');
+		showlayer('上级资源','/Quark/dataTree/treeselect?url=xxxx&checkbox=true');
 	});
 	//选择图标
 	$("#menuIconButton").on("click",function(){
-		showlayer('选择图标','http://layer.layui.com/test/welcome.html');
+		showlayer('选择图标','/Quark/dataTree/treeselect');
 	});
 	
 });
@@ -218,10 +212,34 @@ function showlayer(_title,_url){
 	    type: 2,
 	    title: _title,
 	    maxmin: true,
-	    area: ['800px', '500px'],
+	    area: ['300px', '400px'],
 	    content: _url,
 	    end: function(){
 	      //layer.tips('Hi', '#about', {tips: 1})
+	    },
+	    btn: ['<i class="fa fa-check"></i> 确定', '<i class="fa fa-eraser"></i> 清除','<i class="fa fa-close"></i> 关闭'],
+	    yes:function(index,j){
+	    	console.log("yes111:"+index+",222:",j[0]);
+	    	var a = $(j[0]).find("iframe")[0].contentWindow;
+	    	//console.log("a:",a);
+	    	var tree = a.getTreeObj();
+	    	//console.log("tree:",tree);
+	    	var nodes = tree.getSelectedNodes();
+	    	console.log("sssss",nodes);
+	    	if(nodes.length != 0){
+	    		var node = nodes[0];
+	    		$("#parent_oid").val(node.id);
+	    		$("#parent_rname").val(node.name);
+	    	}
+	    	
+            layer.close(index);
+	    },
+	    btn2:function(i,j){
+	    	$("#parent_oid").val("");
+    		$("#parent_rname").val("");
+	    },
+	    btn3:function(i,j){
+	    	//console.log("btn111:"+i+",222:",j);
 	    }
 	  });
 }

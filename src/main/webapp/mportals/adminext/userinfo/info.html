@@ -31,9 +31,9 @@
 				<i class="fa icon-user" style="vertical-align:-1px;"></i>个人中心
 			</li>
 		</ul>
-		<div class="tab-content p0">
+		<div class="tab-content p0" id="vue">
 			<div class="tab-pane active" id="tab-1">
-<form id="inputFormBase" action="/itsm/a/sys/user/infoSaveBase" method="post" class="form-horizontal">
+<form id="inputFormBase" action="/Quark/user/modifyInfo" method="post" class="form-horizontal">
 					<div class="box-body"><br/>
 						<div class="col-sm-offset-1 col-sm-3"><br/>
 							<div class="box box-main">
@@ -43,13 +43,13 @@
 									<h3 class="profile-username text-center">系统管理员</h3>
 									<p class="text-muted text-center">
 
-<span id="sex" class="icheck">
-<label><input type="radio" id="sex1" name="sex"
-			value="1" class="form-control required" checked> 男</label><label><input type="radio" id="sex2" name="sex"
-			value="2" class="form-control required"> 女</label></span>
+		<span id="sex" class="icheck">
+			<label><input type="radio" id="sex1" name="sex" value="1" class="form-control required"> 男</label>
+			<label><input type="radio" id="sex2" name="sex" value="2" class="form-control required"> 女</label>
+		</span>
 									</p>
-<input id="imageBase64" name="imageBase64" type="hidden" value="" class="">
-<a id="imageBase64Button" href="javascript:" class="btn btn-default btn-block">修改头像</a>
+<!-- <input id="imageBase64" name="imageBase64" type="hidden" value="" class="">
+<a id="imageBase64Button" href="javascript:" class="btn btn-default btn-block">修改头像</a> -->
 <script>
 $("#imageBase64Button,#avatarImg").click(function(){
 	js.layer.open({
@@ -89,10 +89,10 @@ $("#imageBase64Button,#avatarImg").click(function(){
 								<div class="col-xs-12">
 									<div class="form-group">
 										<label class="control-label col-sm-3">
-											<span class="required">*</span> 用户昵称：</label>
+											<span class="required">*</span> 用户姓名：</label>
 										<div class="col-sm-9">
 											<div class="input-group">
-<input type="text" id="userName" name="userName" value="系统管理员" maxlength="32" class="form-control required"/>
+<input type="text" id="cname" name="cname" value="系统管理员" maxlength="32" class="form-control required"/>
 												<span class="input-group-addon"><i class="fa fa-fw fa-user" style="margin-top:-2px;display:block;"></i></span>
 							                </div>
 										</div>
@@ -122,24 +122,13 @@ $("#imageBase64Button,#avatarImg").click(function(){
 										</div>
 									</div>
 								</div>
-								<div class="col-xs-12">
-									<div class="form-group">
-										<label class="control-label col-sm-3" title="">
-											<span class="required hide">*</span> 办公电话：<i class="fa icon-question hide"></i></label>
-										<div class="col-sm-9">
-											<div class="input-group">
-<input type="text" id="phone" name="phone" value="" maxlength="100" class="form-control phone"/>
-												<span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
-							                </div>
-										</div>
-									</div>
-								</div>
+								
 								<div class="col-xs-12">
 									<div class="form-group">
 										<label class="control-label col-sm-3" title="">
 											<span class="required hide">*</span> 个性签名：<i class="fa icon-question hide"></i></label>
 										<div class="col-sm-9">
-<textarea id="sign" name="sign" rows="3" maxlength="100" class="form-control "></textarea>
+<textarea id="sign" name="sign" rows="4" maxlength="100" class="form-control "></textarea>
 										</div>
 									</div>
 								</div>
@@ -219,24 +208,45 @@ $("#imageBase64Button,#avatarImg").click(function(){
 <script src="/Quark/statics/common/common.js?-07071142"></script>
 <script src="/Quark/statics/common/des.js?-07071142"></script> -->
 <script src="/Quark/statics/jquery-plugins/jquery.strength.js?-07071142"></script>
+
 <script>
+var apis = {
+		queryInfo:'/Quark/user/queryInfo'
+}
 $(function(){
 	var op = js.getParam("op");
-	console.log('====>'+op);
 	if(op == 'pwd'){
 		$('#pwd-tab').trigger('click');
 	} else {
 		$("#info-tab").trigger("click");
 	}
 	
+	js.ajaxSubmit(apis.queryInfo,{},function(data){
+		if(data.code == '0'){
+			var _data = data.data;
+			var _sex = _data.sex;
+			if(_sex){
+				$("#sex"+_sex).iCheck('check')
+			} else {
+				$("#sex1").iCheck('check')
+			}
+			
+			$("#cname").val(_data.cname);
+			$("#email").val(_data.email);
+			$("#mobile").val(_data.mobile);
+			$("#sign").val(_data.sign);
+		}
+	},'json',true,'加载中');
 });
 // 个人信息
 $("#inputFormBase").validate({
 	submitHandler: function(form){
 		js.ajaxSubmitForm($(form), function(data){
-			js.showMessage(data.message);
-			if(data.result == Global.TRUE){
-				location = '/itsm/a/sys/user/info?op=base';
+			if(data.result == 'true'){
+				js.showMessage("个人信息保存成功");
+				//location = '/Quark/mportals/adminext/userinfo/info.html';
+			} else {
+				js.showMessage("保存失败，请联系管理员");
 			}
 		}, "json");
     }
