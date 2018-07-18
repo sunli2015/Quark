@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.org.quark.admin.entity.CoreDept;
+import cn.org.quark.admin.entity.CoreResource;
 import cn.org.quark.admin.manager.DeptManager;
 import cn.org.quark.admin.manager.UserManager;
 import cn.org.quark.core.common.RtnCode;
+import cn.org.quark.core.common.ZtreeData;
 import cn.org.quark.core.dao.support.CriteriaSetup;
 import cn.org.quark.core.dao.support.Page;
 import cn.org.quark.core.utils.UtilString;
@@ -174,6 +176,53 @@ public class DeptAction extends BaseEntityAction<CoreDept,DeptManager>{
 			result.setErrMsg(""+e.getMessage());
 		} 
 		return result;
+	}
+	
+	@RequestMapping("/treeselect")
+	public String treeselect(){
+		return "commonext/treeselectDept";
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/deptTree")
+	@ResponseBody
+	public List<ZtreeData> deptTree(String excludeCode, String parentCode, Boolean isAll,
+			String officeTypes, String companyCode, String isShowCode, String isShowFullName,
+			Boolean isLoadUser, String postCode, String roleCode, String ctrlPermi) {
+		List<ZtreeData> treeData = new ArrayList<ZtreeData>();
+		try {
+			CriteriaSetup criteriaSetup = new CriteriaSetup();
+			Page page1 = new Page();
+			criteriaSetup.addCriterion(Restrictions.isNull("parentDept"));
+			ResultData<List<CoreDept>> data = super.doListEntity(criteriaSetup, page1);
+			List<CoreDept>	coreDept = data.getData().getData();
+			//List<CoreResource> resources = resourceManager.createCriteria(Restrictions.isNull("parent")).list();
+			rebuildTree(treeData,coreDept);
+		} catch (Exception e) {
+			
+		} 
+		return treeData;
+	}
+	
+	
+	private void rebuildTree(List<ZtreeData> treeData ,List<CoreDept> coreDept){
+		for(CoreDept res : coreDept){
+			ZtreeData d = new ZtreeData();
+			d.setId(res.getOid());
+			d.setName(res.getDeptname());
+			if(res.getParentDept() == null){
+				d.setpId("0");
+			} else {
+				d.setpId(res.getParentDept().getOid());
+			}
+			treeData.add(d);
+			if(!res.getSubDepts().isEmpty()){
+				
+				rebuildTree(treeData,new ArrayList<CoreDept>(res.getSubDepts()));
+			}
+		}
 	}
 	@Autowired
 	private DeptManager deptManager;

@@ -65,10 +65,10 @@
 		src="/Quark/mportals/adminext/user/list.html"></iframe>
 </div> 
 <a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
-<div id="" class="ui-layout-resizer ui-layout-resizer-west ui-draggable-handle ui-layout-resizer-open ui-layout-resizer-west-open" title="调整大小/双击折叠" style="position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 2; cursor: w-resize; left: 180px; height: 327px; width: 8px; top: 0px;">
-<div id="" class="ui-layout-toggler ui-layout-toggler-west ui-layout-toggler-open ui-layout-toggler-west-open" title="折叠" style="position: absolute; display: none; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; visibility: visible; height: 50px; width: 8px; top: 138px; left: 0px;">
-	<span class="ui-content content-open" style="display: block; margin-top: 19px;"><i class="fa"></i></span>
-	<span class="ui-content content-closed" style="display: none; margin-top: 19px;"><i class="fa"></i></span>
+<div id="" class="ui-layout-resizer ui-layout-resizer-west ui-draggable-handle ui-layout-resizer-open ui-layout-resizer-west-open" title="调整大小/双击折叠" >
+<div id="" class="ui-layout-toggler ui-layout-toggler-west ui-layout-toggler-open ui-layout-toggler-west-open" title="折叠" >
+	<span class="ui-content content-open" ><i class="fa"></i></span>
+	<span class="ui-content content-closed" ><i class="fa"></i></span>
 </div></div>
  
 <!-- <script type="text/javascript" src="/Quark/statics/jQuery/jquery-migrate-1.4.1.min.js"></script>
@@ -114,7 +114,7 @@
 // 主页框架
 var win = $("#mainFrame")[0].contentWindow;
 // 树结构初始化加载
-var setting = {view:{selectedMulti:false,showLine: true},data:{key:{title:"title"},simpleData:{enable:true}},
+var setting = {view:{selectedMulti:false,showLine:true,showIcon:true},data:{simpleData:{enable:true}},
 	callback:{onClick:function(event, treeId, treeNode){
 		tree.expandNode(treeNode);
 		win.$('input[type=reset]').click();
@@ -124,7 +124,7 @@ var setting = {view:{selectedMulti:false,showLine: true},data:{key:{title:"title
 		win.page();
 	}}
 }, tree, loadTree=function(){
-	js.ajaxSubmit("/Quark/dept/ext/treeData", {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
+	js.ajaxSubmit("/Quark/dept/ext/deptTree", {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
 		tree = $.fn.zTree.init($("#tree"), setting, data);//.expandAll(true);
 		// 展开第一级节点
 		var nodes = tree.getNodesByParam("level", 0);
