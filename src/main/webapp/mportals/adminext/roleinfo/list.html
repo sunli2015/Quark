@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>角色管理 </title>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-06130816">
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+ <!-- tab -->
+<link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
+  </head>
+  
+  <body>
+    <div class="wrapper"><div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i>角色管理
+			</div>
+			<div class="box-tools pull-right">
+				<a href="list.html" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+				<a href="#" data-href="../mportals/adminext/roleinfo/edit.html" class="btn btn-default add" title="新增资源"><i class="fa fa-plus"></i> 新增</a>
+			</div>
+		</div>
+		<div class="box-body">
+		<form id="searchForm" action="/Quark/role/ext/list" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
+				
+				<div class="form-group">	
+					<label class="control-label">角色编号：</label>
+					<div class="control-inline">
+<input type="text" id="rolecode" name="rolecode" value="" maxlength="200" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">	
+					<label class="control-label">角色名称：</label>
+					<div class="control-inline">
+<input type="text" id="rolename" name="rolename" value="" maxlength="200" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+</form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<!-- tab -->
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.extend.js"></script>
+
+
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
+
+<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
+
+
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js?-06130816"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend.js?-06130816"></script>
+<!-- 
+<script src="/Quark/statics/jqGrid/4.7/js/i18n/zh_CN.js?-06130816"></script> -->
+<script src="/Quark/statics/common/jeesite.js?-06130816"></script>
+<!-- 
+<script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-06130816"></script> -->
+
+
+
+<!-- <script src="/Quark/statics/common/common.js?-06130816"></script> -->
+<script>
+$(function(){
+	$(".add").on('click',function(event){
+		//event.preventDefault();
+		var _title = $(this).attr("title");
+		var _href = $(this).attr("data-href");
+		console.log("title:",_title);
+		console.log("href:",_href);
+		//addTab(_title,_href);
+		parent.toTabPage($(this),_title,_href);
+		//js.tabPage.tabPageId="tabpanel";
+		//js.addTabPage($(this),_title,_href,"");
+	});
+	
+	$("#dataGrid").on('click',".btnEdit",function(event){
+		//event.preventDefault();
+		var _title = $(this).attr("title");
+		var _href = $(this).attr("data-href");
+		console.log("title:",_title);
+		console.log("href:",_href);
+		//addTab(_title,_href);
+		parent.toTabPage($(this),_title,_href);
+		//js.tabPage.tabPageId="tabpanel";
+		//js.addTabPage($(this),_title,_href,"");
+	});
+	$("#dataGrid").on('click',".btnDel",function(event){
+		var se=$(this);
+		var url=se.attr("data-href");
+		var title=se.attr("title");
+		var confirm=se.attr("data-confirm");
+		if(confirm!=undefined){
+			js.confirm(confirm,url,function(data){
+				if(data.result=="true"){
+					js.showMessage("删除成功");
+					$("#dataGrid").dataGrid("refresh");
+				}
+				},"json")
+			}
+		return false
+	});
+})
+
+// 初始化DataGrid对象
+var _dataGrid = $('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+	    {header:'角色编号', name:'rolecode', index:'oid', width:150, align:"center"},
+		{header:'角色名称', name:'rolename', index:'name', width:150, align:"center",formatter: function(val, obj, row, act){
+			var s = '<i class="'+row.resIcon+'" style="margin-right:5px;"></i>'+val;
+			console.log("rolename   :",s)
+			return s;
+		}},
+		
+		{header:'描述', name:'descn', index:'insertDate', width:150, align:"center"},
+		
+		 {header:'操作', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+				 actions.push('<a href="#" data-href="../mportals/adminext/roleinfo/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑资源"><i class="fa fa-pencil"></i></a>&nbsp;');
+				 actions.push('<a href="#" data-href="/Quark/role/ext/deleteit?id='+row.oid+'" class="btnDel"  title="删除资源" data-confirm="确认要删除该资源吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		console.log('data:',data);
+	}
+});
+
+
+</script>
+  </body>
+</html>

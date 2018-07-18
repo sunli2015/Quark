@@ -1,4 +1,4 @@
-<%@page import="cn.org.core.test.Test"%>
+<%-- <%@page import="cn.org.core.test.Test"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 request.setAttribute("ctx", request.getContextPath());
@@ -148,7 +148,7 @@ request.setAttribute("ctx", request.getContextPath());
           </a>
           <ul class="treeview-menu">
             <li style="margin-left:10px;"><a href="#" class="addTab" data-href="../dept/index.do"><i class="fa fa-link"></i><span>人事权限管理</span></a></li>
-            <li style="margin-left:10px;"><a href="#" class="addTab" data-href="../role/index.do"><i class="fa fa-link"></i><span>角色管理</span></a></li>
+            <li style="margin-left:10px;"><a href="#" class="addTab" data-href="/Quark/mportals/adminext/roleinfo/list.html"><i class="fa fa-link"></i><span>角色管理</span></a></li>
             <li style="margin-left:10px;"><a href="#" class="addTab" data-href="/Quark/mportals/adminext/resource/list.html"><i class="fa fa-link"></i><span>资源管理</span></a></li>
           </ul>
         </li>
