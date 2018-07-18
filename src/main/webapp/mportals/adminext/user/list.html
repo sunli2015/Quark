@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>样例 </title>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-06130816">
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+ <!-- tab -->
+<link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
+  </head>
+  
+  <body>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa icon-user"></i> 用户管理
+			</div>
+			<div class="box-tools pull-right">
+				<a href="list.html" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
+				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
+				
+				<a data-href="../mportals/adminext/user/edit.html" class="btn btn-default add" title="新增用户"><i class="fa fa-plus"></i> 新增</a>
+				
+			</div>
+		</div>
+		<div class="box-body">
+			<form id="searchForm" action="/Quark/user/ext/list" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
+				<div class="form-group">
+					<label class="control-label">账号：</label>
+					<div class="control-inline">
+					<input type="hidden" id="deptoid" name="dept.oid" maxlength="100" class="form-control width-90"/>
+						<input path="loginCode" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">昵称：</label>
+					<div class="control-inline">
+						<input path="userName" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">邮箱：</label>
+					<div class="control-inline">
+						<input path="email" maxlength="300" class="form-control width-90"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">手机：</label>
+					<div class="control-inline">
+						<input path="mobile" maxlength="100" class="form-control width-90"/>
+					</div>
+				</div>
+				
+				
+				
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">查询</button>
+					<button type="reset" class="btn btn-default btn-sm">重置</button>
+				</div>
+			</form>			
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<!-- tab -->
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.js"></script>
+<script type="text/javascript" src="/Quark/statics/wdScrollTab/js/TabPanel.extend.js"></script>
+
+
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
+
+<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
+
+
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js"></script>
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend.js"></script>
+
+<script src="/Quark/statics/common/jeesite.js"></script>
+<script>
+$(function(){
+	$(".add").on('click',function(event){
+		//event.preventDefault();
+		var _title = $(this).attr("title");
+		var _href = $(this).attr("data-href");
+		console.log("title:",_title);
+		console.log("href:",_href);
+		//addTab(_title,_href);
+		parent.parent.toTabPage($(this),_title,_href);
+		//js.tabPage.tabPageId="tabpanel";
+		//js.addTabPage($(this),_title,_href,"");
+	});
+	
+	$("#dataGrid").on('click',".btnEdit",function(event){
+		//event.preventDefault();
+		var _title = $(this).attr("title");
+		var _href = $(this).attr("data-href");
+		console.log("title:",_title);
+		console.log("href:",_href);
+		//addTab(_title,_href);
+		parent.parent.toTabPage($(this),_title,_href);
+		//js.tabPage.tabPageId="tabpanel";
+		//js.addTabPage($(this),_title,_href,"");
+		// js.addTabPage(null,  "详情 ", "http://localhost:8080/Quark/mportals/adminext/user/edit.html", true, false)
+	});
+	$("#dataGrid").on('click',".btnDel",function(event){
+		var se=$(this);
+		var url=se.attr("data-href");
+		var title=se.attr("title");
+		var confirm=se.attr("data-confirm");
+		if(confirm!=undefined){
+			js.confirm(confirm,url,function(data){
+				if(data.result=="true"){
+					js.showMessage("删除成功");
+					$("#dataGrid").dataGrid("refresh");
+				}
+				},"json")
+			}
+		return false
+	});
+})
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		/* {header:'登录账号', name:'loginCode', index:'a.login_code', width:200, align:"center", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/sys/empUser/form?userCode='+row.userCode+'&op=edit" class="btnList" data-title="${text('编辑用户')}">'+(val||row.id)+'</a>';
+		}}, */
+		{header:'账号', name:'logid', index:'logid', width:200, align:"center"},
+		{header:'用户昵称', name:'cname', index:'cname', width:200, align:"center"},
+		/* {header:'员工姓名', name:'refName', index:'a.ref_name', width:200, align:"center"},
+		{header:'归属机构', name:'employee.office.officeName', index:'o.office_name', width:200, align:"center"},
+		{header:'归属公司', name:'employee.company.companyName', index:'c.company_name', width:200, align:"center"}, */
+		{header:'电子邮箱', name:'email', index:'email', width:200, align:"center"},
+		{header:'手机号码', name:'mobile', index:'mobile', width:200, align:"center"},
+		/* {header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},
+		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"}, */
+	/* 	{header:'状态', name:'status', index:'a.status', width:140, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_status')}, val, '未知', true);
+		}},
+ */		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			actions.push('<a href="#" data-href="../mportals/adminext/user/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
+			actions.push('<a href="#" data-href="/Quark/user/ext/deleteit?id='+row.oid+'" class="btnDel"  title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				
+			actions.push('</div>');
+
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>
+
+  </body>
+</html>
