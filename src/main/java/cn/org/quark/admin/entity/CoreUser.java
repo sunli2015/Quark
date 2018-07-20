@@ -150,7 +150,8 @@ public class CoreUser implements java.io.Serializable {
 	}
 
 	public String getDeptOid() {
-		return deptOid;
+		//return deptOid;//update by guyh
+		return dept.getOid();
 	}
 
 	public void setDeptOid(String deptOid) {

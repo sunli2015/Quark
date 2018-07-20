@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="overflow: hidden; height: 100%; border: none; padding: 0px; margin: 0px;">
+<html>
   <head>
     <title>list.html</title>
 	<meta charset="utf-8">
@@ -12,8 +12,9 @@
 <meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
 <meta content="ThinkGem, http://jeesite.com" name="author"/>
 <title>样例 </title>
-<script type="text/javascript" src="/Quark/statics/jQuery/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="/Quark/statics/jQuery/jquery.min.js"></script> -->
 <script type="text/javascript" src="/Quark/statics/jQuery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery-migrate-1.4.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 <link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
 <link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -21,28 +22,27 @@
 <link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css">
  <link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/zTreeStyle.css">
  <link rel="stylesheet" href="/Quark/statics/jquery-plugins/jquery.layout-latest.css">
-<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css">
+<!-- <link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css"> -->
 <link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css">
 <link rel="stylesheet" href="/Quark/statics/common/jeesite.css">
-<link rel="stylesheet" href="/Quark/statics/layer/3.1/skin/default/layer.css">
+<!-- <link rel="stylesheet" href="/Quark/statics/layer/3.1/skin/default/layer.css"> -->
 <link rel="stylesheet" href="/Quark/statics/metro/layer.css">
-<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
-<link rel="stylesheet" href="/Quark/statics/fonts/simple-line-icons.css">
+<!-- <link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/fonts/simple-line-icons.css"> -->
 
 
 <!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
  -->
 
- 
  <!-- tab -->
 <!-- <link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/> -->
   </head>
   
-  <body class="hold-transition  ui-layout-container" style="overflow: hidden; width: auto; height: 100%; margin: 0px; position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px;">
+  <body class="hold-transition  ui-layout-container" >
 
-<div class="ui-layout-west  ui-layout-pane ui-layout-pane-west" style="position: absolute; margin: 0px; left: 0px; right: auto; top: 0px; bottom: 0px; height: 100%; z-index: 0; overflow: hidden; width: 180px; display: block; visibility: visible;">
-	<div class="main-content" style=" height: 100%;">
-		<div class="box box-main" style=" height: 100%;">
+<div class="ui-layout-west  ui-layout-pane ui-layout-pane-west" >
+	<div class="main-content" >
+		<div class="box box-main" >
 			<div class="box-header" >
 				<div class="box-title">
 					<i class="fa icon-grid"></i> 组织机构
@@ -54,7 +54,7 @@
 					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
 				</div>
 			</div>
-			<div class="ui-layout-content" style="position: relative; height: 100%; visibility: visible;">
+			<div class="ui-layout-content" >
 				<div id="tree" class="ztree"></div>
 			</div>
 		</div>
@@ -114,7 +114,7 @@
 // 主页框架
 var win = $("#mainFrame")[0].contentWindow;
 // 树结构初始化加载
-var setting = {view:{selectedMulti:false,showLine:true,showIcon:true},data:{simpleData:{enable:true}},
+var setting = {view:{selectedMulti:false,showLine: true},data:{simpleData:{enable:true}},
 	callback:{onClick:function(event, treeId, treeNode){
 		tree.expandNode(treeNode);
 		win.$('input[type=reset]').click();

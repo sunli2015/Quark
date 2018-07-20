@@ -1,5 +1,6 @@
 package cn.org.quark.adminext.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.MatchMode;
@@ -8,12 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.org.quark.admin.entity.CoreResource;
 import cn.org.quark.admin.entity.CoreRole;
+import cn.org.quark.admin.manager.ResourceManager;
 import cn.org.quark.admin.manager.RoleManager;
 import cn.org.quark.core.common.RtnCode;
+import cn.org.quark.core.common.ZtreeData;
 import cn.org.quark.core.dao.support.CriteriaSetup;
 import cn.org.quark.core.dao.support.Page;
 import cn.org.quark.core.utils.UtilString;
@@ -115,7 +120,7 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 		RtnStatusResult result = new RtnStatusResult();
 		try {
 			super.delete(id);
-			result.setErrMsg("删除成功");
+			result.setMessage("删除成功");
 		} catch (Exception e) {
 			result.setCode(RtnCode.OTHER_ERROR);
 			result.setErrMsg(""+e.getMessage());
@@ -123,6 +128,91 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @param roleid
+	 * @param resourceIds
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/grant")
+	@ResponseBody
+	public RtnResult<CoreRole> grant(String roleid , String resourceIds) throws Exception{
+		RtnResult<CoreRole> resultData = new RtnResult<CoreRole>();
+		
+		try {
+			Assert.hasLength(roleid,"roleid is empty");
+			Assert.hasLength(resourceIds,"resourceIds is empty");
+			roleManager.changeRes(roleid, resourceIds.split(","));
+			//ResultData<CoreRole> result = super.edit(id);
+			resultData.setCode(RtnCode.SUCC);
+			resultData.setMessage("操作成功！");
+		} catch (Exception e) {
+			resultData.setCode(RtnCode.OTHER_ERROR);
+			resultData.setErrMsg(""+e.getMessage());
+		} 
+		return resultData;
+	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/tree")
+	@ResponseBody
+	public List<ZtreeData> tree(String roleid){
+		List<ZtreeData> treeData = new ArrayList<ZtreeData>();
+		try {
+			List<CoreResource> resources = resourceManager.createCriteria(Restrictions.isNull("parent")).list();
+			List<CoreResource> resourcesSelected = new ArrayList<CoreResource>();
+			//resourcesSelected = resourceManager.listByRole(roleid, resourcesSelected);
+			rebuildTree(treeData,resources,roleid);
+		} catch (Exception e) {
+			
+		} 
+		return treeData;
+	}
+	
+	
+	private void rebuildTree(List<ZtreeData> treeData ,List<CoreResource> resources,String roleid){
+		for(CoreResource res : resources){
+			ZtreeData d = new ZtreeData();
+			d.setId(res.getOid());
+			d.setName(res.getRname());
+			if(res.getParent() == null){
+				d.setpId("0");
+			} else {
+				d.setpId(res.getParent().getOid());
+			}
+			
+			/*if(resourcesSelected!=null&&resourcesSelected.size()>0){
+				for(CoreResource resSelected : resourcesSelected){
+					if(resSelected.getOid().equals(res.getOid())){
+						d.setSelected(true);
+						break;
+					}
+				}
+			}*/
+			if(res.getRoles()!=null){
+				for (CoreRole cr : res.getRoles()) {  
+					if(cr.getOid().equals(roleid)){
+						d.setSelected(true);
+						break;
+					}
+				}  
+			}
+			if(d.getSelected()==null){
+				d.setSelected(false);
+			}
+			treeData.add(d);
+			if(!res.getSubs().isEmpty()){
+				
+				rebuildTree(treeData,new ArrayList<CoreResource>(res.getSubs()),roleid);
+			}
+		}
+	}
+	@Autowired
+	private ResourceManager resourceManager;
+
 
 }

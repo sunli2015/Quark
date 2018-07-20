@@ -47,7 +47,7 @@ public class ResourceAction extends BaseEntityAction<CoreResource,ResourceManage
 		JqGridPage<CoreResource> resultData = new JqGridPage<CoreResource>();
 		try {
 			CriteriaSetup criteriaSetup = new CriteriaSetup();
-			if(null != coreResource){
+			/*if(null != coreResource){
 				if(null != coreResource.getRcode()){
 					criteriaSetup.addCriterion(Restrictions.like("rcode", coreResource.getRcode(), MatchMode.ANYWHERE));
 				}
@@ -63,7 +63,7 @@ public class ResourceAction extends BaseEntityAction<CoreResource,ResourceManage
 						criteriaSetup.addCriterion(Restrictions.eq("treeLevel", 0));
 					
 				}
-			}
+			}*/
 			
 			
 			

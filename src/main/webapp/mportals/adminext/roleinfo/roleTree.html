@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta content="webkit" name="renderer">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport">
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description">
+<meta content="ThinkGem, http://jeesite.com" name="author">
+<title>角色管理 </title>
+<!-- <script src="/itsm/global.min.js?ctx=/itsm/a"></script> -->
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/Quark/statics/jQuery/jquery-migrate-1.4.1.min.js"></script>
+<!--[if lt IE 9]><script src="/itsm/static/common/h5fix.min.js"></script><![endif]-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css">
+<link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/ztree-bootstrap.css">
+<!-- <link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/ztree-bootstrap.css"> -->
+ <link rel="stylesheet" href="/Quark/statics/jquery-plugins/jquery.layout-latest.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css">
+<!-- <link rel="stylesheet" href="/Quark/statics/common/common.css"> -->
+<link rel="stylesheet" href="/Quark/statics/layer/3.1/skin/default/layer.css" id="layuicss-skinlayercss">
+<link href="/Quark/statics/my97/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body  >
+
+
+	<div class="main-content" >
+		<div class="box box-main" >
+			<div class="box-header" >
+				<div class="box-title">
+					<i class="fa icon-grid"></i> 功能菜单
+				</div>
+				<!-- <div class="box-tools pull-right">
+				
+					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
+				</div> -->
+			</div>
+			<form id="inputForm" action="/Quark/role/ext/grant" method="post" class="form-horizontal" novalidate="novalidate">
+				<div class="ui-layout-content" >
+					<div id="tree" class="ztree"></div>
+				</div>
+				<input type="hidden" id="roleid" name="roleid" value="">
+				<input type="hidden" id="resourceIds" name="resourceIds" value="">
+				<div class="box-footer">
+					<div class="row">
+						<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+							<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+						<div class="form-error">您填写的信息有误，请根据提示修正。</div></div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js"></script>
+<script src="/Quark/statics/layer/3.1/layer.js"></script>
+<script src="/Quark/statics/my97/WdatePicker.js"></script>
+<script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+<script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.core-3.5.js"></script>
+<script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.excheck-3.5.js"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.js"></script>
+<script src="/Quark/statics/jquery-validation/1.16/localization/messages_zh_CN.js"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.extend.js"></script>
+<script src="/Quark/statics/common/jeesite.js"></script>
+<script src="/Quark/statics/common/i18n/jeesite_zh_CN.js"></script>
+<!-- <script src="/Quark/statics/common/common.js"></script> -->
+<script>
+$("#inputForm").validate({
+	submitHandler: function(form){
+		// 获取数据权限数据
+		var menuData = [];
+		var permissionIdStr="";
+        var treeObj = $.fn.zTree.getZTreeObj("tree");
+        var nodes = treeObj.getCheckedNodes(true);
+        for(var i=0;i<nodes.length;i++){
+            if(i==(nodes.length-1)){
+                permissionIdStr+=nodes[i].id;
+            }else{
+                permissionIdStr+=nodes[i].id+",";
+            }
+        }
+		$("#resourceIds").val(permissionIdStr);
+		// 提交表单数据
+		js.ajaxSubmitForm($(form), function(data){
+			js.showMessage(data.message);
+			if(data.result){
+				js.closeCurrentTabPage(function(contentWindow){
+					contentWindow.page();
+				});
+			}
+		}, "json");
+    }
+});
+
+
+$(function () {
+	var roleid = GetQueryString("roleid");
+	$("#roleid").val(roleid);
+    //alert(roleId)
+    
+});
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+//树结构初始化加载
+var setting = {check: {
+    enable: true
+}, view: {
+    showLine: true, //显示辅助线
+    dblClickExpand: true,
+},
+data: {
+    simpleData: {
+        enable: true,
+        idKey: "id",
+        pIdKey: "pId"
+    }
+}
+
+}, tree, loadTree=function(){
+	var roleid = $("#roleid").val();
+	js.ajaxSubmit("/Quark/role/ext/tree?roleid="+roleid, {ctrlPermi:'2'/*1拥有的权限 2管理的权限*/}, function(data){
+		tree = $.fn.zTree.init($("#tree"), setting, data);
+		tree.expandAll(true);
+		var nodes=tree.getNodes();
+		for(var i=0;i<nodes.length;i++){
+            if(nodes[i].selected){
+            	tree.checkNode(nodes[i],true,true);
+            	//tree.selectNode(nodes[i]);
+            	tree.updateNode(nodes[i]);
+            }
+        }
+	}, null, null, js.text('loading.message'));
+};
+
+$(function (){
+    setTimeout('loadTree()', 100); //延迟1秒
+  })
+
+</script>
+</body></html>

@@ -24,4 +24,8 @@ public class DataTreeController {
 	public String treeselect(){
 		return "commonext/treeselect";
 	}
+	@RequestMapping("/treeselectRole")
+	public String treeselectRole(){
+		return "commonext/treeselectRole";
+	}
 }

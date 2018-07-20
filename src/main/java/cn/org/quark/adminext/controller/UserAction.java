@@ -48,18 +48,21 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 		try {
 			CriteriaSetup criteriaSetup = new CriteriaSetup();
 			if(null != coreUser && null != coreUser.getDept()&&coreUser.getDept().getOid()!=null&&!coreUser.getDept().getOid().equals("")){
-				//Object[] o = new CoreDept[1];
-				//o[0] = coreUser.getDept();
-				//criteriaSetup.addCriterion(Restrictions.le("dept", o));
 				 criteriaSetup.addCriterion(Restrictions.eq( "dept", coreUser.getDept() ));
 			}
-			
+			if(null != coreUser && null != coreUser.getLogid()){
+				criteriaSetup.addCriterion(Restrictions.like("logid", coreUser.getLogid(),MatchMode.ANYWHERE));
+			}
 			if(null != coreUser && null != coreUser.getCname()){
 				criteriaSetup.addCriterion(Restrictions.like("cname", coreUser.getCname(),MatchMode.ANYWHERE));
 			}
-			/*if(null != CoreUser && null != CoreUser.getRname()){
-				criteriaSetup.addCriterion(Restrictions.like("rname", CoreUser.getRname(), MatchMode.ANYWHERE));
-			}*/
+			if(null != coreUser && null != coreUser.getEmail()){
+				criteriaSetup.addCriterion(Restrictions.like("email", coreUser.getEmail(),MatchMode.ANYWHERE));
+			}
+			if(null != coreUser && null != coreUser.getMobile()){
+				criteriaSetup.addCriterion(Restrictions.like("mobile", coreUser.getMobile(),MatchMode.ANYWHERE));
+			}
+			
 			Page page1 = new Page();
 			page1.setCurPage(page.getPageNo());
 			page1.setPageSize(page.getPageSize());
@@ -127,7 +130,7 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 		RtnStatusResult result = new RtnStatusResult();
 		try {
 			super.delete(id);
-			result.setErrMsg("删除成功");
+			result.setMessage("删除成功");
 		} catch (Exception e) {
 			result.setCode(RtnCode.OTHER_ERROR);
 			result.setErrMsg(""+e.getMessage());
