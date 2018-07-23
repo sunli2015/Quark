@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-07071142">
 <link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-07071142">
-<link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/zTreeStyle.css?-07071142">
+<link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/zTreeStyle.css">
 <link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-07071142">
 <link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-07071142">
 <!-- <link rel="stylesheet" href="/Quark/statics/common/common.css?-07071142"> -->
@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-07071142"></script>
 <script src="/Quark/statics/layer/3.1/layer.js?-07071142"></script>
 <script src="/Quark/statics/my97/WdatePicker.js?-07071142"></script>
-<script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js?-07071142"></script>
+<script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
 <script src="/Quark/statics/common/jeesite.js?-07071142"></script>
 <!-- <script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-07071142"></script>
 <script src="/Quark/statics/common/common.js?-07071142"></script> -->

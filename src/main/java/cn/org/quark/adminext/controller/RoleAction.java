@@ -70,6 +70,17 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 		}
 		return resultData;
 	}
+	@RequestMapping("/listByUserId")
+	@ResponseBody
+	public List<CoreRole> list(String userid) throws Exception{
+		JqGridPage<CoreRole> resultData = new JqGridPage<CoreRole>();
+		Page<CoreRole> data = super.getEntityManager().queryByUserId(userid, 1, Page.MAX_PAGE_SIZE);
+		//resultData.setPageNo(page.getPageNo());
+		//resultData.setCount(data.getData().getTotal());
+		//resultData.setPageSize(page.getPageSize());
+		resultData.setList(data.getResult());
+		return data.getResult();
+	}
 	/**
 	 * 
 	 * @param example

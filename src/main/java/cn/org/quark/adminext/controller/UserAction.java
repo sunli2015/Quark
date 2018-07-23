@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.org.quark.admin.entity.CoreDept;
+import cn.org.quark.admin.entity.CoreRole;
 import cn.org.quark.admin.entity.CoreUser;
 import cn.org.quark.admin.manager.UserManager;
 import cn.org.quark.core.common.RtnCode;
@@ -136,6 +138,15 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 			result.setErrMsg(""+e.getMessage());
 		} 
 		return result;
+	}
+	
+	@RequestMapping("/grant")
+	@ResponseBody
+	public ResultData<CoreRole> grant(String userid , String roleids) throws Exception{
+		Assert.hasLength(userid,"userid is empty");
+		Assert.hasLength(roleids,"roleids is empty");
+		userManager.saveRoles(userid, roleids.split(","));;
+		return new ResultData();
 	}
 	@Autowired
 	private UserManager userManager;
