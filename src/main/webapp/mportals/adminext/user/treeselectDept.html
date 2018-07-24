@@ -1,9 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -22,17 +17,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
 <link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-07071142">
-<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-07071142">
-<link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/zTreeStyle.css">
- <link rel="stylesheet" href="/Quark/statics/jquery-plugins/jquery.layout-latest.css">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css">
+<link rel="stylesheet" href="/Quark/statics/jquery-ztree/3.5/css/metro/zTreeStyle.css" charset="utf-8">
+<!--  <link rel="stylesheet" href="/Quark/statics/jquery-plugins/jquery.layout-latest.css"> -->
 <link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-07071142">
 <link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-07071142">
-<!-- <link rel="stylesheet" href="/Quark/statics/common/common.css?-07071142"> -->
-<link rel="stylesheet" href="/Quark/statics/layer/3.1/skin/default/layer.css?v=3.0.3303" id="layuicss-skinlayercss">
+<link rel="stylesheet" href="/Quark/statics/layer/3.1/skin/default/layer.css" id="layuicss-skinlayercss">
 <link href="/Quark/statics/my97/skin/WdatePicker.css" rel="stylesheet" type="text/css">
-<style>
 
-</style>
 </head>
 <body class="hold-transition box box-main">
 <div class="wrapper"><div class="treeShowHideButton" onclick="search();">
@@ -58,9 +50,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/Quark/statics/layer/3.1/layer.js?-07071142"></script>
 <script src="/Quark/statics/my97/WdatePicker.js?-07071142"></script>
 <script src="/Quark/statics/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
-<script src="/Quark/statics/common/jeesite.js?-07071142"></script>
-<!-- <script src="/Quark/statics/common/i18n/jeesite_zh_CN.js?-07071142"></script>
-<script src="/Quark/statics/common/common.js?-07071142"></script> -->
+<script src="/Quark/statics/common/jeesite.js"></script>
+<script src="/Quark/statics/common/i18n/jeesite_zh_CN.js"></script> 
+<!-- <script src="/Quark/statics/jQuery/jquery-ui-draggable-1.12.1.min.js"></script>
+<script src="/Quark/statics/jQuery/jquery-ui-effect-1.12.1.min.js"></script>
+<script src="/Quark/statics/jquery-plugins/jquery.layout-latest.js"></script> -->
+
+
 <script>
 var setting = {
 	view:{selectedMulti:false,dblClickExpand:false},

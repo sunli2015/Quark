@@ -148,6 +148,54 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 		userManager.saveRoles(userid, roleids.split(","));;
 		return new ResultData();
 	}
+	@RequestMapping("/modifystatus")
+	@ResponseBody
+	public RtnStatusResult modifystatus(String oid , String status) throws Exception{
+		RtnStatusResult result = new RtnStatusResult();
+		try{
+			super.getEntityManager().changeStatus(oid, status);
+			result.setMessage("操作成功");
+		}catch (Exception e) {
+			result.setCode(RtnCode.OTHER_ERROR);
+			result.setErrMsg(""+e.getMessage());
+		} 
+		
+		//ResultData resultData = new ResultData();
+		return result;
+	}
+	@RequestMapping("/disable")
+	@ResponseBody
+	public RtnStatusResult disable(String oid , String status) throws Exception{
+		RtnStatusResult result = new RtnStatusResult();
+		status = "0";
+		try{
+			super.getEntityManager().changeStatus(oid, status);
+			result.setMessage("操作成功");
+		}catch (Exception e) {
+			result.setCode(RtnCode.OTHER_ERROR);
+			result.setErrMsg(""+e.getMessage());
+		} 
+		
+		//ResultData resultData = new ResultData();
+		return result;
+	}
+	@RequestMapping("/enable")
+	@ResponseBody
+	public RtnStatusResult enable(String oid , String status) throws Exception{
+		RtnStatusResult result = new RtnStatusResult();
+		status = "1";
+		try{
+			super.getEntityManager().changeStatus(oid, status);
+			result.setMessage("操作成功");
+		}catch (Exception e) {
+			result.setCode(RtnCode.OTHER_ERROR);
+			result.setErrMsg(""+e.getMessage());
+		} 
+		
+		//ResultData resultData = new ResultData();
+		return result;
+	}
+	
 	@Autowired
 	private UserManager userManager;
 }

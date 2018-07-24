@@ -42,6 +42,7 @@
 			<div class="box-body">
 				<div class="form-unit">基本信息</div>
 				<input type="hidden" id="oid" name="oid" value=""/>
+				<input type="hidden" id="status" name="status" value="0"/>
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="form-group">
@@ -120,7 +121,7 @@
 <script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
 <script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
-<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/layer/3.1/layer.js"></script>
 <script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
 <script src="/Quark/statics/my97/lang/zh_CN.js?-06130816"></script>
 <!-- 
@@ -177,7 +178,8 @@ $(function(){
 	}, "json");
 	//选择上级资源
 	$("#parentButton").on("click",function(){
-		showlayer('所属部门','/Quark/dept/ext/treeselect?url=xxxx&checkbox=true');
+		//showlayer('所属部门','/Quark/dept/ext/treeselect?url=xxxx&checkbox=true');
+		showlayer('所属部门','/Quark/mportals/adminext/user/treeselectDept.html?url=xxxx&checkbox=true');
 	});
 	//选择图标
 	$("#menuIconButton").on("click",function(){

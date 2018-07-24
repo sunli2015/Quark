@@ -27,8 +27,8 @@
 <link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
   </head>
   
-  <body class="hold-transition ">
-    <div class="wrapper"><div class="main-content">
+  <body >
+    <div class="main-content">
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
@@ -36,12 +36,9 @@
 			</div>
 			
 		</div>
-		<div class="box-body">
-		<!-- <form id="searchForm" action="/Quark/role/ext/listByUserId" method="post" class="form-inline hide" data-page-no="1" data-page-size="100" data-order-by="">
-				
-				<input type="text" id="userid" name="userid" value="">
-		</form> -->
-			<table id="dataGrid" class="ui-jqgrid-htable"></table>
+		 <div class="box-body"> 
+		
+			<table id="dataGrid" style="width:100%" ></table>
 			<div class="box-footer">
 					<div class="row">
 						<div class="col-sm-offset-2 col-sm-10">
@@ -52,7 +49,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 </div>
 
 <a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
@@ -66,10 +63,8 @@
 <script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
 
 
-<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.js?-06130816"></script>
-<!-- <script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid.extend2.js?-06130816"></script> -->
-<!-- 
-<script src="/Quark/statics/jqGrid/4.7/js/i18n/zh_CN.js?-06130816"></script> -->
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid2.js"></script>
+
 <script src="/Quark/statics/common/jeesite.js"></script>
 <script src="/Quark/statics/jquery-validation/1.16/jquery.validate.js?-06251059"></script>
 <script src="/Quark/statics/jquery-validation/1.16/localization/messages_zh_CN.js?-06251059"></script>
@@ -85,7 +80,6 @@ var apis ={
 	}
 
 $(function(){
-	
 	var userid = js.getParam("userid");
 	
 	pageInit(userid);
@@ -138,10 +132,13 @@ function pageInit(userid){
                      {name : 'descn',index : 'descn',width :150,align : "center"}
                    ],
        autowidth:true,
+       loadtext:"初始化中...",
        rownumbers: true,
        multiselect: true,//复选框  
        multiboxonly: true,
+      
        loadComplete: function () {
+    	 
     	  /*  var obj=$("#dataGrid").jqGrid("getRowData");
     	    jQuery(obj).each(function(){
     	        if(this.checked=="true"){
