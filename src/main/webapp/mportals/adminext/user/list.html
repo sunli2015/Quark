@@ -161,7 +161,7 @@ $('#dataGrid').dataGrid({
 		
 		{header:'手机号码', name:'mobile', index:'mobile', width:200, align:"center"},
 		{header:'电子邮箱', name:'email', index:'email', width:200, align:"center"},
-		{header:'状态', name:'status', index:'status', width:200, align:"center",hidden:false},
+		{header:'状态', name:'status', index:'status', width:200, align:"center",hidden:true},
 		/* {header:'办公电话', name:'phone', index:'a.phone', width:200, align:"center"},
 		{header:'更新时间', name:'updateDate', index:'a.update_date', width:200, align:"center"}, */
 	/* 	{header:'状态', name:'status', index:'a.status', width:140, align:"center", formatter: function(val, obj, row, act){
@@ -170,12 +170,12 @@ $('#dataGrid').dataGrid({
  */		{header:'操作', name:'actions', width:260, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
 			actions.push('<a href="#" data-href="../mportals/adminext/user/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑用户"><i class="fa fa-pencil"></i></a>&nbsp;');
-			 actions.push('<a href="#" data-href="../mportals/adminext/user/grantUser.html?userid='+row.oid+'"   class="btnEdit" title="分配角色">分配角色</a>&nbsp;'); 
+			 actions.push('<a href="#" data-href="../mportals/adminext/user/grantUser.html?userid='+row.oid+'"   class="btnEdit" title="分配角色"><i class="fa fa-check-square-o"></i></a>&nbsp;'); 
 			 if (row.status ==1){
-					actions.push('<a href="#" data-href="/Quark/user/ext/modifystatus?oid='+row.oid+'&status=0" class="btnDel" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
+					actions.push('<a href="#" data-href="/Quark/user/ext/modifystatus?oid='+row.oid+'&status=0" class="btnDel" title="停用用户" data-confirm="确认要停用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
 				}
 			if (row.status == 0){
-				actions.push('<a href="#" data-href="/Quark/user/ext/enable?oid='+row.oid+'" class="btnDel" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ok-circle"></i></a>&nbsp;');
+				actions.push('<a href="#" data-href="/Quark/user/ext/enable?oid='+row.oid+'" class="btnDel" title="启用用户" data-confirm="确认要启用该用户吗？"><i class="glyphicon glyphicon-ban-circle"></i></a>&nbsp;');
 			}
 			actions.push('<a href="#" data-href="/Quark/user/ext/deleteit?id='+row.oid+'" class="btnDel"  title="删除用户" data-confirm="确认要删除该用户吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 				

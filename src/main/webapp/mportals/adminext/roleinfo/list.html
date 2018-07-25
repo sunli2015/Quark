@@ -154,7 +154,7 @@ var _dataGrid = $('#dataGrid').dataGrid({
 				 actions.push('<a href="#" data-href="../mportals/adminext/roleinfo/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑角色"><i class="fa fa-pencil"></i></a>&nbsp;');
 				 /* actions.push('<a href=/Quark/dataTree/treeselectRole?id='+row.oid+'" class="btnEdit"  title="功能菜单">功能菜单</a>&nbsp;'); */
 				 /* actions.push('<a href="javascript:void(0);" onclick="showlayer(\'功能菜单\',\'/Quark/dataTree/treeselectRole\')"  title="功能菜单">功能菜单</a>&nbsp;'); */
-				 actions.push('<a href="#" data-href="../mportals/adminext/roleinfo/roleTree.html?roleid='+row.oid+'"   class="btnEdit" title="功能菜单">功能菜单</a>&nbsp;'); 
+				 actions.push('<a href="#" data-href="../mportals/adminext/roleinfo/roleTree.html?roleid='+row.oid+'"   class="btnEdit" title="分配菜单"><i class="fa fa-check-circle-o"></i></a>&nbsp;'); 
 				 actions.push('<a href="#" data-href="/Quark/role/ext/deleteit?id='+row.oid+'" class="btnDel"  title="删除角色" data-confirm="确认要删除该角色吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
