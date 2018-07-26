@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	<meta charset="utf-8">
+	
+<meta content="webkit" name="renderer"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
+<meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
+<meta content="ThinkGem, http://jeesite.com" name="author"/>
+<title>分配角色 </title>
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Quark/statics/select2/4.0/select2.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/icheck/1.0/minimal/grey.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/jqGrid/4.7/css/ui.jqgrid.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/AdminLTE/AdminLTE-2.4.3/dist/css/AdminLTE.min.css?-06130816">
+<link rel="stylesheet" href="/Quark/statics/common/jeesite.css?-06130816">
+<!-- <link rel="stylesheet" href="/itsm/static/common/common.css?-06130816">
+ -->
+ <!-- tab -->
+<link href="/Quark/statics/wdScrollTab/css/TabPanel.css" rel="stylesheet" type="text/css"/>
+  </head>
+  
+  <body >
+    <div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i>分配角色
+			</div>
+			
+		</div>
+		 <div class="box-body"> 
+		
+			<table id="dataGrid" style="width:100%" ></table>
+			<div class="box-footer">
+					<div class="row">
+						<div class="col-sm-offset-2 col-sm-10">
+								<button type="button" class="btn btn-sm btn-primary" id="btnSave"><i class="fa fa-check"></i> 保 存</button>&nbsp;
+							<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> 关 闭</button>
+						<div class="form-error">您填写的信息有误，请根据提示修正。</div></div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<a id="scroll-up" href="#" class="btn btn-sm"><i class="fa fa-angle-double-up"></i></a>
+
+<script type="text/javascript" src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/Quark/statics/AdminLTE/AdminLTE-2.4.3/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Quark/statics/select2/4.0/select2.js?-06130816"></script>
+<script src="/Quark/statics/select2/4.0/i18n/zh_CN.js?-06130816"></script>
+
+<script src="/Quark/statics/layer/3.1/layer.js?-06130816"></script>
+<script src="/Quark/statics/my97/WdatePicker.js?-06130816"></script>
+
+
+<script src="/Quark/statics/jqGrid/4.7/js/jquery.jqGrid2.js"></script>
+
+<script src="/Quark/statics/common/jeesite.js"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.js?-06251059"></script>
+<script src="/Quark/statics/jquery-validation/1.16/localization/messages_zh_CN.js?-06251059"></script>
+<script src="/Quark/statics/jquery-validation/1.16/jquery.validate.extend.js?-06251059"></script>
+<script src="/Quark/statics/jquery-toastr/2.0/toastr.min.js?-06251059"></script>
+
+<script src="/Quark/statics/icheck/1.0/icheck.js?-06130816"></script>
+
+<script>
+
+var apis ={
+		grantUrl :'/Quark/user/ext/grant'	
+	}
+
+$(function(){
+	var userid = js.getParam("userid");
+	
+	pageInit(userid);
+	
+	$("#btnSave").click(function () {
+		var ids=$('#dataGrid').jqGrid('getGridParam','selarrrow');
+		if(ids.length==0){
+			js.showMessage("请选择角色！");
+			return false;
+		}
+		var roleids = "";
+		for(var i=0;i<ids.length;i++){
+			var rowData = $('#dataGrid').jqGrid('getRowData',ids[i]);
+			roleids = roleids+rowData.oid+",";
+		}
+		var param = "userid="+userid+"&roleids="+roleids;
+
+           $.ajax({
+               type: "POST",
+               url: apis.grantUrl,
+               data: param,
+               success: function (result) {   
+            	   if(result.code==0){
+            		   js.showMessage("操作成功！");
+            		   
+            		   js.closeCurrentTabPage(function(contentWindow){
+       					console.log('contentWindow:',contentWindow);
+       					contentWindow.page();
+       				});
+            	   }else{
+            		   js.showMessage(result.errMsg);
+            	   }
+               }
+           });
+       });
+
+	
+})
+
+function pageInit(userid){
+  jQuery("#dataGrid").jqGrid(
+      {
+        url : "/Quark/role/ext/listByUserId?userid="+userid,
+        datatype : "json",
+        colNames : [ '主键', '角色编号', '角色名称', '描述'],
+        colModel : [ 
+                     {name : 'checked',index : 'checked',width : 55,hidden:true}, 
+                     {name : 'oid',index : 'oid',width : 150,edittype:"checkbox",key:true}, 
+                     {name : 'rolename',index : 'rolename',width : 150,align : "center"}, 
+                     {name : 'descn',index : 'descn',width :150,align : "center"}
+                   ],
+       autowidth:true,
+       loadtext:"初始化中...",
+       rownumbers: true,
+       multiselect: true,//复选框  
+       multiboxonly: true,
+      
+       loadComplete: function () {
+    	 
+    	  /*  var obj=$("#dataGrid").jqGrid("getRowData");
+    	    jQuery(obj).each(function(){
+    	        if(this.checked=="true"){
+    	        	 jQuery("#dataGrid").setSelection(this.oid, true); 
+    	        }
+    	    }); */
+    	    
+    	    var ids = $("#dataGrid").getDataIDs();
+            for (var i = 0; i < ids.length; i++) {
+                var rowData = $("#dataGrid").getRowData(ids[i]);
+                if (rowData.checked == "true") {
+                    //$('#' + ids[i]).find("td").addClass("SelectBG");
+                	jQuery("#dataGrid").setSelection(ids[i], true); 
+                }
+                if(i%2!=0){
+                	$("#"+ids[i]).find("td").css("background-color", "#fafafa");
+                }
+            }
+            
+            
+    	 
+       }
+      });
+}
+
+
+/* // 初始化DataGrid对象
+var _dataGrid = $('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	multiselect:true,
+	columnModel: [
+		{header:'主键', name:'checked', index:'checked', width:150, align:"center",hidden:false},
+	    {header:'角色编号', name:'oid', index:'oid', width:150, align:"center",edittype:"checkbox"},
+		{header:'角色名称', name:'rolename', index:'name', width:150, align:"center",formatter: function(val, obj, row, act){
+			var s = '<i class="'+row.resIcon+'" style="margin-right:5px;"></i>'+val;
+			console.log("rolename   :",s)
+			return s;
+		}},
+		
+		{header:'描述', name:'descn', index:'insertDate', width:150, align:"center"}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		console.log('data:',data);
+	}
+}); */
+
+</script>
+  </body>
+</html>

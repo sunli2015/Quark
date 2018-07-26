@@ -11,7 +11,7 @@
 <meta content="width=device-width, initial-scale=1, user-scalable=1" name="viewport"/>
 <meta content="e-Hualu 易华录  - Powered By JeeSite" name="description"/>
 <meta content="ThinkGem, http://jeesite.com" name="author"/>
-<title>样例 </title>
+<title>角色管理 </title>
 
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 <link rel="stylesheet" href="/Quark/statics/fonts/font-icons.min.css">
@@ -32,27 +32,27 @@
 	<div class="box box-main">
 		<div class="box-header">
 			<div class="box-title">
-				<i class="fa fa-list-alt"></i>资源管理
+				<i class="fa fa-list-alt"></i>角色管理
 			</div>
 			<div class="box-tools pull-right">
 				<a href="list.html" class="btn btn-default" id="btnRefreshTree" title="刷新"><i class="fa fa-refresh"></i> 刷新</a>
 				<a href="#" class="btn btn-default" id="btnSearch" title="查询"><i class="fa fa-filter"></i> 查询</a>
-				<a href="#" data-href="../mportals/adminext/resource/edit.html" class="btn btn-default add" title="新增资源"><i class="fa fa-plus"></i> 新增</a>
+				<a href="#" data-href="../mportals/adminext/roleinfo/edit.html" class="btn btn-default add" title="新增角色"><i class="fa fa-plus"></i> 新增</a>
 			</div>
 		</div>
 		<div class="box-body">
-		<form id="searchForm" action="/Quark/resource/ext/list" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
+		<form id="searchForm" action="/Quark/role/ext/list" method="post" class="form-inline hide" data-page-no="1" data-page-size="10" data-order-by="">
 				
 				<div class="form-group">	
-					<label class="control-label">资源编号：</label>
+					<label class="control-label">角色编号：</label>
 					<div class="control-inline">
-<input type="text" id="rcode" name="rcode" value="" maxlength="200" class="form-control width-120"/>
+<input type="text" id="rolecode" name="rolecode" value="" maxlength="200" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">	
-					<label class="control-label">资源名称：</label>
+					<label class="control-label">角色名称：</label>
 					<div class="control-inline">
-<input type="text" id="rname" name="rname" value="" maxlength="200" class="form-control width-120"/>
+<input type="text" id="rolename" name="rolename" value="" maxlength="200" class="form-control width-120"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -115,7 +115,6 @@ $(function(){
 		console.log("title:",_title);
 		console.log("href:",_href);
 		//addTab(_title,_href);
-		debugger;
 		parent.toTabPage($(this),_title,_href);
 		//js.tabPage.tabPageId="tabpanel";
 		//js.addTabPage($(this),_title,_href,"");
@@ -141,36 +140,67 @@ $(function(){
 var _dataGrid = $('#dataGrid').dataGrid({
 	searchForm: $("#searchForm"),
 	columnModel: [
-		{header:'资源名称', name:'rname', index:'name', width:150, align:"left",formatter: function(val, obj, row, act){
-			var s = '<i class="'+row.resIcon+'"></i> '+val;
-			console.log("aaaaaaaaaaa:",s)
+	    {header:'角色编号', name:'rolecode', index:'oid', width:150, align:"center"},
+		{header:'角色名称', name:'rolename', index:'name', width:150, align:"center",formatter: function(val, obj, row, act){
+			var s = '<i class="'+row.resIcon+'" style="margin-right:5px;"></i>'+val;
+			console.log("rolename   :",s)
 			return s;
 		}},
-		{header:'资源编号', name:'rcode', index:'oid', width:150, align:"center"},
-		{header:'资源类型', name:'resType', index:'insertDate', width:150, align:"center",formatter: function(val, obj, row, act){
-			if(val == '2') return "按钮";
-			else return "菜单";
-		}},
-		{header:'资源链接', name:'resString', index:'insertDate', width:150, align:"center"},
-		{header:'资源描述', name:'descn', index:'insertDate', width:150, align:"center"},
+		
+		{header:'描述', name:'descn', index:'insertDate', width:150, align:"center"},
 		
 		 {header:'操作', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
 			var actions = [];
-				 actions.push('<a href="#" data-href="../mportals/adminext/resource/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑资源"><i class="fa fa-pencil"></i></a>&nbsp;');
-				 actions.push('<a href="#" data-href="../mportals/adminext/resource/ext/deleteit?id='+row.oid+'" class="btnDel"  title="删除资源" data-confirm="确认要删除该资源吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
+				 actions.push('<a href="#" data-href="../mportals/adminext/roleinfo/edit.html?id='+row.oid+'" class="btnEdit"  title="编辑角色"><i class="fa fa-pencil"></i></a>&nbsp;');
+				 /* actions.push('<a href=/Quark/dataTree/treeselectRole?id='+row.oid+'" class="btnEdit"  title="功能菜单">功能菜单</a>&nbsp;'); */
+				 /* actions.push('<a href="javascript:void(0);" onclick="showlayer(\'功能菜单\',\'/Quark/dataTree/treeselectRole\')"  title="功能菜单">功能菜单</a>&nbsp;'); */
+				 actions.push('<a href="#" data-href="../mportals/adminext/roleinfo/roleTree.html?roleid='+row.oid+'"   class="btnEdit" title="分配菜单"><i class="fa fa-check-circle-o"></i></a>&nbsp;'); 
+				 actions.push('<a href="#" data-href="/Quark/role/ext/deleteit?id='+row.oid+'" class="btnDel"  title="删除角色" data-confirm="确认要删除该角色吗？"><i class="fa fa-trash-o"></i></a>&nbsp;');
 			return actions.join('');
 		}}
 	],
-	treeGrid: true,			// 启用树结构表格
-	defaultExpandLevel: 0,	// 默认展开的层次
-	expandNodeClearPostData: 'rname',
 	// 加载成功后执行事件
 	ajaxSuccess: function(data){
 		console.log('data:',data);
 	}
 });
 
-
+function showlayer(_title,_url){
+	layer.open({
+	    type: 2,
+	    title: _title,
+	    maxmin: true,
+	    area: ['300px', '400px'],
+	    content: _url,
+	    end: function(){
+	      //layer.tips('Hi', '#about', {tips: 1})
+	    },
+	    btn: ['<i class="fa fa-check"></i> 确定', '<i class="fa fa-eraser"></i> 清除','<i class="fa fa-close"></i> 关闭'],
+	    yes:function(index,j){
+	    	console.log("yes111:"+index+",222:",j[0]);
+	    	var a = $(j[0]).find("iframe")[0].contentWindow;
+	    	//console.log("a:",a);
+	    	var tree = a.getTreeObj();
+	    	//console.log("tree:",tree);
+	    	var nodes = tree.getSelectedNodes();
+	    	console.log("sssss",nodes);
+	    	if(nodes.length != 0){
+	    		var node = nodes[0];
+	    		$("#parent_oid").val(node.id);
+	    		$("#parent_rname").val(node.name);
+	    	}
+	    	
+            layer.close(index);
+	    },
+	    btn2:function(i,j){
+	    	$("#parent_oid").val("");
+    		$("#parent_rname").val("");
+	    },
+	    btn3:function(i,j){
+	    	//console.log("btn111:"+i+",222:",j);
+	    }
+	  });
+}
 </script>
   </body>
 </html>

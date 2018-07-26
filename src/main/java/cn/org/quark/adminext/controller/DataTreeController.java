@@ -33,4 +33,8 @@ public class DataTreeController {
         modelAndView.addObject("check", UtilString.isEmpty(check)?"":Boolean.parseBoolean(check));
 		return modelAndView;
 	}
+	@RequestMapping("/treeselectRole")
+	public String treeselectRole(){
+		return "commonext/treeselectRole";
+	}
 }
