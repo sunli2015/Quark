@@ -52,16 +52,16 @@ public class UserAction extends BaseEntityAction<CoreUser,UserManager>{
 			if(null != coreUser && null != coreUser.getDept()&&coreUser.getDept().getOid()!=null&&!coreUser.getDept().getOid().equals("")){
 				 criteriaSetup.addCriterion(Restrictions.eq( "dept", coreUser.getDept() ));
 			}
-			if(null != coreUser && null != coreUser.getLogid()){
+			if(null != coreUser &&!coreUser.getLogid().equals("") && null != coreUser.getLogid()){
 				criteriaSetup.addCriterion(Restrictions.like("logid", coreUser.getLogid(),MatchMode.ANYWHERE));
 			}
-			if(null != coreUser && null != coreUser.getCname()){
+			if(null != coreUser &&!coreUser.getCname().equals("") && null != coreUser.getCname()){
 				criteriaSetup.addCriterion(Restrictions.like("cname", coreUser.getCname(),MatchMode.ANYWHERE));
 			}
-			if(null != coreUser && null != coreUser.getEmail()){
+			if(null != coreUser &&!coreUser.getEmail().equals("") && null != coreUser.getEmail()){
 				criteriaSetup.addCriterion(Restrictions.like("email", coreUser.getEmail(),MatchMode.ANYWHERE));
 			}
-			if(null != coreUser && null != coreUser.getMobile()){
+			if(null != coreUser &&!coreUser.getMobile().equals("") && null != coreUser.getMobile()){
 				criteriaSetup.addCriterion(Restrictions.like("mobile", coreUser.getMobile(),MatchMode.ANYWHERE));
 			}
 			
