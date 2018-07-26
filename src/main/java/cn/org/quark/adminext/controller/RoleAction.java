@@ -47,7 +47,7 @@ public class RoleAction extends BaseEntityAction<CoreRole,RoleManager>{
 		try {
 			CriteriaSetup criteriaSetup = new CriteriaSetup();
 			if(null != coreRole && null != coreRole.getRolecode()){
-				criteriaSetup.addCriterion(Restrictions.like("rolecode", coreRole.getRolecode(), MatchMode.ANYWHERE));
+				criteriaSetup.addCriterion(Restrictions.like("rolecode", coreRole.getRolecode().substring(5), MatchMode.ANYWHERE));
 			}
 			if(null != coreRole && null != coreRole.getRolename()){
 				criteriaSetup.addCriterion(Restrictions.like("rolename", coreRole.getRolename(), MatchMode.ANYWHERE));
