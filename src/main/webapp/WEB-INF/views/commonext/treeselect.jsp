@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 var setting = {
 	view:{selectedMulti:false,dblClickExpand:false},
-	check:{enable:false,nocheckInherit:true},
+	check:{enable:${empty check?false:check},nocheckInherit:true},
 	data:{simpleData:{enable:true}},
 	callback:{
 		onClick:function(event, treeId, treeNode){
@@ -74,8 +74,8 @@ var setting = {
 			
 		}
 	}
-}, tree, loadTree = function(){
-	$.get("/Quark/resource/ext/tree?t=" + new Date().getTime(), function(zNodes){
+}, tree, loadTree = function(){///Quark/resource/ext/tree
+	$.get("${url}?t=" + new Date().getTime(), function(zNodes){
 		tree = $.fn.zTree.init($("#tree"), setting, zNodes);//.expandAll(true);
 		$.fn.zTree.expandNodeByLevel(tree, -1);
 		if (zNodes && zNodes.length > 0){
