@@ -249,7 +249,7 @@
 				break;
 			case 2:
 				var u = o.content = q ? o.content : [o.content, "auto"];
-				o.content = '<iframe scrolling="' + (o.content[1] || "auto") + '" allowtransparency="true" id="' + c[4] + "" + m + '" name="' + c[4] + "" + m + '" onload="this.className=\'\';" class="layui-layer-load" frameborder="0"></iframe><form id="' + c[4] + "-form" + m + '" action="' + o.content[0] + '" method="post" target="' + c[4] + "" + m + '">';
+				o.content = '<iframe scrolling="' + (o.content[1] || "auto") + '" allowtransparency="true" id="' + c[4] + "" + m + '" name="' + c[4] + "" + m + '" onload="this.className=\'\';" class="layui-layer-load" frameborder="0"></iframe><form id="' + c[4] + "-form" + m + '" action="' + o.content[0] + '" method="get" target="' + c[4] + "" + m + '">';
 				break;
 			case 3:
 				delete o.title;
